@@ -1,7 +1,7 @@
 [![Github tests](https://github.com/ucalgary-srs/pyUCRio/actions/workflows/tests_default.yml/badge.svg)](https://github.com/ucalgary-srs/pyUCRio/actions/workflows/tests_default.yml)
 [![PyPI version](https://img.shields.io/pypi/v/pyucrio.svg)](https://pypi.python.org/pypi/pyucrio/)
 ![PyPI Python versions](https://img.shields.io/pypi/pyversions/pyucrio)
-[![DOI]()]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14239005.svg)](https://doi.org/10.5281/zenodo.14239005)
 
 PyUCRio is a Python library providing data access and analysis support for RF instrument data provided by the University of Calgary. This presently includes the NORSTAR riometers, and the SWAN Hyper Spectral Riometers (HSR).
 
