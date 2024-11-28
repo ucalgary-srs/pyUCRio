@@ -1,4 +1,4 @@
-[![GitHub tests](https://github.com/pyucalgary-srs/pyUCRio/actions/workflows/tests_default.yml/badge.svg)](https://github.com/pyucalgary-srs/pyUCRio/actions/workflows/tests_default.yml)
+[![Github tests](https://github.com/ucalgary-srs/pyUCRio/actions/workflows/tests_default.yml/badge.svg)](https://github.com/ucalgary-srs/pyUCRio/actions/workflows/tests_default.yml)
 [![PyPI version](https://img.shields.io/pypi/v/pyucrio.svg)](https://pypi.python.org/pypi/pyucrio/)
 ![PyPI Python versions](https://img.shields.io/pypi/pyversions/pyucrio)
 [![DOI]()]()
