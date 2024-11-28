@@ -51,7 +51,7 @@ show-outdated:
 	poetry show --outdated
 
 docs:
-	poetry run pdoc3 --html --force --output-dir docs/generated pyaurorax --config "lunr_search={'fuzziness': 1}" --template-dir docs/templates
+	poetry run pdoc3 --html --force --output-dir docs/generated pyucrio --config "lunr_search={'fuzziness': 1}" --template-dir docs/templates
 
 publish:
 	${MAKE} test

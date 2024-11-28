@@ -99,14 +99,14 @@ class DataManager:
 
             timeout (int): 
                 Represents how many seconds to wait for the API to send data before giving up. The 
-                default is 10 seconds, or the `api_timeout` value in the super class' `pyaurorax.PyAuroraX`
+                default is 10 seconds, or the `api_timeout` value in the super class' `pyucrio.PyUCRio`
                 object. This parameter is optional.
             
         Returns:
             Printed table.
 
         Raises:
-            pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
         """
         # get datasets
         datasets = self.list_datasets(name=name, timeout=timeout)
@@ -168,7 +168,7 @@ class DataManager:
             
             timeout (int): 
                 Represents how many seconds to wait for the API to send data before giving up. The 
-                default is 10 seconds, or the `api_timeout` value in the super class' `pyaurorax.PyAuroraX`
+                default is 10 seconds, or the `api_timeout` value in the super class' `pyucrio.PyUCRio`
                 object. This parameter is optional.
             
         Returns:
@@ -176,7 +176,7 @@ class DataManager:
             objects.
         
         Raises:
-            pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
         """
         # init
         observatories = []
@@ -215,14 +215,14 @@ class DataManager:
 
             timeout (int): 
                 Represents how many seconds to wait for the API to send data before giving up. The 
-                default is 10 seconds, or the `api_timeout` value in the super class' `pyaurorax.PyAuroraX`
+                default is 10 seconds, or the `api_timeout` value in the super class' `pyucrio.PyUCRio`
                 object. This parameter is optional.
             
         Returns:
             Printed table.
         
         Raises:
-            pyaurorax.exceptions.AuroraXAPIError: An API error was encountered.
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
         """
         # get observatories
         observatories = self.list_observatories(instrument_array, uid=uid, timeout=timeout)

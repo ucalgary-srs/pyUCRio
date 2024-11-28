@@ -23,7 +23,7 @@ Example:
 
     ```
     import pyucrio
-    rio = pyucrio.PyAuroraX()
+    rio = pyucrio.PyUCRio()
     rt = rio.tools
     ```
 """
