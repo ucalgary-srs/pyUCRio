@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.3">
+<title>pyucrio.data.ucalgary API documentation</title>
+<meta name="description" content="Data downloading and reading routines for data provided by the University of Calgary.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+})</script>
+<style>
+@media screen and (max-width: 699px) {
+#content {
+padding-left: 2em;
+padding-right: 2em;
+padding-top: 0;
+}
+}
+@media screen and (min-width: 700px) {
+#content {
+max-width: 125ch;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1em;
+border-left: 1px solid #ddd;
+}
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyucrio.data.ucalgary</code></h1>
+</header>
+<section id="section-intro">
+<p>Data downloading and reading routines for data provided by the University of Calgary.</p>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="pyucrio.data.ucalgary.read" href="read/index.html">pyucrio.data.ucalgary.read</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyucrio.data.ucalgary.Data"><code class="flex name class">
+<span>class <span class="ident">Data</span></span>
+<span>(</span><span>data: Any,<br>timestamp: List[datetime.datetime],<br>metadata: List[Dict],<br>problematic_files: List[pyucalgarysrs.data.classes.ProblematicFile],<br>calibrated_data: Any,<br>dataset: pyucalgarysrs.data.classes.Dataset | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Representation of the data read in from a <code><a title="pyucrio.data.ucalgary.read" href="read/index.html">pyucrio.data.ucalgary.read</a></code> call.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>Any</code></dt>
+<dd>The loaded data. This can be one of the following types: ndarray, List[Skymap], List[Calibration].</dd>
+<dt><strong><code>timestamp</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
+<dd>List of timestamps for the read in data.</dd>
+<dt><strong><code>metadata</code></strong> :&ensp;<code>List[Dict]</code></dt>
+<dd>List of dictionaries containing metadata specific to each timestamp/image/record.</dd>
+<dt><strong><code>problematic_files</code></strong> :&ensp;<code>List[ProblematicFiles]</code></dt>
+<dd>A list detailing any files that encountered issues during reading.</dd>
+<dt><strong><code>calibrated_data</code></strong> :&ensp;<code>Any</code></dt>
+<dd>A calibrated version of the data. Populated and utilized by data analysis libraries. Has a <code>None</code> value
+until calibrated data is inserted manually.</dd>
+<dt><strong><code>dataset</code></strong> :&ensp;<code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code></dt>
+<dd>The <code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code> object for this data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class Data:
+    &#34;&#34;&#34;
+    Representation of the data read in from a `read` call.
+
+    Attributes:
+        data (Any): 
+            The loaded data. This can be one of the following types: ndarray, List[Skymap], List[Calibration].
+        
+        timestamp (List[datetime.datetime]): 
+            List of timestamps for the read in data.
+        
+        metadata (List[Dict]): 
+            List of dictionaries containing metadata specific to each timestamp/image/record.
+        
+        problematic_files (List[ProblematicFiles]): 
+            A list detailing any files that encountered issues during reading.
+        
+        calibrated_data (Any): 
+            A calibrated version of the data. Populated and utilized by data analysis libraries. Has a `None` value
+            until calibrated data is inserted manually.
+
+        dataset (Dataset): 
+            The `Dataset` object for this data.
+    &#34;&#34;&#34;
+    data: Any
+    timestamp: List[datetime.datetime]
+    metadata: List[Dict]
+    problematic_files: List[ProblematicFile]
+    calibrated_data: Any
+    dataset: Optional[Dataset] = None
+
+    def __str__(self) -&gt; str:
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        # set data value
+        if (isinstance(self.data, ndarray) is True):
+            data_str = &#34;array(dims=%s, dtype=%s)&#34; % (self.data.shape, self.data.dtype)
+        if (isinstance(self.data, GridData) is True):
+            data_str = self.data.__repr__()
+        elif (isinstance(self.data, list) is True):
+            if (len(self.data) == 0):
+                data_str = &#34;[0 items]&#34;
+            elif (isinstance(self.data[0], Skymap) is True):
+                if (len(self.data) == 1):
+                    data_str = &#34;[1 Skymap object]&#34;
+                else:
+                    data_str = &#34;[%d Skymap objects]&#34; % (len(self.data))
+            elif (isinstance(self.data[0], Calibration) is True):
+                if (len(self.data) == 1):
+                    data_str = &#34;[1 Calibration object]&#34;
+                else:
+                    data_str = &#34;[%d Calibration objects]&#34; % (len(self.data))
+            elif (isinstance(self.data[0], RiometerData) is True):
+                if (len(self.data) == 1):
+                    data_str = &#34;[1 RiometerData object]&#34;
+                else:
+                    data_str = &#34;[%d RiometerData objects]&#34; % (len(self.data))
+            elif (len(self.data) == 1):
+                data_str = &#34;[1 item]&#34;
+            else:
+                data_str = &#34;[%d items]&#34; % (len(self.data))
+        else:
+            data_str = self.data.__repr__()
+
+        # set timestamp string
+        if (len(self.timestamp) == 0):
+            timestamp_str = &#34;[]&#34;
+        elif (len(self.timestamp) == 1):
+            timestamp_str = &#34;[1 datetime]&#34;
+        else:
+            timestamp_str = &#34;[%d datetimes]&#34; % (len(self.timestamp))
+
+        # set metadata string
+        if (len(self.metadata) == 0):
+            metadata_str = &#34;[]&#34;
+        elif (len(self.metadata) == 1):
+            metadata_str = &#34;[1 dictionary]&#34;
+        else:
+            metadata_str = &#34;[%d dictionaries]&#34; % (len(self.timestamp))
+
+        # set rest of values
+        problematic_files_str = &#34;[]&#34; if len(self.problematic_files) == 0 else &#34;[%d problematic files]&#34; % (len(self.problematic_files))
+        calibrated_data_str = &#34;None&#34; if self.calibrated_data is None else &#34;array(dims=%s, dtype=%s)&#34; % (self.calibrated_data.shape,
+                                                                                                        self.calibrated_data.dtype)
+        dataset_str = &#34;None&#34; if self.dataset is None else self.dataset.__repr__()[0:75] + &#34;...)&#34;
+
+        # return
+        return &#34;Data(data=%s, timestamp=%s, metadata=%s, problematic_files=%s, calibrated_data=%s, dataset=%s)&#34; % (
+            data_str,
+            timestamp_str,
+            metadata_str,
+            problematic_files_str,
+            calibrated_data_str,
+            dataset_str,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        # set data value
+        if (isinstance(self.data, ndarray) is True):
+            data_str = &#34;array(dims=%s, dtype=%s)&#34; % (self.data.shape, self.data.dtype)
+        elif (isinstance(self.data, list) is True):
+            if (len(self.data) == 0):
+                data_str = &#34;[0 items]&#34;
+            elif (isinstance(self.data[0], Skymap) is True):
+                if (len(self.data) == 1):
+                    data_str = &#34;[1 Skymap object]&#34;
+                else:
+                    data_str = &#34;[%d Skymap objects]&#34; % (len(self.data))
+            elif (isinstance(self.data[0], Calibration) is True):
+                if (len(self.data) == 1):
+                    data_str = &#34;[1 Calibration object]&#34;
+                else:
+                    data_str = &#34;[%d Calibration objects]&#34; % (len(self.data))
+            elif (isinstance(self.data[0], RiometerData) is True):
+                if (len(self.data) == 1):
+                    data_str = &#34;[1 RiometerData object]&#34;
+                else:
+                    data_str = &#34;[%d RiometerData objects]&#34; % (len(self.data))
+            elif (len(self.data) == 1):
+                data_str = &#34;[1 item]&#34;
+            else:
+                data_str = &#34;[%d items]&#34; % (len(self.data))
+        else:
+            data_str = self.data.__repr__()
+
+        # set timestamp string
+        if (len(self.timestamp) == 0):
+            timestamp_str = &#34;[]&#34;
+        elif (len(self.timestamp) == 1):
+            timestamp_str = &#34;[1 datetime]&#34;
+        else:
+            timestamp_str = &#34;[%d datetimes]&#34; % (len(self.timestamp))
+
+        # set metadata string
+        if (len(self.metadata) == 0):
+            metadata_str = &#34;[]&#34;
+        elif (len(self.metadata) == 1):
+            metadata_str = &#34;[1 dictionary]&#34;
+        else:
+            metadata_str = &#34;[%d dictionaries]&#34; % (len(self.metadata))
+
+        # set rest of values
+        problematic_files_str = &#34;[]&#34; if len(self.problematic_files) == 0 else &#34;[%d problematic files]&#34; % (len(self.problematic_files))
+        calibrated_data_str = &#34;None&#34; if self.calibrated_data is None else &#34;array(dims=%s, dtype=%s)&#34; % (self.calibrated_data.shape,
+                                                                                                        self.calibrated_data.dtype)
+        dataset_str = &#34;None&#34; if self.dataset is None else self.dataset.__repr__()[0:75] + &#34;...)&#34;
+
+        # print
+        print(&#34;Data:&#34;)
+        print(&#34;  %-22s: %s&#34; % (&#34;data&#34;, data_str))
+        print(&#34;  %-22s: %s&#34; % (&#34;timestamp&#34;, timestamp_str))
+        print(&#34;  %-22s: %s&#34; % (&#34;metadata&#34;, metadata_str))
+        print(&#34;  %-22s: %s&#34; % (&#34;problematic_files&#34;, problematic_files_str))
+        print(&#34;  %-22s: %s&#34; % (&#34;calibrated_data&#34;, calibrated_data_str))
+        print(&#34;  %-22s: %s&#34; % (&#34;dataset&#34;, dataset_str))</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.Data.calibrated_data"><code class="name">var <span class="ident">calibrated_data</span> : Any</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.Data.data"><code class="name">var <span class="ident">data</span> : Any</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.Data.dataset"><code class="name">var <span class="ident">dataset</span> : pyucalgarysrs.data.classes.Dataset | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.Data.metadata"><code class="name">var <span class="ident">metadata</span> : List[Dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.Data.problematic_files"><code class="name">var <span class="ident">problematic_files</span> : List[pyucalgarysrs.data.classes.ProblematicFile]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.Data.timestamp"><code class="name">var <span class="ident">timestamp</span> : List[datetime.datetime]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.Data.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyucrio.data.ucalgary.Dataset"><code class="flex name class">
+<span>class <span class="ident">Dataset</span></span>
+<span>(</span><span>name: str,<br>short_description: str,<br>long_description: str,<br>data_tree_url: str,<br>file_listing_supported: bool,<br>file_reading_supported: bool,<br>level: str,<br>doi: str | None = None,<br>doi_details: str | None = None,<br>citation: str | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A dataset available from the UCalgary Space Remote Sensing API, with possibly
+support for downloading and/or reading.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Dataset name</dd>
+<dt><strong><code>short_description</code></strong> :&ensp;<code>str</code></dt>
+<dd>A short description about the dataset</dd>
+<dt><strong><code>long_description</code></strong> :&ensp;<code>str</code></dt>
+<dd>A longer description about the dataset</dd>
+<dt><strong><code>data_tree_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The data tree URL prefix. Used for saving data locally with a similar data tree
+structure compared to the UCalgary Open Data archive.</dd>
+<dt><strong><code>file_listing_supported</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Flag indicating if file listing (downloading) is supported for this dataset.</dd>
+<dt><strong><code>file_reading_supported</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Flag indicating if file reading is supported for this dataset.</dd>
+<dt><strong><code>level</code></strong> :&ensp;<code>str</code></dt>
+<dd>Dataset level as per L0/L1/L2/etc standards.</dd>
+<dt><strong><code>doi</code></strong> :&ensp;<code>str</code></dt>
+<dd>Dataset DOI unique identifier.</dd>
+<dt><strong><code>doi_details</code></strong> :&ensp;<code>str</code></dt>
+<dd>Further details about the DOI.</dd>
+<dt><strong><code>citation</code></strong> :&ensp;<code>str</code></dt>
+<dd>String to use when citing usage of the dataset.</dd>
+<dt><strong><code>provider</code></strong> :&ensp;<code>str</code></dt>
+<dd>Data provider.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Dataset:
+    &#34;&#34;&#34;
+    A dataset available from the UCalgary Space Remote Sensing API, with possibly
+    support for downloading and/or reading.
+
+    Attributes:
+        name (str): 
+            Dataset name
+        
+        short_description (str): 
+            A short description about the dataset
+        
+        long_description (str): 
+            A longer description about the dataset
+        
+        data_tree_url (str): 
+            The data tree URL prefix. Used for saving data locally with a similar data tree 
+            structure compared to the UCalgary Open Data archive.
+        
+        file_listing_supported (bool): 
+            Flag indicating if file listing (downloading) is supported for this dataset.
+        
+        file_reading_supported (bool): 
+            Flag indicating if file reading is supported for this dataset.
+        
+        level (str): 
+            Dataset level as per L0/L1/L2/etc standards.
+        
+        doi (str): 
+            Dataset DOI unique identifier.
+        
+        doi_details (str): 
+            Further details about the DOI.
+        
+        citation (str): 
+            String to use when citing usage of the dataset.
+        
+        provider (str): 
+            Data provider.
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 name: str,
+                 short_description: str,
+                 long_description: str,
+                 data_tree_url: str,
+                 file_listing_supported: bool,
+                 file_reading_supported: bool,
+                 level: str,
+                 doi: Optional[str] = None,
+                 doi_details: Optional[str] = None,
+                 citation: Optional[str] = None):
+        self.name = name
+        self.short_description = short_description
+        self.long_description = long_description
+        self.data_tree_url = data_tree_url
+        self.file_listing_supported = file_listing_supported
+        self.file_reading_supported = file_reading_supported
+        self.level = level
+        self.doi = doi
+        self.doi_details = doi_details
+        self.citation = citation
+        self.provider = &#34;UCalgary&#34;
+
+    def __str__(self) -&gt; str:
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        return &#34;Dataset(name=%s, short_description=&#39;%s&#39;, provider=&#39;%s&#39;, level=&#39;%s&#39;, doi_details=&#39;%s&#39;, ...)&#34; % (
+            self.name,
+            self.short_description,
+            self.provider,
+            self.level,
+            self.doi_details,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        print(&#34;Dataset:&#34;)
+        for var_name in dir(self):
+            # exclude methods
+            if (var_name.startswith(&#34;__&#34;) or var_name == &#34;pretty_print&#34;):
+                continue
+
+            # convert var to string format we want
+            var_value = getattr(self, var_name)
+            print(&#34;  %-27s: %s&#34; % (var_name, None if var_value is None else var_value))</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.Dataset.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult"><code class="flex name class">
+<span>class <span class="ident">FileDownloadResult</span></span>
+<span>(</span><span>filenames: List[str],<br>count: int,<br>total_bytes: int,<br>output_root_path: str,<br>dataset: pyucalgarysrs.data.classes.Dataset)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Representation of the results from a data download call.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>filenames</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>List of downloaded files, as absolute paths of their location on the local machine.</dd>
+<dt><strong><code>count</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of files downloaded</dd>
+<dt><strong><code>total_bytes</code></strong> :&ensp;<code>int</code></dt>
+<dd>Cumulative amount of bytes saved on the local machine.</dd>
+<dt><strong><code>output_root_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>The root path of where the data was saved to on the local machine.</dd>
+<dt><strong><code>dataset</code></strong> :&ensp;<code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code></dt>
+<dd>The <code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code> object for this data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class FileDownloadResult:
+    &#34;&#34;&#34;
+    Representation of the results from a data download call.
+
+    Attributes:
+        filenames (List[str]): 
+            List of downloaded files, as absolute paths of their location on the local machine.
+        
+        count (int): 
+            Number of files downloaded
+        
+        total_bytes (int): 
+            Cumulative amount of bytes saved on the local machine.
+        
+        output_root_path (str): 
+            The root path of where the data was saved to on the local machine.
+        
+        dataset (Dataset): 
+            The `Dataset` object for this data.
+    &#34;&#34;&#34;
+    filenames: List[str]
+    count: int
+    total_bytes: int
+    output_root_path: str
+    dataset: Dataset
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        print(&#34;FileListingResponse:&#34;)
+        for var_name in dir(self):
+            # exclude methods
+            if (var_name.startswith(&#34;__&#34;) or var_name == &#34;pretty_print&#34;):
+                continue
+
+            # convert var to string format we want
+            var_value = getattr(self, var_name)
+            if (var_name == &#34;filenames&#34;):
+                print(&#34;  %-18s: [%d filenames]&#34; % (var_name, len(var_value)))
+            else:
+                print(&#34;  %-18s: %s&#34; % (var_name, None if var_value is None else var_value))</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult.count"><code class="name">var <span class="ident">count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult.dataset"><code class="name">var <span class="ident">dataset</span> : pyucalgarysrs.data.classes.Dataset</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult.filenames"><code class="name">var <span class="ident">filenames</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult.output_root_path"><code class="name">var <span class="ident">output_root_path</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult.total_bytes"><code class="name">var <span class="ident">total_bytes</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.FileDownloadResult.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileListingResponse"><code class="flex name class">
+<span>class <span class="ident">FileListingResponse</span></span>
+<span>(</span><span>urls: List[str],<br>path_prefix: str,<br>count: int,<br>dataset: pyucalgarysrs.data.classes.Dataset,<br>total_bytes: int | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Representation of the file listing response from the UCalgary Space Remote Sensing API.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>urls</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>A list of URLs for available data files.</dd>
+<dt><strong><code>path_prefix</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL prefix, which is sed for saving data locally with a similar data tree
+structure compared to the UCalgary Open Data archive.</dd>
+<dt><strong><code>count</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of URLs available.</dd>
+<dt><strong><code>dataset</code></strong> :&ensp;<code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code></dt>
+<dd>The <code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code> object for this data.</dd>
+<dt><strong><code>total_bytes</code></strong> :&ensp;<code>int</code></dt>
+<dd>The cumulative amount of bytes for the available URLs.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class FileListingResponse:
+    &#34;&#34;&#34;
+    Representation of the file listing response from the UCalgary Space Remote Sensing API.
+
+    Attributes:
+        urls (List[str]): 
+            A list of URLs for available data files.
+        
+        path_prefix (str): 
+            The URL prefix, which is sed for saving data locally with a similar data tree 
+            structure compared to the UCalgary Open Data archive.
+        
+        count (int): 
+            The number of URLs available.
+        
+        dataset (Dataset): 
+            The `Dataset` object for this data.
+        
+        total_bytes (int): 
+            The cumulative amount of bytes for the available URLs.
+    &#34;&#34;&#34;
+    urls: List[str]
+    path_prefix: str
+    count: int
+    dataset: Dataset
+    total_bytes: Optional[int] = None
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        print(&#34;FileListingResponse:&#34;)
+        for var_name in dir(self):
+            # exclude methods
+            if (var_name.startswith(&#34;__&#34;) or var_name == &#34;pretty_print&#34;):
+                continue
+
+            # convert var to string format we want
+            var_value = getattr(self, var_name)
+            if (var_name == &#34;urls&#34;):
+                print(&#34;  %-13s: [%d URLs]&#34; % (var_name, len(var_value)))
+            else:
+                print(&#34;  %-13s: %s&#34; % (var_name, None if var_value is None else var_value))</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.FileListingResponse.count"><code class="name">var <span class="ident">count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileListingResponse.dataset"><code class="name">var <span class="ident">dataset</span> : pyucalgarysrs.data.classes.Dataset</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileListingResponse.path_prefix"><code class="name">var <span class="ident">path_prefix</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileListingResponse.total_bytes"><code class="name">var <span class="ident">total_bytes</span> : int | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.FileListingResponse.urls"><code class="name">var <span class="ident">urls</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.FileListingResponse.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyucrio.data.ucalgary.Observatory"><code class="flex name class">
+<span>class <span class="ident">Observatory</span></span>
+<span>(</span><span>uid: str, full_name: str, geodetic_latitude: float, geodetic_longitude: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Representation for an observatory.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>uid</code></strong> :&ensp;<code>str</code></dt>
+<dd>4-letter unique identifier (traditionally referred to as the site UID)</dd>
+<dt><strong><code>full_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>full location string for the observatory</dd>
+<dt><strong><code>geodetic_latitude</code></strong> :&ensp;<code>float</code></dt>
+<dd>geodetic latitude for the observatory, in decimal format (-90 to 90)</dd>
+<dt><strong><code>geodetic_longitude</code></strong> :&ensp;<code>float</code></dt>
+<dd>geodetic longitude for the observatory, in decimal format (-180 to 180)</dd>
+<dt><strong><code>provider</code></strong> :&ensp;<code>str</code></dt>
+<dd>Data provider.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Observatory:
+    &#34;&#34;&#34;
+    Representation for an observatory.
+
+    Attributes:
+        uid (str): 
+            4-letter unique identifier (traditionally referred to as the site UID)
+
+        full_name (str): 
+            full location string for the observatory
+        
+        geodetic_latitude (float): 
+            geodetic latitude for the observatory, in decimal format (-90 to 90)
+        
+        geodetic_longitude (float): 
+            geodetic longitude for the observatory, in decimal format (-180 to 180)
+
+        provider (str): 
+            Data provider.
+    &#34;&#34;&#34;
+
+    def __init__(self, uid: str, full_name: str, geodetic_latitude: float, geodetic_longitude: float):
+        self.uid = uid
+        self.full_name = full_name
+        self.geodetic_latitude = geodetic_latitude
+        self.geodetic_longitude = geodetic_longitude
+        self.provider = &#34;UCalgary&#34;
+
+    def __str__(self) -&gt; str:
+        return self.__repr__()
+
+    def __repr__(self) -&gt; str:
+        return &#34;Observatory(uid=%s, full_name=&#39;%s&#39;, geodetic_latitude=%s, geodetic_longitude=%s, provider=&#39;%s&#39;)&#34; % (
+            self.uid,
+            self.full_name,
+            self.geodetic_latitude,
+            self.geodetic_longitude,
+            self.provider,
+        )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        print(&#34;Observatory:&#34;)
+        for var_name in dir(self):
+            # exclude methods
+            if (var_name.startswith(&#34;__&#34;) or var_name == &#34;pretty_print&#34;):
+                continue
+
+            # convert var to string format we want
+            var_value = getattr(self, var_name)
+            print(&#34;  %-22s: %s&#34; % (var_name, None if var_value is None else var_value))</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.Observatory.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager"><code class="flex name class">
+<span>class <span class="ident">UCalgaryManager</span></span>
+<span>(</span><span>rio_obj)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The UCalgaryManager object is initialized within every PyUCRio object. It acts as a way to access
+the submodules and carry over configuration information in the super class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UCalgaryManager:
+    &#34;&#34;&#34;
+    The UCalgaryManager object is initialized within every PyUCRio object. It acts as a way to access 
+    the submodules and carry over configuration information in the super class.
+    &#34;&#34;&#34;
+
+    __DEFAULT_DOWNLOAD_N_PARALLEL = 5
+
+    def __init__(self, rio_obj):
+        self.__rio_obj: PyUCRio = rio_obj
+
+        # initialize sub-modules
+        self.__readers = ReadManager(self.__rio_obj)
+
+    @property
+    def readers(self):
+        &#34;&#34;&#34;
+        Access to the `read` submodule from within a PyUCRio object.
+        &#34;&#34;&#34;
+        return self.__readers
+
+    def list_datasets(self, name: Optional[str] = None, timeout: Optional[int] = None) -&gt; List[Dataset]:
+        &#34;&#34;&#34;
+        List available datasets
+
+        Args:
+            name (str): 
+                Supply a name used for filtering. If that name is found in the available dataset 
+                names received from the API, it will be included in the results. This parameter is
+                optional.
+            
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyucrio.PyUCRio`
+                object. This parameter is optional.
+            
+        Returns:
+            A list of [`Dataset`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset)
+            objects.
+        
+        Raises:
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
+        &#34;&#34;&#34;
+        try:
+            return self.__rio_obj.srs_obj.data.list_datasets(name=name, timeout=timeout)
+        except SRSAPIError as e:
+            raise PyUCRioAPIError(e) from e
+
+    def list_observatories(self,
+                           instrument_array: Literal[&#34;norstar_riometer&#34;, &#34;swan_hsr&#34;],
+                           uid: Optional[str] = None,
+                           timeout: Optional[int] = None) -&gt; List[Observatory]:
+        &#34;&#34;&#34;
+        List information about observatories
+
+        Args:
+            instrument_array (str): 
+                The instrument array to list observatories for. Valid values are: norstar_riometer, and swan_hsr.
+
+            uid (str): 
+                Supply a observatory unique identifier used for filtering (usually 4-letter site code). If that UID 
+                is found in the available observatories received from the API, it will be included in the results. This 
+                parameter is optional.
+            
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyucrio.PyUCRio`
+                object. This parameter is optional.
+            
+        Returns:
+            A list of [`Observatory`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Observatory)
+            objects.
+        
+        Raises:
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
+        &#34;&#34;&#34;
+        try:
+            return self.__rio_obj.srs_obj.data.list_observatories(instrument_array, uid=uid, timeout=timeout)
+        except SRSAPIError as e:
+            raise PyUCRioAPIError(e) from e
+
+    def list_supported_read_datasets(self) -&gt; List[str]:
+        &#34;&#34;&#34;
+        List the datasets which have file reading capabilities supported.
+
+        Returns:
+            A list of the dataset names with file reading support.
+        &#34;&#34;&#34;
+        return self.__rio_obj.srs_obj.data.list_supported_read_datasets()
+
+    def is_read_supported(self, dataset_name: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if a given dataset has file reading support. 
+        
+        Not all datasets available in the UCalgary Space Remote Sensing Open Data Platform 
+        have special readfile routines in this library. This is because some datasets are 
+        handled by other libraries (ie. PyAuroraX for ASI data), or are in basic formats 
+        such as JPG or PNG, so unique functions aren&#39;t necessary. We leave it up to the 
+        user to open those basic files in whichever way they prefer. Use the 
+        `list_supported_read_datasets()` function to see all datasets that have special
+        file reading functionality in this library.
+
+        Args:
+            dataset_name (str): 
+                The dataset name to check if file reading is supported. This parameter 
+                is required.
+        
+        Returns:
+            Boolean indicating if file reading is supported.
+        &#34;&#34;&#34;
+        return self.__rio_obj.srs_obj.data.is_read_supported(dataset_name)
+
+    def download(self,
+                 dataset_name: str,
+                 start: datetime.datetime,
+                 end: datetime.datetime,
+                 site_uid: Optional[str] = None,
+                 n_parallel: int = __DEFAULT_DOWNLOAD_N_PARALLEL,
+                 overwrite: bool = False,
+                 progress_bar_disable: bool = False,
+                 progress_bar_ncols: Optional[int] = None,
+                 progress_bar_ascii: Optional[str] = None,
+                 progress_bar_desc: Optional[str] = None,
+                 timeout: Optional[int] = None) -&gt; FileDownloadResult:
+        &#34;&#34;&#34;
+        Download data from the UCalgary Space Remote Sensing Open Data Platform.
+
+        The parameters `dataset_name`, `start`, and `end` are required. All other parameters
+        are optional.
+
+        Args:
+            dataset_name (str): 
+                Name of the dataset to download data for. Use the `list_datasets()` function
+                to get the possible values for this parameter. One example is &#34;SWAN_HSR_K0_H5&#34;. 
+                Note that dataset names are case sensitive. This parameter is required.
+
+            start (datetime.datetime): 
+                Start timestamp to use (inclusive), expected to be in UTC. Any timezone data 
+                will be ignored. This parameter is required.
+
+            end (datetime.datetime): 
+                End timestamp to use (inclusive), expected to be in UTC. Any timezone data 
+                will be ignored. This parameter is required.
+
+            site_uid (str): 
+                The site UID to filter for. If specified, data will be downloaded for only the 
+                site matching the given value. If excluded, data for all available sites will 
+                be downloaded. An example value could be &#39;gill&#39;, meaning all data from the 
+                Gillam observatory will be downloaded for the given dataset name, start, and 
+                end times. This parameter is optional.
+
+            n_parallel (int): 
+                Number of data files to download in parallel. Default value is 5. Adjust as needed 
+                for your internet connection. This parameter is optional.
+
+            overwrite (bool): 
+                By default, data will not be re-downloaded if it already exists locally. Use 
+                the `overwrite` parameter to force re-downloading. Default is `False`. This 
+                parameter is optional.
+
+            progress_bar_disable (bool): 
+                Disable the progress bar. Default is `False`. This parameter is optional.
+
+            progress_bar_ncols (int): 
+                Number of columns for the progress bar (straight passthrough of the `ncols` 
+                parameter in a tqdm progress bar). This parameter is optional. See Notes section
+                below for further information.
+            
+            progress_bar_ascii (str): 
+                ASCII value to use when constructing the visual aspect of the progress bar (straight 
+                passthrough of the `ascii` parameter in a tqdm progress bar). This parameter is 
+                optional. See Notes section below for further details.
+
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyucrio.PyUCRio`
+                object. This parameter is optional.
+
+        Returns:
+            A [`FileDownloadResult`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileDownloadResult) 
+            object containing details about what data files were downloaded.
+
+        Raises:
+            pyucrio.exceptions.PyUCRioDownloadError: an error was encountered while downloading a 
+                specific file
+            pyucrio.exceptions.PyUCRioAPIError: an API error was encountered
+
+        Notes:
+        --------
+        The `progress_bar_*` parameters can be used to enable/disable/adjust the progress bar. 
+        Excluding the `progress_bar_disable` parameter, all others are straight pass-throughs 
+        to the tqdm progress bar function. The `progress_bar_ncols` parameter allows for 
+        adjusting the width. The `progress_bar_ascii` parameter allows for adjusting the appearance 
+        of the progress bar. And the `progress_bar_desc` parameter allows for adjusting the 
+        description at the beginning of the progress bar. Further details can be found on the
+        [tqdm documentation](https://tqdm.github.io/docs/tqdm/#tqdm-objects).
+
+        Data downloading will use the `download_data_root_path` variable within the super class&#39;
+        object ([`PyUCRio`](../../index.html#pyucrio.PyUCRio)) to determine where to save data to. If 
+        you&#39;d like to change this path to somewhere else you can change that variable before your
+        download() call, like so:
+
+        ```python
+        import pyucrio
+        rio = pyucrio.PyUCRio()
+        rio.data_download_root_path = &#34;some_new_path&#34;
+        rio.data.download(dataset_name, start, end)
+        ```
+        &#34;&#34;&#34;
+        try:
+            return self.__rio_obj.srs_obj.data.download(
+                dataset_name,
+                start,
+                end,
+                site_uid=site_uid,
+                n_parallel=n_parallel,
+                overwrite=overwrite,
+                progress_bar_disable=progress_bar_disable,
+                progress_bar_ncols=progress_bar_ncols,
+                progress_bar_ascii=progress_bar_ascii,
+                progress_bar_desc=progress_bar_desc,
+                timeout=timeout,
+            )
+        except SRSDownloadError as e:
+            raise PyUCRioDownloadError(e) from e
+        except SRSAPIError as e:
+            raise PyUCRioAPIError(e) from e
+
+    def download_using_urls(self,
+                            file_listing_response: FileListingResponse,
+                            n_parallel: int = __DEFAULT_DOWNLOAD_N_PARALLEL,
+                            overwrite: bool = False,
+                            progress_bar_disable: bool = False,
+                            progress_bar_ncols: Optional[int] = None,
+                            progress_bar_ascii: Optional[str] = None,
+                            progress_bar_desc: Optional[str] = None,
+                            timeout: Optional[int] = None) -&gt; FileDownloadResult:
+        &#34;&#34;&#34;
+        Download data from the UCalgary Space Remote Sensing Open Data Platform using 
+        a FileListingResponse object. This would be used in cases where more customization 
+        is needed than the generic `download()` function. 
+        
+        One example of using this function would start by using `get_urls()` to retrieve the
+        list of URLs available for download, then further process this list to fewer files
+        based on some other requirement (ie. time down-sampling such as one file per hour). 
+        Lastly using this function to download the new custom set URLs.
+
+        Args:
+            file_listing_response (FileListingResponse): 
+                A [`FileListingResponse`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileListingResponse) 
+                object returned from a `get_urls()` call, which contains a list of URLs to download 
+                for a specific dataset. This parameter is required.
+
+            n_parallel (int): 
+                Number of data files to download in parallel. Default value is 5. Adjust as needed 
+                for your internet connection. This parameter is optional.
+
+            overwrite (bool): 
+                By default, data will not be re-downloaded if it already exists locally. Use 
+                the `overwrite` parameter to force re-downloading. Default is `False`. This 
+                parameter is optional.
+
+            progress_bar_disable (bool): 
+                Disable the progress bar. Default is `False`. This parameter is optional.
+
+            progress_bar_ncols (int): 
+                Number of columns for the progress bar (straight passthrough of the `ncols` 
+                parameter in a tqdm progress bar). This parameter is optional. See Notes section
+                below for further information.
+            
+            progress_bar_ascii (str): 
+                ASCII value to use when constructing the visual aspect of the progress bar (straight 
+                passthrough of the `ascii` parameter in a tqdm progress bar). This parameter is 
+                optional. See Notes section below for further details.
+
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyucrio.PyUCRio`
+                object. This parameter is optional.
+
+        Returns:
+            A [`FileDownloadResult`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileDownloadResult) 
+            object containing details about what data files were downloaded.
+
+        Raises:
+            pyucrio.exceptions.PyUCRioDownloadError: an error was encountered while downloading a 
+                specific file
+            pyucrio.exceptions.PyUCRioAPIError: an API error was encountered
+
+        Notes:
+        --------
+        The `progress_bar_*` parameters can be used to enable/disable/adjust the progress bar. 
+        Excluding the `progress_bar_disable` parameter, all others are straight pass-throughs 
+        to the tqdm progress bar function. The `progress_bar_ncols` parameter allows for 
+        adjusting the width. The `progress_bar_ascii` parameter allows for adjusting the appearance 
+        of the progress bar. And the `progress_bar_desc` parameter allows for adjusting the 
+        description at the beginning of the progress bar. Further details can be found on the
+        [tqdm documentation](https://tqdm.github.io/docs/tqdm/#tqdm-objects).
+
+        Data downloading will use the `download_data_root_path` variable within the super class&#39;
+        object ([`PyUCRio`](../../index.html#pyucrio.PyUCRio)) to determine where to save data to. If 
+        you&#39;d like to change this path to somewhere else you can change that variable before your
+        download() call, like so:
+
+        ```python
+        import pyucrio
+        rio = pyucrio.PyUCRio()
+        rio.data_download_root_path = &#34;some_new_path&#34;
+        rio.data.download(dataset_name, start, end)
+        ```
+        &#34;&#34;&#34;
+        try:
+            return self.__rio_obj.srs_obj.data.download_using_urls(
+                file_listing_response,
+                n_parallel=n_parallel,
+                overwrite=overwrite,
+                progress_bar_disable=progress_bar_disable,
+                progress_bar_ncols=progress_bar_ncols,
+                progress_bar_ascii=progress_bar_ascii,
+                progress_bar_desc=progress_bar_desc,
+                timeout=timeout,
+            )
+        except SRSDownloadError as e:
+            raise PyUCRioDownloadError(e) from e
+        except SRSAPIError as e:
+            raise PyUCRioAPIError(e) from e
+
+    def get_urls(self,
+                 dataset_name: str,
+                 start: datetime.datetime,
+                 end: datetime.datetime,
+                 site_uid: Optional[str] = None,
+                 timeout: Optional[int] = None) -&gt; FileListingResponse:
+        &#34;&#34;&#34;
+        Get URLs of data files
+
+        The parameters `dataset_name`, `start`, and `end` are required. All other parameters
+        are optional.
+
+        Args:
+            dataset_name (str): 
+                Name of the dataset to download data for. Use the `list_datasets()` function
+                to get the possible values for this parameter. One example is &#34;SWAN_HSR_K0_H5&#34;. 
+                Note that dataset names are case sensitive. This parameter is required.
+
+            start (datetime.datetime): 
+                Start timestamp to use (inclusive), expected to be in UTC. Any timezone data 
+                will be ignored. This parameter is required.
+
+            end (datetime.datetime): 
+                End timestamp to use (inclusive), expected to be in UTC. Any timezone data 
+                will be ignored. This parameter is required.
+
+            site_uid (str): 
+                The site UID to filter for. If specified, data will be downloaded for only the 
+                site matching the given value. If excluded, data for all available sites will 
+                be downloaded. An example value could be &#39;gill&#39;, meaning all data from the 
+                Gillam observatory will be downloaded for the given dataset name, start, and 
+                end times. This parameter is optional.
+
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyucrio.PyUCRio`
+                object. This parameter is optional.
+    
+        Returns:
+            A [`FileListingResponse`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileListingResponse)
+            object containing a list of the available URLs, among other values.
+
+        Raises:
+            pyucrio.exceptions.PyUCRioAPIError: an API error was encountered
+        &#34;&#34;&#34;
+        try:
+            return self.__rio_obj.srs_obj.data.get_urls(
+                dataset_name,
+                start,
+                end,
+                site_uid=site_uid,
+                timeout=timeout,
+            )
+        except SRSAPIError as e:
+            raise PyUCRioAPIError(e) from e
+
+    def read(self,
+             dataset: Dataset,
+             file_list: Union[List[str], List[Path], str, Path],
+             n_parallel: int = 1,
+             no_metadata: bool = False,
+             quiet: bool = False) -&gt; Data:
+        &#34;&#34;&#34;
+        Read in data files for a given dataset. Note that only one type of dataset&#39;s data
+        should be read in using a single call.
+
+        Args:
+            dataset (Dataset): 
+                The dataset object for which the files are associated with. This parameter is
+                required.
+            
+            file_list (List[str], List[Path], str, Path): 
+                The files to read in. Absolute paths are recommended, but not technically
+                necessary. This can be a single string for a file, or a list of strings to read
+                in multiple files. This parameter is required.
+
+            n_parallel (int): 
+                Number of data files to read in parallel using multiprocessing. Default value 
+                is 1. Adjust according to your computer&#39;s available resources. This parameter 
+                is optional.
+                        
+            no_metadata (bool): 
+                Skip reading of metadata. This is a minor optimization if the metadata is not needed.
+                Default is `False`. This parameter is optional.
+            
+            quiet (bool): 
+                Do not print out errors while reading data files, if any are encountered. Any files
+                that encounter errors will be, as usual, accessible via the `problematic_files` 
+                attribute of the returned `Data` object. This parameter is optional.
+        
+        Returns:
+            A [`Data`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Data) 
+            object containing the data read in, among other values.
+        
+        Raises:
+            pyucrio.exceptions.PyUCRioUnsupportedReadError: an unsupported dataset was used when
+                trying to read files.
+            pyucrio.exceptions.PyUCRioError: a generic read error was encountered
+        &#34;&#34;&#34;
+        # NOTE: we do not wrap the exceptions here, instead we pass the call along
+        # to the ReadManager object since the method and exception catching is
+        # implemented there. No need to duplicate the exception handling logic.
+        return self.__readers.read(
+            dataset,
+            file_list,
+            n_parallel=n_parallel,
+            no_metadata=no_metadata,
+            quiet=quiet,
+        )</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.readers"><code class="name">prop <span class="ident">readers</span></code></dt>
+<dd>
+<div class="desc"><p>Access to the <code><a title="pyucrio.data.ucalgary.read" href="read/index.html">pyucrio.data.ucalgary.read</a></code> submodule from within a PyUCRio object.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def readers(self):
+    &#34;&#34;&#34;
+    Access to the `read` submodule from within a PyUCRio object.
+    &#34;&#34;&#34;
+    return self.__readers</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.download"><code class="name flex">
+<span>def <span class="ident">download</span></span>(<span>self,<br>dataset_name: str,<br>start: datetime.datetime,<br>end: datetime.datetime,<br>site_uid: str | None = None,<br>n_parallel: int = 5,<br>overwrite: bool = False,<br>progress_bar_disable: bool = False,<br>progress_bar_ncols: int | None = None,<br>progress_bar_ascii: str | None = None,<br>progress_bar_desc: str | None = None,<br>timeout: int | None = None) ‑> pyucalgarysrs.data.classes.FileDownloadResult</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download data from the UCalgary Space Remote Sensing Open Data Platform.</p>
+<p>The parameters <code>dataset_name</code>, <code>start</code>, and <code>end</code> are required. All other parameters
+are optional.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dataset_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the dataset to download data for. Use the <code>list_datasets()</code> function
+to get the possible values for this parameter. One example is "SWAN_HSR_K0_H5".
+Note that dataset names are case sensitive. This parameter is required.</dd>
+<dt><strong><code>start</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>Start timestamp to use (inclusive), expected to be in UTC. Any timezone data
+will be ignored. This parameter is required.</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>End timestamp to use (inclusive), expected to be in UTC. Any timezone data
+will be ignored. This parameter is required.</dd>
+<dt><strong><code>site_uid</code></strong> :&ensp;<code>str</code></dt>
+<dd>The site UID to filter for. If specified, data will be downloaded for only the
+site matching the given value. If excluded, data for all available sites will
+be downloaded. An example value could be 'gill', meaning all data from the
+Gillam observatory will be downloaded for the given dataset name, start, and
+end times. This parameter is optional.</dd>
+<dt><strong><code>n_parallel</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of data files to download in parallel. Default value is 5. Adjust as needed
+for your internet connection. This parameter is optional.</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code></dt>
+<dd>By default, data will not be re-downloaded if it already exists locally. Use
+the <code>overwrite</code> parameter to force re-downloading. Default is <code>False</code>. This
+parameter is optional.</dd>
+<dt><strong><code>progress_bar_disable</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Disable the progress bar. Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>progress_bar_ncols</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of columns for the progress bar (straight passthrough of the <code>ncols</code>
+parameter in a tqdm progress bar). This parameter is optional. See Notes section
+below for further information.</dd>
+<dt><strong><code>progress_bar_ascii</code></strong> :&ensp;<code>str</code></dt>
+<dd>ASCII value to use when constructing the visual aspect of the progress bar (straight
+passthrough of the <code>ascii</code> parameter in a tqdm progress bar). This parameter is
+optional. See Notes section below for further details.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyucrio.PyUCRio" href="../../index.html#pyucrio.PyUCRio">PyUCRio</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileDownloadResult"><code>FileDownloadResult</code></a>
+object containing details about what data files were downloaded.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioDownloadError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioDownloadError">PyUCRioDownloadError</a></code></dt>
+<dd>an error was encountered while downloading a
+specific file</dd>
+<dt><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></dt>
+<dd>an API error was encountered</dd>
+</dl>
+<h2 id="notes">Notes:</h2>
+<p>The <code>progress_bar_*</code> parameters can be used to enable/disable/adjust the progress bar.
+Excluding the <code>progress_bar_disable</code> parameter, all others are straight pass-throughs
+to the tqdm progress bar function. The <code>progress_bar_ncols</code> parameter allows for
+adjusting the width. The <code>progress_bar_ascii</code> parameter allows for adjusting the appearance
+of the progress bar. And the <code>progress_bar_desc</code> parameter allows for adjusting the
+description at the beginning of the progress bar. Further details can be found on the
+<a href="https://tqdm.github.io/docs/tqdm/#tqdm-objects">tqdm documentation</a>.</p>
+<p>Data downloading will use the <code>download_data_root_path</code> variable within the super class'
+object (<a href="../../index.html#pyucrio.PyUCRio"><code>PyUCRio</code></a>) to determine where to save data to. If
+you'd like to change this path to somewhere else you can change that variable before your
+download() call, like so:</p>
+<pre><code class="language-python">import pyucrio
+rio = pyucrio.PyUCRio()
+rio.data_download_root_path = &quot;some_new_path&quot;
+rio.data.download(dataset_name, start, end)
+</code></pre></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.download_using_urls"><code class="name flex">
+<span>def <span class="ident">download_using_urls</span></span>(<span>self,<br>file_listing_response: pyucalgarysrs.data.classes.FileListingResponse,<br>n_parallel: int = 5,<br>overwrite: bool = False,<br>progress_bar_disable: bool = False,<br>progress_bar_ncols: int | None = None,<br>progress_bar_ascii: str | None = None,<br>progress_bar_desc: str | None = None,<br>timeout: int | None = None) ‑> pyucalgarysrs.data.classes.FileDownloadResult</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download data from the UCalgary Space Remote Sensing Open Data Platform using
+a FileListingResponse object. This would be used in cases where more customization
+is needed than the generic <code>download()</code> function. </p>
+<p>One example of using this function would start by using <code>get_urls()</code> to retrieve the
+list of URLs available for download, then further process this list to fewer files
+based on some other requirement (ie. time down-sampling such as one file per hour).
+Lastly using this function to download the new custom set URLs.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_listing_response</code></strong> :&ensp;<code><a title="pyucrio.data.ucalgary.FileListingResponse" href="#pyucrio.data.ucalgary.FileListingResponse">FileListingResponse</a></code></dt>
+<dd>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileListingResponse"><code>FileListingResponse</code></a>
+object returned from a <code>get_urls()</code> call, which contains a list of URLs to download
+for a specific dataset. This parameter is required.</dd>
+<dt><strong><code>n_parallel</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of data files to download in parallel. Default value is 5. Adjust as needed
+for your internet connection. This parameter is optional.</dd>
+<dt><strong><code>overwrite</code></strong> :&ensp;<code>bool</code></dt>
+<dd>By default, data will not be re-downloaded if it already exists locally. Use
+the <code>overwrite</code> parameter to force re-downloading. Default is <code>False</code>. This
+parameter is optional.</dd>
+<dt><strong><code>progress_bar_disable</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Disable the progress bar. Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>progress_bar_ncols</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of columns for the progress bar (straight passthrough of the <code>ncols</code>
+parameter in a tqdm progress bar). This parameter is optional. See Notes section
+below for further information.</dd>
+<dt><strong><code>progress_bar_ascii</code></strong> :&ensp;<code>str</code></dt>
+<dd>ASCII value to use when constructing the visual aspect of the progress bar (straight
+passthrough of the <code>ascii</code> parameter in a tqdm progress bar). This parameter is
+optional. See Notes section below for further details.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyucrio.PyUCRio" href="../../index.html#pyucrio.PyUCRio">PyUCRio</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileDownloadResult"><code>FileDownloadResult</code></a>
+object containing details about what data files were downloaded.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioDownloadError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioDownloadError">PyUCRioDownloadError</a></code></dt>
+<dd>an error was encountered while downloading a
+specific file</dd>
+<dt><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></dt>
+<dd>an API error was encountered</dd>
+</dl>
+<h2 id="notes">Notes:</h2>
+<p>The <code>progress_bar_*</code> parameters can be used to enable/disable/adjust the progress bar.
+Excluding the <code>progress_bar_disable</code> parameter, all others are straight pass-throughs
+to the tqdm progress bar function. The <code>progress_bar_ncols</code> parameter allows for
+adjusting the width. The <code>progress_bar_ascii</code> parameter allows for adjusting the appearance
+of the progress bar. And the <code>progress_bar_desc</code> parameter allows for adjusting the
+description at the beginning of the progress bar. Further details can be found on the
+<a href="https://tqdm.github.io/docs/tqdm/#tqdm-objects">tqdm documentation</a>.</p>
+<p>Data downloading will use the <code>download_data_root_path</code> variable within the super class'
+object (<a href="../../index.html#pyucrio.PyUCRio"><code>PyUCRio</code></a>) to determine where to save data to. If
+you'd like to change this path to somewhere else you can change that variable before your
+download() call, like so:</p>
+<pre><code class="language-python">import pyucrio
+rio = pyucrio.PyUCRio()
+rio.data_download_root_path = &quot;some_new_path&quot;
+rio.data.download(dataset_name, start, end)
+</code></pre></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.get_urls"><code class="name flex">
+<span>def <span class="ident">get_urls</span></span>(<span>self,<br>dataset_name: str,<br>start: datetime.datetime,<br>end: datetime.datetime,<br>site_uid: str | None = None,<br>timeout: int | None = None) ‑> pyucalgarysrs.data.classes.FileListingResponse</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get URLs of data files</p>
+<p>The parameters <code>dataset_name</code>, <code>start</code>, and <code>end</code> are required. All other parameters
+are optional.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dataset_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the dataset to download data for. Use the <code>list_datasets()</code> function
+to get the possible values for this parameter. One example is "SWAN_HSR_K0_H5".
+Note that dataset names are case sensitive. This parameter is required.</dd>
+<dt><strong><code>start</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>Start timestamp to use (inclusive), expected to be in UTC. Any timezone data
+will be ignored. This parameter is required.</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>End timestamp to use (inclusive), expected to be in UTC. Any timezone data
+will be ignored. This parameter is required.</dd>
+<dt><strong><code>site_uid</code></strong> :&ensp;<code>str</code></dt>
+<dd>The site UID to filter for. If specified, data will be downloaded for only the
+site matching the given value. If excluded, data for all available sites will
+be downloaded. An example value could be 'gill', meaning all data from the
+Gillam observatory will be downloaded for the given dataset name, start, and
+end times. This parameter is optional.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyucrio.PyUCRio" href="../../index.html#pyucrio.PyUCRio">PyUCRio</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.FileListingResponse"><code>FileListingResponse</code></a>
+object containing a list of the available URLs, among other values.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></dt>
+<dd>an API error was encountered</dd>
+</dl></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.is_read_supported"><code class="name flex">
+<span>def <span class="ident">is_read_supported</span></span>(<span>self, dataset_name: str) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check if a given dataset has file reading support. </p>
+<p>Not all datasets available in the UCalgary Space Remote Sensing Open Data Platform
+have special readfile routines in this library. This is because some datasets are
+handled by other libraries (ie. PyAuroraX for ASI data), or are in basic formats
+such as JPG or PNG, so unique functions aren't necessary. We leave it up to the
+user to open those basic files in whichever way they prefer. Use the
+<code>list_supported_read_datasets()</code> function to see all datasets that have special
+file reading functionality in this library.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dataset_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The dataset name to check if file reading is supported. This parameter
+is required.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Boolean indicating if file reading is supported.</p></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.list_datasets"><code class="name flex">
+<span>def <span class="ident">list_datasets</span></span>(<span>self, name: str | None = None, timeout: int | None = None) ‑> List[pyucalgarysrs.data.classes.Dataset]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List available datasets</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Supply a name used for filtering. If that name is found in the available dataset
+names received from the API, it will be included in the results. This parameter is
+optional.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyucrio.PyUCRio" href="../../index.html#pyucrio.PyUCRio">PyUCRio</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A list of <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset"><code>Dataset</code></a>
+objects.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></dt>
+<dd>An API error was encountered.</dd>
+</dl></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.list_observatories"><code class="name flex">
+<span>def <span class="ident">list_observatories</span></span>(<span>self,<br>instrument_array: Literal['norstar_riometer', 'swan_hsr'],<br>uid: str | None = None,<br>timeout: int | None = None) ‑> List[pyucalgarysrs.data.classes.Observatory]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List information about observatories</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instrument_array</code></strong> :&ensp;<code>str</code></dt>
+<dd>The instrument array to list observatories for. Valid values are: norstar_riometer, and swan_hsr.</dd>
+<dt><strong><code>uid</code></strong> :&ensp;<code>str</code></dt>
+<dd>Supply a observatory unique identifier used for filtering (usually 4-letter site code). If that UID
+is found in the available observatories received from the API, it will be included in the results. This
+parameter is optional.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyucrio.PyUCRio" href="../../index.html#pyucrio.PyUCRio">PyUCRio</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A list of <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Observatory"><code>Observatory</code></a>
+objects.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></dt>
+<dd>An API error was encountered.</dd>
+</dl></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.list_supported_read_datasets"><code class="name flex">
+<span>def <span class="ident">list_supported_read_datasets</span></span>(<span>self) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List the datasets which have file reading capabilities supported.</p>
+<h2 id="returns">Returns</h2>
+<p>A list of the dataset names with file reading support.</p></div>
+</dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.read"><code class="name flex">
+<span>def <span class="ident">read</span></span>(<span>self,<br>dataset: pyucalgarysrs.data.classes.Dataset,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>quiet: bool = False) ‑> pyucalgarysrs.data.classes.Data</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read in data files for a given dataset. Note that only one type of dataset's data
+should be read in using a single call.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dataset</code></strong> :&ensp;<code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code></dt>
+<dd>The dataset object for which the files are associated with. This parameter is
+required.</dd>
+<dt><strong><code>file_list</code></strong> :&ensp;<code>List[str], List[Path], str, Path</code></dt>
+<dd>The files to read in. Absolute paths are recommended, but not technically
+necessary. This can be a single string for a file, or a list of strings to read
+in multiple files. This parameter is required.</dd>
+<dt><strong><code>n_parallel</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of data files to read in parallel using multiprocessing. Default value
+is 1. Adjust according to your computer's available resources. This parameter
+is optional.</dd>
+<dt><strong><code>no_metadata</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Skip reading of metadata. This is a minor optimization if the metadata is not needed.
+Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>quiet</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Do not print out errors while reading data files, if any are encountered. Any files
+that encounter errors will be, as usual, accessible via the <code>problematic_files</code>
+attribute of the returned <code><a title="pyucrio.data.ucalgary.Data" href="#pyucrio.data.ucalgary.Data">Data</a></code> object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Data"><code>Data</code></a>
+object containing the data read in, among other values.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioUnsupportedReadError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioUnsupportedReadError">PyUCRioUnsupportedReadError</a></code></dt>
+<dd>an unsupported dataset was used when
+trying to read files.</dd>
+<dt><code><a title="pyucrio.exceptions.PyUCRioError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></code></dt>
+<dd>a generic read error was encountered</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyucrio.data" href="../index.html">pyucrio.data</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="pyucrio.data.ucalgary.read" href="read/index.html">pyucrio.data.ucalgary.read</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyucrio.data.ucalgary.Data" href="#pyucrio.data.ucalgary.Data">Data</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyucrio.data.ucalgary.Data.calibrated_data" href="#pyucrio.data.ucalgary.Data.calibrated_data">calibrated_data</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.Data.data" href="#pyucrio.data.ucalgary.Data.data">data</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.Data.dataset" href="#pyucrio.data.ucalgary.Data.dataset">dataset</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.Data.metadata" href="#pyucrio.data.ucalgary.Data.metadata">metadata</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.Data.pretty_print" href="#pyucrio.data.ucalgary.Data.pretty_print">pretty_print</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.Data.problematic_files" href="#pyucrio.data.ucalgary.Data.problematic_files">problematic_files</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.Data.timestamp" href="#pyucrio.data.ucalgary.Data.timestamp">timestamp</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyucrio.data.ucalgary.Dataset" href="#pyucrio.data.ucalgary.Dataset">Dataset</a></code></h4>
+<ul class="">
+<li><code><a title="pyucrio.data.ucalgary.Dataset.pretty_print" href="#pyucrio.data.ucalgary.Dataset.pretty_print">pretty_print</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyucrio.data.ucalgary.FileDownloadResult" href="#pyucrio.data.ucalgary.FileDownloadResult">FileDownloadResult</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyucrio.data.ucalgary.FileDownloadResult.count" href="#pyucrio.data.ucalgary.FileDownloadResult.count">count</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileDownloadResult.dataset" href="#pyucrio.data.ucalgary.FileDownloadResult.dataset">dataset</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileDownloadResult.filenames" href="#pyucrio.data.ucalgary.FileDownloadResult.filenames">filenames</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileDownloadResult.output_root_path" href="#pyucrio.data.ucalgary.FileDownloadResult.output_root_path">output_root_path</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileDownloadResult.pretty_print" href="#pyucrio.data.ucalgary.FileDownloadResult.pretty_print">pretty_print</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileDownloadResult.total_bytes" href="#pyucrio.data.ucalgary.FileDownloadResult.total_bytes">total_bytes</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyucrio.data.ucalgary.FileListingResponse" href="#pyucrio.data.ucalgary.FileListingResponse">FileListingResponse</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyucrio.data.ucalgary.FileListingResponse.count" href="#pyucrio.data.ucalgary.FileListingResponse.count">count</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileListingResponse.dataset" href="#pyucrio.data.ucalgary.FileListingResponse.dataset">dataset</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileListingResponse.path_prefix" href="#pyucrio.data.ucalgary.FileListingResponse.path_prefix">path_prefix</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileListingResponse.pretty_print" href="#pyucrio.data.ucalgary.FileListingResponse.pretty_print">pretty_print</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileListingResponse.total_bytes" href="#pyucrio.data.ucalgary.FileListingResponse.total_bytes">total_bytes</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.FileListingResponse.urls" href="#pyucrio.data.ucalgary.FileListingResponse.urls">urls</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyucrio.data.ucalgary.Observatory" href="#pyucrio.data.ucalgary.Observatory">Observatory</a></code></h4>
+<ul class="">
+<li><code><a title="pyucrio.data.ucalgary.Observatory.pretty_print" href="#pyucrio.data.ucalgary.Observatory.pretty_print">pretty_print</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyucrio.data.ucalgary.UCalgaryManager" href="#pyucrio.data.ucalgary.UCalgaryManager">UCalgaryManager</a></code></h4>
+<ul class="">
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.download" href="#pyucrio.data.ucalgary.UCalgaryManager.download">download</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.download_using_urls" href="#pyucrio.data.ucalgary.UCalgaryManager.download_using_urls">download_using_urls</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.get_urls" href="#pyucrio.data.ucalgary.UCalgaryManager.get_urls">get_urls</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.is_read_supported" href="#pyucrio.data.ucalgary.UCalgaryManager.is_read_supported">is_read_supported</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.list_datasets" href="#pyucrio.data.ucalgary.UCalgaryManager.list_datasets">list_datasets</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.list_observatories" href="#pyucrio.data.ucalgary.UCalgaryManager.list_observatories">list_observatories</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.list_supported_read_datasets" href="#pyucrio.data.ucalgary.UCalgaryManager.list_supported_read_datasets">list_supported_read_datasets</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.read" href="#pyucrio.data.ucalgary.UCalgaryManager.read">read</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.readers" href="#pyucrio.data.ucalgary.UCalgaryManager.readers">readers</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.3</a>.</p>
+</footer>
+</body>
+</html>

@@ -37,7 +37,7 @@ rio = pyucrio.PyUCRio()
 __version__ = "0.0.1"
 
 # documentation excludes
-__pdoc__ = {"cli": False, "pyucrio": False}
+__pdoc__ = {"pyucrio": False}
 __all__ = ["PyUCRio"]
 
 # pull in top level class

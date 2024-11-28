@@ -16,8 +16,8 @@ Unique exception classes utilized by PyUCRio. These exceptions can be used
 to help trap specific errors raised by this library.
 
 Note that all exceptions are imported at the root level of the library. They
-can be referenced using [`pyucrio.PyUCRioError`](exceptions.html#pyucrio.exceptions.PyUCRIoError) 
-or `pyucrio.exceptions.PyUCRIoError`.
+can be referenced using [`pyucrio.PyUCRioError`](exceptions.html#pyucrio.exceptions.PyUCRioError) 
+or `pyucrio.exceptions.PyUCRioError`.
 """
 
 
