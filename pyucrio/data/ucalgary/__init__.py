@@ -85,7 +85,11 @@ class UCalgaryManager:
             pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
         """
         try:
-            return self.__rio_obj.srs_obj.data.list_datasets(name=name, timeout=timeout)
+            return self.__rio_obj.srs_obj.data.list_datasets(
+                name=name,
+                timeout=timeout,
+                supported_library="pyucrio",
+            )
         except SRSAPIError as e:
             raise PyUCRioAPIError(e) from e
 
