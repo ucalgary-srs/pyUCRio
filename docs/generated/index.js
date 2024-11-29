@@ -11,7 +11,7 @@ INDEX=[
 {
 "ref":"pyucrio",
 "url":0,
-"doc":"The PyUCRio package provides data access and analysis support for working with UCalgary Riometer instruments, such as NORSTAR Riometers, and SWAN Hyper Spectral Riometers. For an overview of usage and examples, visit the [UCalgary Space Remote Sensing Open Data Platform](https: data.phys.ucalgary.ca), view the [crib sheets](https: data.phys.ucalgary.ca/working_with_data/index.html crib-sheets), or explore the examples contained in the [Github repository](https: github.com/ucalgary-srs/pyUCRio/tree/main/examples). Installation:   pip install pyucrio   Basic usage:   import pyucrio rio = pyucrio.PyUCRio()  "
+"doc":"The PyUCRio package provides data access and analysis support for working with UCalgary Riometer instruments, such as NORSTAR Riometers, and SWAN Hyper Spectral Riometers. For an overview of usage and examples, visit the [UCalgary Space Remote Sensing Open Data Platform](https: data.phys.ucalgary.ca), view the [crib sheets](https: data.phys.ucalgary.ca/working_with_data/index.html crib-sheets), or explore the examples contained in the [Github repository](https: github.com/ucalgary-srs/pyUCRio/tree/main/examples). Installation:   $ pip install pyucrio   Basic usage:   > import pyucrio > rio = pyucrio.PyUCRio()  "
 },
 {
 "ref":"pyucrio.PyUCRio",
