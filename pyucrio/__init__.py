@@ -23,13 +23,13 @@ or explore the examples contained in the [Github repository](https://github.com/
 
 Installation:
 ```console
-pip install pyucrio
+$ pip install pyucrio
 ```
 
 Basic usage:
 ```python
-import pyucrio
-rio = pyucrio.PyUCRio()
+> import pyucrio
+> rio = pyucrio.PyUCRio()
 ```
 """
 
