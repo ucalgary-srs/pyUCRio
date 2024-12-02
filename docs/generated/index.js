@@ -122,6 +122,12 @@ INDEX=[
 "func":1
 },
 {
+"ref":"pyucrio.data.DataManager.get_dataset",
+"url":2,
+"doc":"Get a specific dataset Args: name (str): The dataset name to get. Case is insensitive. timeout (int): Represents how many seconds to wait for the API to send data before giving up. The default is 10 seconds, or the  api_timeout value in the super class'  pyucrio.PyUCRio object. This parameter is optional. Returns: The found [ Dataset ](https: docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html pyucalgarysrs.data.classes.Dataset) object. Raises an exception if not found. Raises: pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.",
+"func":1
+},
+{
 "ref":"pyucrio.data.DataManager.list_datasets_in_table",
 "url":2,
 "doc":"Print available datasets from all providers in a table Args: name (str): Supply a name used for filtering. If that name is found in the available dataset names received from the API, it will be included in the results. This parameter is optional. max_width (int): Maximum width of the table. Default is  200 . This parameter is optional. timeout (int): Represents how many seconds to wait for the API to send data before giving up. The default is 10 seconds, or the  api_timeout value in the super class'  pyucrio.PyUCRio object. This parameter is optional. Returns: Printed table. Raises: pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.",
@@ -158,6 +164,12 @@ INDEX=[
 "ref":"pyucrio.data.ucalgary.UCalgaryManager.list_datasets",
 "url":3,
 "doc":"List available datasets Args: name (str): Supply a name used for filtering. If that name is found in the available dataset names received from the API, it will be included in the results. This parameter is optional. timeout (int): Represents how many seconds to wait for the API to send data before giving up. The default is 10 seconds, or the  api_timeout value in the super class'  pyucrio.PyUCRio object. This parameter is optional. Returns: A list of [ Dataset ](https: docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html pyucalgarysrs.data.classes.Dataset) objects. Raises: pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.",
+"func":1
+},
+{
+"ref":"pyucrio.data.ucalgary.UCalgaryManager.get_dataset",
+"url":3,
+"doc":"Get a specific dataset Args: name (str): The dataset name to get. Case is insensitive. timeout (int): Represents how many seconds to wait for the API to send data before giving up. The default is 10 seconds, or the  api_timeout value in the super class'  pyucrio.PyUCRio object. This parameter is optional. Returns: The found [ Dataset ](https: docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html pyucalgarysrs.data.classes.Dataset) object. Raises an exception if not found. Raises: pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.",
 "func":1
 },
 {
@@ -216,7 +228,7 @@ INDEX=[
 {
 "ref":"pyucrio.data.ucalgary.Dataset",
 "url":3,
-"doc":"A dataset available from the UCalgary Space Remote Sensing API, with possibly support for downloading and/or reading. Attributes: name (str): Dataset name short_description (str): A short description about the dataset long_description (str): A longer description about the dataset data_tree_url (str): The data tree URL prefix. Used for saving data locally with a similar data tree structure compared to the UCalgary Open Data archive. file_listing_supported (bool): Flag indicating if file listing (downloading) is supported for this dataset. file_reading_supported (bool): Flag indicating if file reading is supported for this dataset. level (str): Dataset level as per L0/L1/L2/etc standards. doi (str): Dataset DOI unique identifier. doi_details (str): Further details about the DOI. citation (str): String to use when citing usage of the dataset. provider (str): Data provider."
+"doc":"A dataset available from the UCalgary Space Remote Sensing API, with possibly support for downloading and/or reading. Attributes: name (str): Dataset name short_description (str): A short description about the dataset long_description (str): A longer description about the dataset data_tree_url (str): The data tree URL prefix. Used for saving data locally with a similar data tree structure compared to the UCalgary Open Data archive. file_listing_supported (bool): Flag indicating if file listing (downloading) is supported for this dataset. file_reading_supported (bool): Flag indicating if file reading is supported for this dataset. level (str): Dataset level as per L0/L1/L2/etc standards. doi (str): Dataset DOI unique identifier. doi_details (str): Further details about the DOI. citation (str): String to use when citing usage of the dataset. provider (str): Data provider. supported_libraries (List[str]): Libraries that support usage of this dataset."
 },
 {
 "ref":"pyucrio.data.ucalgary.Dataset.pretty_print",

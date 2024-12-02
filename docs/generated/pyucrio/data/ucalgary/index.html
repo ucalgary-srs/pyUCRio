@@ -167,7 +167,7 @@ class Data:
         elif (len(self.metadata) == 1):
             metadata_str = &#34;[1 dictionary]&#34;
         else:
-            metadata_str = &#34;[%d dictionaries]&#34; % (len(self.timestamp))
+            metadata_str = &#34;[%d dictionaries]&#34; % (len(self.metadata))
 
         # set rest of values
         problematic_files_str = &#34;[]&#34; if len(self.problematic_files) == 0 else &#34;[%d problematic files]&#34; % (len(self.problematic_files))
@@ -287,7 +287,7 @@ class Data:
 </dd>
 <dt id="pyucrio.data.ucalgary.Dataset"><code class="flex name class">
 <span>class <span class="ident">Dataset</span></span>
-<span>(</span><span>name: str,<br>short_description: str,<br>long_description: str,<br>data_tree_url: str,<br>file_listing_supported: bool,<br>file_reading_supported: bool,<br>level: str,<br>doi: str | None = None,<br>doi_details: str | None = None,<br>citation: str | None = None)</span>
+<span>(</span><span>name: str,<br>short_description: str,<br>long_description: str,<br>data_tree_url: str,<br>file_listing_supported: bool,<br>file_reading_supported: bool,<br>level: str,<br>supported_libraries: List[str],<br>doi: str | None = None,<br>doi_details: str | None = None,<br>citation: str | None = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>A dataset available from the UCalgary Space Remote Sensing API, with possibly
@@ -317,6 +317,8 @@ structure compared to the UCalgary Open Data archive.</dd>
 <dd>String to use when citing usage of the dataset.</dd>
 <dt><strong><code>provider</code></strong> :&ensp;<code>str</code></dt>
 <dd>Data provider.</dd>
+<dt><strong><code>supported_libraries</code></strong> :&ensp;<code>List[str]</code></dt>
+<dd>Libraries that support usage of this dataset.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -361,6 +363,9 @@ structure compared to the UCalgary Open Data archive.</dd>
         
         provider (str): 
             Data provider.
+
+        supported_libraries (List[str]): 
+            Libraries that support usage of this dataset.
     &#34;&#34;&#34;
 
     def __init__(self,
@@ -371,6 +376,7 @@ structure compared to the UCalgary Open Data archive.</dd>
                  file_listing_supported: bool,
                  file_reading_supported: bool,
                  level: str,
+                 supported_libraries: List[str],
                  doi: Optional[str] = None,
                  doi_details: Optional[str] = None,
                  citation: Optional[str] = None):
@@ -385,6 +391,7 @@ structure compared to the UCalgary Open Data archive.</dd>
         self.doi_details = doi_details
         self.citation = citation
         self.provider = &#34;UCalgary&#34;
+        self.supported_libraries = supported_libraries
 
     def __str__(self) -&gt; str:
         return self.__repr__()
@@ -766,8 +773,37 @@ the submodules and carry over configuration information in the super class.</p><
             pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
         &#34;&#34;&#34;
         try:
-            return self.__rio_obj.srs_obj.data.list_datasets(name=name, timeout=timeout)
+            return self.__rio_obj.srs_obj.data.list_datasets(
+                name=name,
+                timeout=timeout,
+                supported_library=&#34;pyucrio&#34;,
+            )
         except SRSAPIError as e:
+            raise PyUCRioAPIError(e) from e
+
+    def get_dataset(self, name: str, timeout: Optional[int] = None) -&gt; Dataset:
+        &#34;&#34;&#34;
+        Get a specific dataset
+
+        Args:
+            name (str): 
+                The dataset name to get. Case is insensitive.
+            
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class&#39; `pyucrio.PyUCRio`
+                object. This parameter is optional.
+            
+        Returns:
+            The found [`Dataset`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset)
+            object. Raises an exception if not found.
+        
+        Raises:
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
+        &#34;&#34;&#34;
+        try:
+            return self.__rio_obj.srs_obj.data.get_dataset(name, timeout=timeout)
+        except Exception as e:
             raise PyUCRioAPIError(e) from e
 
     def list_observatories(self,
@@ -1323,6 +1359,29 @@ rio.data_download_root_path = &quot;some_new_path&quot;
 rio.data.download(dataset_name, start, end)
 </code></pre></div>
 </dd>
+<dt id="pyucrio.data.ucalgary.UCalgaryManager.get_dataset"><code class="name flex">
+<span>def <span class="ident">get_dataset</span></span>(<span>self, name: str, timeout: int | None = None) ‑> pyucalgarysrs.data.classes.Dataset</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a specific dataset</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The dataset name to get. Case is insensitive.</dd>
+<dt><strong><code>timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents how many seconds to wait for the API to send data before giving up. The
+default is 10 seconds, or the <code>api_timeout</code> value in the super class' <code><a title="pyucrio.PyUCRio" href="../../index.html#pyucrio.PyUCRio">PyUCRio</a></code>
+object. This parameter is optional.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The found <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset"><code>Dataset</code></a>
+object. Raises an exception if not found.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="../../exceptions.html#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></dt>
+<dd>An API error was encountered.</dd>
+</dl></div>
+</dd>
 <dt id="pyucrio.data.ucalgary.UCalgaryManager.get_urls"><code class="name flex">
 <span>def <span class="ident">get_urls</span></span>(<span>self,<br>dataset_name: str,<br>start: datetime.datetime,<br>end: datetime.datetime,<br>site_uid: str | None = None,<br>timeout: int | None = None) ‑> pyucalgarysrs.data.classes.FileListingResponse</span>
 </code></dt>
@@ -1601,6 +1660,7 @@ setTimeout(() => input.focus(), 100);
 <ul class="">
 <li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.download" href="#pyucrio.data.ucalgary.UCalgaryManager.download">download</a></code></li>
 <li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.download_using_urls" href="#pyucrio.data.ucalgary.UCalgaryManager.download_using_urls">download_using_urls</a></code></li>
+<li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.get_dataset" href="#pyucrio.data.ucalgary.UCalgaryManager.get_dataset">get_dataset</a></code></li>
 <li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.get_urls" href="#pyucrio.data.ucalgary.UCalgaryManager.get_urls">get_urls</a></code></li>
 <li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.is_read_supported" href="#pyucrio.data.ucalgary.UCalgaryManager.is_read_supported">is_read_supported</a></code></li>
 <li><code><a title="pyucrio.data.ucalgary.UCalgaryManager.list_datasets" href="#pyucrio.data.ucalgary.UCalgaryManager.list_datasets">list_datasets</a></code></li>

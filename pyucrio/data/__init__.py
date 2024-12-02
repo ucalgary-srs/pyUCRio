@@ -21,6 +21,7 @@ from typing import List, Literal, Optional
 from pyucalgarysrs.data import Dataset, Observatory
 from texttable import Texttable
 from .ucalgary import UCalgaryManager
+from ..exceptions import PyUCRioAPIError
 
 __all__ = ["DataManager"]
 
@@ -83,6 +84,43 @@ class DataManager:
 
         # return
         return datasets
+
+    def get_dataset(self, name: str, timeout: Optional[int] = None) -> Dataset:
+        """
+        Get a specific dataset
+
+        Args:
+            name (str): 
+                The dataset name to get. Case is insensitive.
+
+            timeout (int): 
+                Represents how many seconds to wait for the API to send data before giving up. The 
+                default is 10 seconds, or the `api_timeout` value in the super class' `pyucrio.PyUCRio`
+                object. This parameter is optional.
+            
+        Returns:
+            The found [`Dataset`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Dataset)
+            object. Raises an exception if not found.
+        
+        Raises:
+            pyucrio.exceptions.PyUCRioAPIError: An API error was encountered.
+        """
+        # init
+        dataset = None
+
+        # search ucalgary datasets
+        try:
+            ucalgary_dataset = self.__ucalgary.get_dataset(name, timeout=timeout)
+            dataset = ucalgary_dataset
+        except Exception:  # nosec
+            pass
+
+        # return
+        if (dataset is None):
+            # never could find it
+            raise PyUCRioAPIError("Dataset not found")
+        else:
+            return dataset
 
     def list_datasets_in_table(self, name: Optional[str] = None, max_width: int = 200, timeout: Optional[int] = None) -> None:
         """
