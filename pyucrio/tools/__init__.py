@@ -30,6 +30,7 @@ Example:
 
 # pull in top-level functions
 from ._util import set_theme
+from ._plot import plot
 
 # pull in classes
 
@@ -40,6 +41,7 @@ __all__ = [
 
     # top level functions
     "set_theme",
+    "plot",
 
-    # classses
+    # classes
 ]
