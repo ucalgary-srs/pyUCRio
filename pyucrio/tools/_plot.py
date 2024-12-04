@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import datetime
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import warnings
-from typing import List, Union, Optional
+from typing import List, Union, Optional, Tuple, Any
 from pyucalgarysrs.data.classes import Data
 
 
@@ -32,18 +33,21 @@ def __smooth_data(data, window_size):
 def plot(rio_data: Union[Data, List[Data]],
          absorption: bool = False,
          stack_plot: bool = False,
-         downsample_seconds: Optional[int] = 1,
+         downsample_seconds: int = 1,
          hsr_bands: Optional[Union[int, List[int]]] = None,
          color: Optional[Union[str, List[str]]] = None,
-         figsize: Optional[tuple] = (8, 4),
-         return_fig: Optional[bool] = False,
+         figsize: Optional[Tuple[int, int]] = None,
          title: Optional[str] = None,
          date_format: Optional[str] = None,
          xtitle: Optional[str] = None,
          ytitle: Optional[str] = None,
-         xrange: Optional[List] = None,
-         yrange: Optional[List[datetime.datetime]] = None,
-         linestyle: Optional[Union[str, List[str]]] = '-'):
+         xrange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None,
+         yrange: Optional[Tuple[float, float]] = None,
+         linestyle: Optional[Union[str, List[str]]] = '-',
+         returnfig: bool = False,
+         savefig: bool = False,
+         savefig_filename: Optional[str] = None,
+         savefig_quality: Optional[int] = None) -> Any:
     """
     Plot riometer data.
 
@@ -68,7 +72,7 @@ def plot(rio_data: Union[Data, List[Data]],
             A string or list of strings giving matplotlib color names to cycle through for plotting.
 
         figsize (Optional[list | tuple]):
-            The overall figure size. Default is (8,4).
+            The overall figure size. Default is None, determined automatically by matplotlib.
 
         return_fig (Optional[bool]):
             If true, function call returns reference to the matplotlib figure.
@@ -90,13 +94,51 @@ def plot(rio_data: Union[Data, List[Data]],
 
         linestyle (Optional[str | list]):
             A string or list of strings giving matplotlib linestyle names to cycle through for plotting.
+
+        returnfig (bool): 
+            Instead of displaying the image, return the matplotlib figure object. This allows for further plot 
+            manipulation, for example, adding labels or a title in a different location than the default. 
+            
+            Remember - if this parameter is supplied, be sure that you close your plot after finishing work 
+            with it. This can be achieved by doing `plt.close(fig)`. 
+            
+            Note that this method cannot be used in combination with `savefig`.
+
+        savefig (bool): 
+            Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if 
+            this parameter is set to True. Defaults to `False`.
+
+        savefig_filename (str): 
+            Filename to save the image to. Must be specified if the savefig parameter is set to True.
+
+        savefig_quality (int): 
+            Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
+            is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.
         
     Returns:
-        None, unless return_fig=True, in which case, returns a reference to the matplotlib figure.
+        The displayed plot, by default. If `savefig` is set to True, nothing will be returned. If `returnfig` is 
+        set to True, the plotting variables `(fig, axes)` will be returned.
 
     Raises:
         ValueError: issue with supplied parameters.
     """
+
+    # check return mode
+    if (returnfig is True and savefig is True):
+        raise ValueError("Only one of returnfig or savefig can be set to True")
+    if (returnfig is True
+            and (savefig_filename is not None or savefig_quality is not None)):
+        warnings.warn(
+            "The figure will be returned, but a savefig option parameter was supplied. Consider "
+            +
+            "removing the savefig option parameter(s) as they will be ignored.",
+            stacklevel=1)
+    elif (savefig is False
+          and (savefig_filename is not None or savefig_quality is not None)):
+        warnings.warn(
+            "A savefig option parameter was supplied, but the savefig parameter is False. The "
+            + "savefig option parameters will be ignored.",
+            stacklevel=1)
 
     # Convert to single element list if only a single data object is passed in
     if isinstance(rio_data, Data):
@@ -111,9 +153,12 @@ def plot(rio_data: Union[Data, List[Data]],
     # Count total plots required
     total_plots = 0
     for data in rio_data:
-        if data.dataset.name == 'SWAN_HSR_K0_H5':
+        data_name = data.dataset.name if data.dataset is not None else "unknown dataset"
+        if data_name == 'SWAN_HSR_K0_H5':
             if hsr_bands is not None:
-                total_plots += len(hsr_bands)
+
+                total_plots += len(hsr_bands) if isinstance(hsr_bands,
+                                                            list) else 1
             else:
                 total_plots += len(
                     np.where(data.data[0].band_central_frequency)[0])
@@ -121,36 +166,43 @@ def plot(rio_data: Union[Data, List[Data]],
             total_plots += 1
 
     # Create subplots with the specified figsize
+    current_axis_idx = 0
     if stack_plot:
         fig, axes = plt.subplots(total_plots, 1, figsize=figsize, sharex=True)
         if total_plots == 1:
             axes = [axes]  # Ensure axes is always iterable
-        current_axis_idx = 0
     else:
         fig = plt.figure(figsize=figsize)
+        axes = [fig.add_axes((0, 0, 1, 1))]
 
     # Iterate through each data object in list
     for data in rio_data:
 
         # Check for an empty data object (in case of attempting to download non-existing data)
         if len(data.data) == 0:
-            warnings.warn("Received one or more empty Data objects ('%s')" %
-                          (data.dataset.name),
-                          UserWarning,
-                          stacklevel=1)
+            if data.dataset is not None:
+                warnings.warn(
+                    "Received one or more empty Data objects ('%s')" %
+                    (data.dataset.name),
+                    UserWarning,
+                    stacklevel=1)
+            else:
+                warnings.warn("Received one or more empty Data objects." %
+                              UserWarning,
+                              stacklevel=1)
             continue
-        
+
         # Get the dataset and site names
-        dataset = data.dataset.name
+        dataset = data.dataset.name if data.dataset is not None else "unknown dataset"
         site = data.metadata[0]['site_unique_id']
 
         # Initialize array and dict to hold timestamps and data, respectively
         time_stamp = np.array([])
         data_dict = dict()
-        
+
         # Iterate through each Riometer / HSR data object (if spanning across multiple days for one dataset/site)
         for d in data.data:
-            
+
             # Append to time stamp
             time_stamp = np.concatenate((time_stamp, d.timestamp))
 
@@ -164,13 +216,16 @@ def plot(rio_data: Union[Data, List[Data]],
                         hsr_bands,
                         np.where(d.band_central_frequency)[0])
                 for band_idx in bands:
-                    band_name = f"{site.upper()} {dataset} band_{str(band_idx).zfill(2)} {d.band_central_frequency[band_idx].decode('utf-8').split()[0]} MHz"
+                    band_name = (
+                        f"{site.upper()} HSR band_{str(band_idx).zfill(2)} "
+                        f"{round(float(d.band_central_frequency[band_idx].decode('utf-8').split()[0]), 1)} MHz"
+                    )
                     band_names.append(band_name)
 
             # Default band for non HSR data is 30 MHz
             else:
                 bands = [0]
-                band_name = f"{site.upper()} {dataset} band_00 30.00 MHz"
+                band_name = f"{site.upper()} Riometer 30.0 MHz"
                 band_names.append(band_name)
 
             # Pull out the data array of interest from the Riometer or HSR data object
@@ -185,15 +240,15 @@ def plot(rio_data: Union[Data, List[Data]],
                             stacklevel=1)
                         continue
                     else:
-                        for k, band_idx in enumerate(bands):
+                        for k, _band_idx in enumerate(bands):
                             data_arr = d.absorption
-                            if band_names[band_idx] in data_dict:
+                            if band_names[k] in data_dict:
                                 data_dict[band_names[k]] = np.concatenate(
                                     (data_dict[band_names[k]], data_arr))
                             else:
                                 data_dict[band_names[k]] = data_arr
                 else:
-                    for k, band_idx in enumerate(bands):
+                    for k, _band_idx in enumerate(bands):
                         data_arr = d.raw_signal
                         if band_names[k] in data_dict:
                             data_dict[band_names[k]] = np.concatenate(
@@ -228,7 +283,7 @@ def plot(rio_data: Union[Data, List[Data]],
 
         # Iterate through each data array we are plotting
         for signal_name, signal_data in data_dict.items():
-            
+
             # Cycle colors and line-styles
             current_color = next(color_cycle)
             current_linestyle = next(linestyle_cycle)
@@ -243,9 +298,11 @@ def plot(rio_data: Union[Data, List[Data]],
             # Down-sample data if requested
             if downsample_seconds > 0:
                 # Calculate the number of points to down-sample based on downsample_seconds and datetime array
-                time_deltas = np.diff(time_stamp)
-                sampling_rate = np.median(
-                    time_deltas).total_seconds()  # Seconds as a float
+                time_deltas = np.array([
+                    (time_stamp[i + 1] - time_stamp[i]).total_seconds()
+                    for i in range(len(time_stamp) - 1)
+                ])
+                sampling_rate = np.median(time_deltas)
                 window_size = int(downsample_seconds / sampling_rate)
                 if window_size > 0:
                     signal_data = __smooth_data(signal_data, window_size)
@@ -256,7 +313,7 @@ def plot(rio_data: Union[Data, List[Data]],
                     color=current_color,
                     label=signal_name,
                     linestyle=current_linestyle)
-            
+
             # Add ytitle
             ax.set_ylabel(
                 "Absorption (dB)" if absorption else "Raw Power (dB)")
@@ -285,10 +342,14 @@ def plot(rio_data: Union[Data, List[Data]],
             ax.xaxis.set_major_formatter(
                 mdates.DateFormatter('%H' if date_format is
                                      None else date_format))
-            
+
             # Set x-range
             if xrange:
                 ax.set_xlim(xrange)
+            else:
+                # If no x-range is supplied, get rid of whitespace
+                ax.set_xlim([time_stamp[0], time_stamp[-1]])
+
             if yrange:
                 ax.set_ylim(yrange)
 
@@ -296,7 +357,7 @@ def plot(rio_data: Union[Data, List[Data]],
             if stack_plot and current_axis_idx > 1:
                 y_ticks = ax.get_yticks()  # Get the current Y ticks
                 ax.set_yticks(y_ticks[:-1])
-    
+
     # Add overall legend if not making a stack plot
     if not stack_plot:
         plt.legend()
@@ -307,10 +368,47 @@ def plot(rio_data: Union[Data, List[Data]],
 
     # Make stack-plots flush with each-other, display plot
     plt.subplots_adjust(hspace=0)
-    plt.show()
 
-    # Return figure if requested
-    if return_fig:
-        return fig
+    # save figure or show it
+    if (savefig is True):
+        # check that filename has been set
+        if (savefig_filename is None):
+            raise ValueError(
+                "The savefig_filename parameter is missing, but required since savefig was set to True."
+            )
+
+        # save the figure
+        f_extension = os.path.splitext(savefig_filename)[-1].lower()
+        if (".jpg" == f_extension or ".jpeg" == f_extension):
+            # check quality setting
+            if (savefig_quality is not None):
+                plt.savefig(savefig_filename,
+                            quality=savefig_quality,
+                            bbox_inches="tight")
+            else:
+                plt.savefig(savefig_filename, bbox_inches="tight")
+        else:
+            if (savefig_quality is not None):
+                # quality specified, but output filename is not a JPG, so show a warning
+                warnings.warn(
+                    "The savefig_quality parameter was specified, but is only used for saving JPG files. The "
+                    +
+                    "savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored",
+                    stacklevel=1)
+            plt.savefig(savefig_filename, bbox_inches="tight")
+
+        # clean up by closing the figure
+        plt.close(fig)
+
+    elif (returnfig is True):
+        # return the figure and axis objects
+        return (fig, axes)
     else:
-        return None
+        # show the figure
+        plt.show(fig)
+
+        # cleanup by closing the figure
+        plt.close(fig)
+
+    # return
+    return None
