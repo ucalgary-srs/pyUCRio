@@ -180,9 +180,6 @@ def plot(rio_data: Union[Data, List[Data]],
         fig = plt.figure(figsize=figsize)
         axes = [fig.add_axes((0, 0, 1, 1))]
 
-
-    
-
     # Iterate through each data object in list
     for data in rio_data:
 
