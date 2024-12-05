@@ -46,7 +46,7 @@ numpy = "^1.21.0"
 joblib = "^1.0.0"
 aacgmv2 = "^2.6.2"
 matplotlib = "^3.9.0"
-pyucalgarysrs = "1.6.0"
+pyucalgarysrs = "1.6.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "0.8.0"

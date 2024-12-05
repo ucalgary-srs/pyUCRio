@@ -223,14 +223,14 @@ def plot(rio_data: Union[Data, List[Data]],
                         warnings.warn(f"Omitting plotting (no absorption data) for '{dataset}'", UserWarning, stacklevel=1)
                         continue
                     else:
-                        for k, _band_idx in enumerate(bands):
+                        for k, _ in enumerate(bands):
                             data_arr = d.absorption
                             if band_names[k] in data_dict:
                                 data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
                             else:
                                 data_dict[band_names[k]] = data_arr
                 else:
-                    for k, _band_idx in enumerate(bands):
+                    for k, _ in enumerate(bands):
                         data_arr = d.raw_signal
                         if band_names[k] in data_dict:
                             data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
