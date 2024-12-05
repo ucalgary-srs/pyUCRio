@@ -145,6 +145,14 @@ def plot(rio_data: Union[Data, List[Data]],
     if isinstance(rio_data, Data):
         rio_data = [rio_data]
 
+    data_types = []
+    for data in rio_data:
+        if type(data.data[0]) not in data_types:
+            data_types.append(type(data.data[0]))
+
+    if len(data_types) > 1 and not stack_plot:
+        raise ValueError(f"Cannot plot multiple data-types on the same axis: {data_types}")
+
     # Cycle through colors and linestyles if provided
     color_cycle = itertools.cycle(color) if isinstance(color, list) else itertools.cycle([color])
     linestyle_cycle = itertools.cycle(linestyle) if isinstance(linestyle, list) else itertools.cycle([linestyle])
@@ -172,6 +180,9 @@ def plot(rio_data: Union[Data, List[Data]],
         fig = plt.figure(figsize=figsize)
         axes = [fig.add_axes((0, 0, 1, 1))]
 
+
+    
+
     # Iterate through each data object in list
     for data in rio_data:
 
@@ -191,15 +202,18 @@ def plot(rio_data: Union[Data, List[Data]],
         time_stamp = np.array([])
         data_dict = dict()
 
+        # Initialize list to automatically determine axis names
+        y_axis_names = []
+
         # Iterate through each Riometer / HSR data object (if spanning across multiple days for one dataset/site)
         for d in data.data:
-
             # Append to time stamp
             time_stamp = np.concatenate((time_stamp, d.timestamp))
 
             # Get the bands of interest and name them for tracking
             band_names = []
             if dataset == 'SWAN_HSR_K0_H5':
+
                 if hsr_bands is None:
                     bands = np.where(d.band_central_frequency)[0]
                 else:
@@ -209,8 +223,19 @@ def plot(rio_data: Union[Data, List[Data]],
                                  f"{round(float(d.band_central_frequency[band_idx].decode('utf-8').split()[0]), 1)} MHz")
                     band_names.append(band_name)
 
+                for _idx in bands:
+                    if absorption:
+                        y_axis_names.append('Absorption (dB)')
+                    else:
+                        y_axis_names.append('Raw Power (dB)')
+
             # Default band for non HSR data is 30 MHz
             else:
+                if absorption:
+                    y_axis_names.append('Absorption (dB)')
+                else:
+                    y_axis_names.append('Raw Signal (V)')
+
                 bands = [0]
                 band_name = f"{site.upper()} Riometer 30.0 MHz"
                 band_names.append(band_name)
@@ -258,7 +283,9 @@ def plot(rio_data: Union[Data, List[Data]],
                             data_dict[band_names[k]] = data_arr
 
         # Iterate through each data array we are plotting
-        for signal_name, signal_data in data_dict.items():
+        for j, (signal_name, signal_data) in enumerate(data_dict.items()):
+
+            auto_ylabel = y_axis_names[j]
 
             # Cycle colors and line-styles
             current_color = next(color_cycle)
@@ -284,7 +311,7 @@ def plot(rio_data: Union[Data, List[Data]],
             ax.plot(time_stamp, signal_data, color=current_color, label=signal_name, linestyle=current_linestyle)
 
             # Add ytitle
-            ax.set_ylabel("Absorption (dB)" if absorption else "Raw Power (dB)")
+            ax.set_ylabel(auto_ylabel)
             if ytitle:
                 ax.set_ylabel(ytitle)
 
