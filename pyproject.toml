@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pyucrio"
-version = "0.0.1"
+version = "1.0.0"
 description = "Python library supporting data access and analysis for riometer instrument data"
 readme = "README.md"
 homepage = "https://github.com/ucalgary-srs/pyUCRio"
