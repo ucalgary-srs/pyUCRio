@@ -74,7 +74,7 @@ rt = rio.tools
 </code></dt>
 <dd>
 <div class="desc"><p>Plot riometer data as combined line plots, or a stack plot. Used for plotting both single-frequency
-riometer data, and Hyper-Spectral Riometer (HSR) data, either separately or together. </p>
+riometer data and Hyper-Spectral Riometer (HSR) data, either separately or together. </p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>rio_data</code></strong> :&ensp;<code>Data | List[Data]</code></dt>
@@ -88,24 +88,28 @@ objects containing riometer data. All objects will be plotted according to plot 
 <dt><strong><code>downsample_seconds</code></strong> :&ensp;<code>int</code></dt>
 <dd>The window size for smoothing data before plotting. Default is 1, which is the same as the data
 temporal resolutions, meaning no smoothing will occur.</dd>
-<dt><strong><code>hsr_bands</code></strong> :&ensp;<code>int | List[int]</code></dt>
+<dt><strong><code>hsr_bands</code></strong> :&ensp;<code>int | list[int]</code></dt>
 <dd>The band indices to be plotted, specifically applicable to HSR data. By default, all HSR bands
 will be plotted.</dd>
-<dt><strong><code>color</code></strong> :&ensp;<code>str | List[str]</code></dt>
+<dt><strong><code>color</code></strong> :&ensp;<code>str | list[str]</code></dt>
 <dd>Matplotlib color name(s) to cycle through when plotting.</dd>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>Optional[list | tuple]</code></dt>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>list | tuple</code></dt>
 <dd>The overall figure size. Default is None, determined automatically by matplotlib.</dd>
 <dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
 <dd>The figure title. Default is no title.</dd>
+<dt><strong><code>dateformat</code></strong> :&ensp;<code>str</code></dt>
+<dd>The date format to use when plotting, represented as a string. For example, '%H' to format the
+times as hours, "%H:%M" to format as hours and minutes, or "%Y-%m-%d" to format as the year-month-day.
+Default of "%H" to format as hours.</dd>
 <dt><strong><code>xtitle</code></strong> :&ensp;<code>str</code></dt>
 <dd>The x-axis title. Default is no title.</dd>
 <dt><strong><code>ytitle</code></strong> :&ensp;<code>str</code></dt>
 <dd>The y-axis title. Default is no title.</dd>
-<dt><strong><code>xrange</code></strong> :&ensp;<code>List[datetime.datetime]</code></dt>
+<dt><strong><code>xrange</code></strong> :&ensp;<code>list[datetime.datetime]</code></dt>
 <dd>The start and end time ranges for x-axis plotting. Default is all x-axis values (full range).</dd>
-<dt><strong><code>yrange</code></strong> :&ensp;<code>List[int | float]</code></dt>
+<dt><strong><code>yrange</code></strong> :&ensp;<code>list[int | float]</code></dt>
 <dd>The [min, max] y-values to use for plotting.</dd>
-<dt><strong><code>linestyle</code></strong> :&ensp;<code>str | List</code></dt>
+<dt><strong><code>linestyle</code></strong> :&ensp;<code>str | list[str]</code></dt>
 <dd>Matplotlib linestyle names to cycle through for plotting.</dd>
 <dt><strong><code>returnfig</code></strong> :&ensp;<code>bool</code></dt>
 <dd>

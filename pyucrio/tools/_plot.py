@@ -50,7 +50,7 @@ def plot(rio_data: Union[Data, List[Data]],
          savefig_quality: Optional[int] = None) -> Any:
     """
     Plot riometer data as combined line plots, or a stack plot. Used for plotting both single-frequency
-    riometer data, and Hyper-Spectral Riometer (HSR) data, either separately or together. 
+    riometer data and Hyper-Spectral Riometer (HSR) data, either separately or together. 
 
     Args:
         rio_data (Data | List[Data]): 
@@ -68,18 +68,23 @@ def plot(rio_data: Union[Data, List[Data]],
             The window size for smoothing data before plotting. Default is 1, which is the same as the data
             temporal resolutions, meaning no smoothing will occur.
 
-        hsr_bands (int | List[int]): 
+        hsr_bands (int | list[int]): 
             The band indices to be plotted, specifically applicable to HSR data. By default, all HSR bands
             will be plotted.
 
-        color (str | List[str]): 
+        color (str | list[str]): 
             Matplotlib color name(s) to cycle through when plotting.
 
-        figsize (Optional[list | tuple]): 
+        figsize (list | tuple): 
             The overall figure size. Default is None, determined automatically by matplotlib.
 
         title (str): 
             The figure title. Default is no title.
+
+        dateformat (str): 
+            The date format to use when plotting, represented as a string. For example, '%H' to format the 
+            times as hours, "%H:%M" to format as hours and minutes, or "%Y-%m-%d" to format as the year-month-day.
+            Default of "%H" to format as hours.
 
         xtitle (str): 
             The x-axis title. Default is no title.
@@ -87,13 +92,13 @@ def plot(rio_data: Union[Data, List[Data]],
         ytitle (str): 
             The y-axis title. Default is no title.
 
-        xrange (List[datetime.datetime]): 
+        xrange (list[datetime.datetime]): 
             The start and end time ranges for x-axis plotting. Default is all x-axis values (full range).
 
-        yrange (List[int | float]): 
+        yrange (list[int | float]): 
             The [min, max] y-values to use for plotting.
 
-        linestyle (str | List): 
+        linestyle (str | list[str]): 
             Matplotlib linestyle names to cycle through for plotting.
 
         returnfig (bool): 
@@ -200,7 +205,7 @@ def plot(rio_data: Union[Data, List[Data]],
                 else:
                     bands = np.intersect1d(hsr_bands, np.where(d.band_central_frequency)[0])
                 for band_idx in bands:
-                    band_name = (f"{site.upper()} HSR band_{str(band_idx).zfill(2)} "
+                    band_name = (f"{site.upper()} HSR Band-{str(band_idx).zfill(2)} "
                                  f"{round(float(d.band_central_frequency[band_idx].decode('utf-8').split()[0]), 1)} MHz")
                     band_names.append(band_name)
 
