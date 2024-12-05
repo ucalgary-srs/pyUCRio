@@ -13,12 +13,12 @@
 # limitations under the License.
 
 import os
+import warnings
 import datetime
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-import warnings
 from typing import List, Union, Optional, Tuple, Any
 from pyucalgarysrs.data.classes import Data
 
@@ -42,58 +42,59 @@ def plot(rio_data: Union[Data, List[Data]],
          xtitle: Optional[str] = None,
          ytitle: Optional[str] = None,
          xrange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None,
-         yrange: Optional[Tuple[float, float]] = None,
+         yrange: Optional[Union[Tuple[float, float], Tuple[int, int]]] = None,
          linestyle: Optional[Union[str, List[str]]] = '-',
          returnfig: bool = False,
          savefig: bool = False,
          savefig_filename: Optional[str] = None,
          savefig_quality: Optional[int] = None) -> Any:
     """
-    Plot riometer data.
+    Plot riometer data as combined line plots, or a stack plot. Used for plotting both single-frequency
+    riometer data, and Hyper-Spectral Riometer (HSR) data, either separately or together. 
 
     Args:
-        rio_data (pyucalgarysrs.data.classes | List): 
-            A single, or list of Data objects containing riometer data. This isthe data to be
-            plotted. All objects will be plotted according to plot settings.
+        rio_data (Data | List[Data]): 
+            The data to be plotted, represented as a single, or list, of 
+            [`Data`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Data)
+            objects containing riometer data. All objects will be plotted according to plot settings.
 
-        absorption (Optional[bool]): 
-            If True, plot absorption data, as opposed to raw data. Defaults to False.
+        absorption (bool): 
+            Plot absorption data, as opposed to raw data. Defaults to False.
 
-        stack_plot (Optional[bool]): 
-            If true, split plots into a stack-plot of subplots for each data array. Defaults to False.
-        
-        downsample_seconds (Optional[int]):
-            An integer, giving the window size for smoothing data before plotting. Default is no smoothing (1).
+        stack_plot (bool): 
+            Render plots into a stack-plot of subplots for each data array. Defaults to False. 
 
-        hsr_bands (Optional[int | List]):
-            An int or list of ints giving the band indices to be plotted for HSR data.
+        downsample_seconds (int): 
+            The window size for smoothing data before plotting. Default is 1, which is the same as the data
+            temporal resolutions, meaning no smoothing will occur.
 
-        color (Optional[str | list]):
-            A string or list of strings giving matplotlib color names to cycle through for plotting.
+        hsr_bands (int | List[int]): 
+            The band indices to be plotted, specifically applicable to HSR data. By default, all HSR bands
+            will be plotted.
 
-        figsize (Optional[list | tuple]):
+        color (str | List[str]): 
+            Matplotlib color name(s) to cycle through when plotting.
+
+        figsize (Optional[list | tuple]): 
             The overall figure size. Default is None, determined automatically by matplotlib.
 
-        return_fig (Optional[bool]):
-            If true, function call returns reference to the matplotlib figure.
-
-        title (Optional[str]):
+        title (str): 
             The figure title. Default is no title.
 
-        xtitle (Optional[str]):
-            The x-axis title.
+        xtitle (str): 
+            The x-axis title. Default is no title.
         
-        ytitle (Optional[str]):
-            The y-axis title. 
+        ytitle (str): 
+            The y-axis title. Default is no title.
 
-        xrange (Optional[list[datetime.datetime]]):
-            The start and end times to cut-off x-axis plotting at.
+        xrange (List[datetime.datetime]): 
+            The start and end time ranges for x-axis plotting. Default is all x-axis values (full range).
 
-        yrange (Optional[list[int | float]]):
-            The min/max y-values to plot.
+        yrange (List[int | float]): 
+            The [min, max] y-values to use for plotting.
 
-        linestyle (Optional[str | list]):
-            A string or list of strings giving matplotlib linestyle names to cycle through for plotting.
+        linestyle (str | List): 
+            Matplotlib linestyle names to cycle through for plotting.
 
         returnfig (bool): 
             Instead of displaying the image, return the matplotlib figure object. This allows for further plot 
