@@ -109,6 +109,8 @@ to access the submodules and carry over configuration information in the super c
              file_list: Union[List[str], List[Path], str, Path],
              n_parallel: int = 1,
              no_metadata: bool = False,
+             start_time: Optional[datetime.datetime] = None,
+             end_time: Optional[datetime.datetime] = None,
              quiet: bool = False) -&gt; Data:
         &#34;&#34;&#34;
         Read in data files for a given dataset. Note that only one type of dataset&#39;s data
@@ -133,6 +135,22 @@ to access the submodules and carry over configuration information in the super c
                 Skip reading of metadata. This is a minor optimization if the metadata is not needed.
                 Default is `False`. This parameter is optional.
             
+            start_time (datetime.datetime): 
+                The start timestamp to read data onwards from (inclusive). This can be utilized to 
+                read a portion of a data file, and could be paired with the `end_time` parameter. 
+                This tends to be utilized for datasets that are hour or day-long files where it is 
+                possible to only read a smaller bit of that file. If not supplied, it will assume 
+                the start time is the timestamp of the first record in the first file supplied (ie. 
+                beginning of the supplied data). This parameter is optional.
+
+            end_time (datetime.datetime): 
+                The end timestamp to read data up to (inclusive). This can be utilized to read a 
+                portion of a data file, and could be paired with the `start_time` parameter. This 
+                tends to be utilized for datasets that are hour or day-long files where it is possible 
+                to only read a smaller bit of that file. If not supplied, it will it will assume the 
+                end time is the timestamp of the last record in the last file supplied (ie. end of the 
+                supplied data). This parameter is optional.
+
             quiet (bool): 
                 Do not print out errors while reading data files, if any are encountered. Any files
                 that encounter errors will be, as usual, accessible via the `problematic_files` 
@@ -153,6 +171,8 @@ to access the submodules and carry over configuration information in the super c
                 file_list,
                 n_parallel=n_parallel,
                 no_metadata=no_metadata,
+                start_time=start_time,
+                end_time=end_time,
                 quiet=quiet,
             )
         except SRSUnsupportedReadError as e:
@@ -164,6 +184,8 @@ to access the submodules and carry over configuration information in the super c
                               file_list: Union[List[str], List[Path], str, Path],
                               n_parallel: int = 1,
                               no_metadata: bool = False,
+                              start_time: Optional[datetime.datetime] = None,
+                              end_time: Optional[datetime.datetime] = None,
                               quiet: bool = False,
                               dataset: Optional[Dataset] = None) -&gt; Data:
         &#34;&#34;&#34;
@@ -183,7 +205,23 @@ to access the submodules and carry over configuration information in the super c
             no_metadata (bool): 
                 Skip reading of metadata. This is a minor optimization if the metadata is not needed.
                 Default is `False`. This parameter is optional.
-            
+
+            start_time (datetime.datetime): 
+                The start timestamp to read data onwards from (inclusive). This can be utilized to 
+                read a portion of a data file, and could be paired with the `end_time` parameter. 
+                This tends to be utilized for datasets that are hour or day-long files where it is 
+                possible to only read a smaller bit of that file. If not supplied, it will assume 
+                the start time is the timestamp of the first record in the first file supplied (ie. 
+                beginning of the supplied data). This parameter is optional.
+
+            end_time (datetime.datetime): 
+                The end timestamp to read data up to (inclusive). This can be utilized to read a 
+                portion of a data file, and could be paired with the `start_time` parameter. This 
+                tends to be utilized for datasets that are hour or day-long files where it is possible 
+                to only read a smaller bit of that file. If not supplied, it will it will assume the 
+                end time is the timestamp of the last record in the last file supplied (ie. end of the 
+                supplied data). This parameter is optional.
+
             quiet (bool): 
                 Do not print out errors while reading data files, if any are encountered. Any files
                 that encounter errors will be, as usual, accessible via the `problematic_files` 
@@ -205,6 +243,8 @@ to access the submodules and carry over configuration information in the super c
                 file_list,
                 n_parallel=n_parallel,
                 no_metadata=no_metadata,
+                start_time=start_time,
+                end_time=end_time,
                 quiet=quiet,
                 dataset=dataset,
             )
@@ -215,6 +255,8 @@ to access the submodules and carry over configuration information in the super c
                       file_list: Union[List[str], List[Path], str, Path],
                       n_parallel: int = 1,
                       no_metadata: bool = False,
+                      start_time: Optional[datetime.datetime] = None,
+                      end_time: Optional[datetime.datetime] = None,
                       quiet: bool = False,
                       dataset: Optional[Dataset] = None) -&gt; Data:
         &#34;&#34;&#34;
@@ -234,7 +276,23 @@ to access the submodules and carry over configuration information in the super c
             no_metadata (bool): 
                 Skip reading of metadata. This is a minor optimization if the metadata is not needed.
                 Default is `False`. This parameter is optional.
-            
+
+            start_time (datetime.datetime): 
+                The start timestamp to read data onwards from (inclusive). This can be utilized to 
+                read a portion of a data file, and could be paired with the `end_time` parameter. 
+                This tends to be utilized for datasets that are hour or day-long files where it is 
+                possible to only read a smaller bit of that file. If not supplied, it will assume 
+                the start time is the timestamp of the first record in the first file supplied (ie. 
+                beginning of the supplied data). This parameter is optional.
+
+            end_time (datetime.datetime): 
+                The end timestamp to read data up to (inclusive). This can be utilized to read a 
+                portion of a data file, and could be paired with the `start_time` parameter. This 
+                tends to be utilized for datasets that are hour or day-long files where it is possible 
+                to only read a smaller bit of that file. If not supplied, it will it will assume the 
+                end time is the timestamp of the last record in the last file supplied (ie. end of the 
+                supplied data). This parameter is optional.
+
             quiet (bool): 
                 Do not print out errors while reading data files, if any are encountered. Any files
                 that encounter errors will be, as usual, accessible via the `problematic_files` 
@@ -255,6 +313,8 @@ to access the submodules and carry over configuration information in the super c
             file_list,
             n_parallel=n_parallel,
             no_metadata=no_metadata,
+            start_time=start_time,
+            end_time=end_time,
             quiet=quiet,
             dataset=dataset,
         )</code></pre>
@@ -291,7 +351,7 @@ is required.</dd>
 <p>A list of the dataset names with file reading support.</p></div>
 </dd>
 <dt id="pyucrio.data.ucalgary.read.ReadManager.read"><code class="name flex">
-<span>def <span class="ident">read</span></span>(<span>self,<br>dataset: pyucalgarysrs.data.classes.Dataset,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>quiet: bool = False) ‑> pyucalgarysrs.data.classes.Data</span>
+<span>def <span class="ident">read</span></span>(<span>self,<br>dataset: pyucalgarysrs.data.classes.Dataset,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>start_time: datetime.datetime | None = None,<br>end_time: datetime.datetime | None = None,<br>quiet: bool = False) ‑> pyucalgarysrs.data.classes.Data</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read in data files for a given dataset. Note that only one type of dataset's data
@@ -312,6 +372,20 @@ is optional.</dd>
 <dt><strong><code>no_metadata</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Skip reading of metadata. This is a minor optimization if the metadata is not needed.
 Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>start_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The start timestamp to read data onwards from (inclusive). This can be utilized to
+read a portion of a data file, and could be paired with the <code>end_time</code> parameter.
+This tends to be utilized for datasets that are hour or day-long files where it is
+possible to only read a smaller bit of that file. If not supplied, it will assume
+the start time is the timestamp of the first record in the first file supplied (ie.
+beginning of the supplied data). This parameter is optional.</dd>
+<dt><strong><code>end_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The end timestamp to read data up to (inclusive). This can be utilized to read a
+portion of a data file, and could be paired with the <code>start_time</code> parameter. This
+tends to be utilized for datasets that are hour or day-long files where it is possible
+to only read a smaller bit of that file. If not supplied, it will it will assume the
+end time is the timestamp of the last record in the last file supplied (ie. end of the
+supplied data). This parameter is optional.</dd>
 <dt><strong><code>quiet</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Do not print out errors while reading data files, if any are encountered. Any files
 that encounter errors will be, as usual, accessible via the <code>problematic_files</code>
@@ -330,7 +404,7 @@ trying to read files.</dd>
 </dl></div>
 </dd>
 <dt id="pyucrio.data.ucalgary.read.ReadManager.read_norstar_riometer"><code class="name flex">
-<span>def <span class="ident">read_norstar_riometer</span></span>(<span>self,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>quiet: bool = False,<br>dataset: pyucalgarysrs.data.classes.Dataset | None = None) ‑> pyucalgarysrs.data.classes.Data</span>
+<span>def <span class="ident">read_norstar_riometer</span></span>(<span>self,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>start_time: datetime.datetime | None = None,<br>end_time: datetime.datetime | None = None,<br>quiet: bool = False,<br>dataset: pyucalgarysrs.data.classes.Dataset | None = None) ‑> pyucalgarysrs.data.classes.Data</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read in NORSTAR Riometer data (K0 and K2 ASCII files).</p>
@@ -347,6 +421,20 @@ is optional.</dd>
 <dt><strong><code>no_metadata</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Skip reading of metadata. This is a minor optimization if the metadata is not needed.
 Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>start_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The start timestamp to read data onwards from (inclusive). This can be utilized to
+read a portion of a data file, and could be paired with the <code>end_time</code> parameter.
+This tends to be utilized for datasets that are hour or day-long files where it is
+possible to only read a smaller bit of that file. If not supplied, it will assume
+the start time is the timestamp of the first record in the first file supplied (ie.
+beginning of the supplied data). This parameter is optional.</dd>
+<dt><strong><code>end_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The end timestamp to read data up to (inclusive). This can be utilized to read a
+portion of a data file, and could be paired with the <code>start_time</code> parameter. This
+tends to be utilized for datasets that are hour or day-long files where it is possible
+to only read a smaller bit of that file. If not supplied, it will it will assume the
+end time is the timestamp of the last record in the last file supplied (ie. end of the
+supplied data). This parameter is optional.</dd>
 <dt><strong><code>quiet</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Do not print out errors while reading data files, if any are encountered. Any files
 that encounter errors will be, as usual, accessible via the <code>problematic_files</code>
@@ -365,7 +453,7 @@ object containing the data read in, among other values.</p>
 </dl></div>
 </dd>
 <dt id="pyucrio.data.ucalgary.read.ReadManager.read_swan_hsr"><code class="name flex">
-<span>def <span class="ident">read_swan_hsr</span></span>(<span>self,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>quiet: bool = False,<br>dataset: pyucalgarysrs.data.classes.Dataset | None = None) ‑> pyucalgarysrs.data.classes.Data</span>
+<span>def <span class="ident">read_swan_hsr</span></span>(<span>self,<br>file_list: List[str] | List[pathlib.Path] | str | pathlib.Path,<br>n_parallel: int = 1,<br>no_metadata: bool = False,<br>start_time: datetime.datetime | None = None,<br>end_time: datetime.datetime | None = None,<br>quiet: bool = False,<br>dataset: pyucalgarysrs.data.classes.Dataset | None = None) ‑> pyucalgarysrs.data.classes.Data</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Read in SWAN Hyper Spectral Riometer (HSR) data (K0 H5 files).</p>
@@ -382,6 +470,20 @@ is optional.</dd>
 <dt><strong><code>no_metadata</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Skip reading of metadata. This is a minor optimization if the metadata is not needed.
 Default is <code>False</code>. This parameter is optional.</dd>
+<dt><strong><code>start_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The start timestamp to read data onwards from (inclusive). This can be utilized to
+read a portion of a data file, and could be paired with the <code>end_time</code> parameter.
+This tends to be utilized for datasets that are hour or day-long files where it is
+possible to only read a smaller bit of that file. If not supplied, it will assume
+the start time is the timestamp of the first record in the first file supplied (ie.
+beginning of the supplied data). This parameter is optional.</dd>
+<dt><strong><code>end_time</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>The end timestamp to read data up to (inclusive). This can be utilized to read a
+portion of a data file, and could be paired with the <code>start_time</code> parameter. This
+tends to be utilized for datasets that are hour or day-long files where it is possible
+to only read a smaller bit of that file. If not supplied, it will it will assume the
+end time is the timestamp of the last record in the last file supplied (ie. end of the
+supplied data). This parameter is optional.</dd>
 <dt><strong><code>quiet</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Do not print out errors while reading data files, if any are encountered. Any files
 that encounter errors will be, as usual, accessible via the <code>problematic_files</code>
