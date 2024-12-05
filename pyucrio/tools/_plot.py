@@ -132,14 +132,19 @@ def plot(rio_data: Union[Data, List[Data]],
     # check return mode
     if (returnfig is True and savefig is True):
         raise ValueError("Only one of returnfig or savefig can be set to True")
-    if (returnfig is True and (savefig_filename is not None or savefig_quality is not None)):
-        warnings.warn("The figure will be returned, but a savefig option parameter was supplied. Consider " +
-                      "removing the savefig option parameter(s) as they will be ignored.",
-                      stacklevel=1)
-    elif (savefig is False and (savefig_filename is not None or savefig_quality is not None)):
-        warnings.warn("A savefig option parameter was supplied, but the savefig parameter is False. The " +
-                      "savefig option parameters will be ignored.",
-                      stacklevel=1)
+    if (returnfig is True
+            and (savefig_filename is not None or savefig_quality is not None)):
+        warnings.warn(
+            "The figure will be returned, but a savefig option parameter was supplied. Consider "
+            +
+            "removing the savefig option parameter(s) as they will be ignored.",
+            stacklevel=1)
+    elif (savefig is False
+          and (savefig_filename is not None or savefig_quality is not None)):
+        warnings.warn(
+            "A savefig option parameter was supplied, but the savefig parameter is False. The "
+            + "savefig option parameters will be ignored.",
+            stacklevel=1)
 
     # Convert to single element list if only a single data object is passed in
     if isinstance(rio_data, Data):
@@ -151,11 +156,14 @@ def plot(rio_data: Union[Data, List[Data]],
             data_types.append(type(data.data[0]))
 
     if len(data_types) > 1 and not stack_plot:
-        raise ValueError(f"Cannot plot multiple data-types on the same axis: {data_types}")
+        raise ValueError(
+            f"Cannot plot multiple data-types on the same axis: {data_types}")
 
     # Cycle through colors and linestyles if provided
-    color_cycle = itertools.cycle(color) if isinstance(color, list) else itertools.cycle([color])
-    linestyle_cycle = itertools.cycle(linestyle) if isinstance(linestyle, list) else itertools.cycle([linestyle])
+    color_cycle = itertools.cycle(color) if isinstance(
+        color, list) else itertools.cycle([color])
+    linestyle_cycle = itertools.cycle(linestyle) if isinstance(
+        linestyle, list) else itertools.cycle([linestyle])
 
     # Count total plots required
     total_plots = 0
@@ -164,9 +172,11 @@ def plot(rio_data: Union[Data, List[Data]],
         if data_name == 'SWAN_HSR_K0_H5':
             if hsr_bands is not None:
 
-                total_plots += len(hsr_bands) if isinstance(hsr_bands, list) else 1
+                total_plots += len(hsr_bands) if isinstance(hsr_bands,
+                                                            list) else 1
             else:
-                total_plots += len(np.where(data.data[0].band_central_frequency)[0])
+                total_plots += len(
+                    np.where(data.data[0].band_central_frequency)[0])
         else:
             total_plots += 1
 
@@ -186,9 +196,15 @@ def plot(rio_data: Union[Data, List[Data]],
         # Check for an empty data object (in case of attempting to download non-existing data)
         if len(data.data) == 0:
             if data.dataset is not None:
-                warnings.warn("Received one or more empty Data objects ('%s')" % (data.dataset.name), UserWarning, stacklevel=1)
+                warnings.warn(
+                    "Received one or more empty Data objects ('%s')" %
+                    (data.dataset.name),
+                    UserWarning,
+                    stacklevel=1)
             else:
-                warnings.warn("Received one or more empty Data objects." % UserWarning, stacklevel=1)
+                warnings.warn("Received one or more empty Data objects." %
+                              UserWarning,
+                              stacklevel=1)
             continue
 
         # Get the dataset and site names
@@ -214,10 +230,14 @@ def plot(rio_data: Union[Data, List[Data]],
                 if hsr_bands is None:
                     bands = np.where(d.band_central_frequency)[0]
                 else:
-                    bands = np.intersect1d(hsr_bands, np.where(d.band_central_frequency)[0])
+                    bands = np.intersect1d(
+                        hsr_bands,
+                        np.where(d.band_central_frequency)[0])
                 for band_idx in bands:
-                    band_name = (f"{site.upper()} HSR Band-{str(band_idx).zfill(2)} "
-                                 f"{round(float(d.band_central_frequency[band_idx].decode('utf-8').split()[0]), 1)} MHz")
+                    band_name = (
+                        f"{site.upper()} HSR Band-{str(band_idx).zfill(2)} "
+                        f"{round(float(d.band_central_frequency[band_idx].decode('utf-8').split()[0]), 1)} MHz"
+                    )
                     band_names.append(band_name)
 
                 for _idx in bands:
@@ -238,44 +258,55 @@ def plot(rio_data: Union[Data, List[Data]],
                 band_names.append(band_name)
 
             # Pull out the data array of interest from the Riometer or HSR data object
-            if (dataset == 'NORSTAR_RIOMETER_K0_TXT') or (dataset == 'NORSTAR_RIOMETER_K2_TXT'):
+            if (dataset == 'NORSTAR_RIOMETER_K0_TXT') or (
+                    dataset == 'NORSTAR_RIOMETER_K2_TXT'):
                 if absorption:
                     # Check there is absorption data if requested
                     if d.absorption is None:
-                        warnings.warn(f"Omitting plotting (no absorption data) for '{dataset}'", UserWarning, stacklevel=1)
+                        warnings.warn(
+                            f"Omitting plotting (no absorption data) for '{dataset}'",
+                            UserWarning,
+                            stacklevel=1)
                         continue
                     else:
                         for k, _ in enumerate(bands):
                             data_arr = d.absorption
                             if band_names[k] in data_dict:
-                                data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
+                                data_dict[band_names[k]] = np.concatenate(
+                                    (data_dict[band_names[k]], data_arr))
                             else:
                                 data_dict[band_names[k]] = data_arr
                 else:
                     for k, _ in enumerate(bands):
                         data_arr = d.raw_signal
                         if band_names[k] in data_dict:
-                            data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
+                            data_dict[band_names[k]] = np.concatenate(
+                                (data_dict[band_names[k]], data_arr))
                         else:
                             data_dict[band_names[k]] = data_arr
             elif dataset == 'SWAN_HSR_K0_H5':
                 if absorption:
                     # Check there is absorption data if requested
                     if d.absorption is None:
-                        warnings.warn(f"Omitting plotting (no absorption data) for '{dataset}'", UserWarning, stacklevel=1)
+                        warnings.warn(
+                            f"Omitting plotting (no absorption data) for '{dataset}'",
+                            UserWarning,
+                            stacklevel=1)
                         continue
                     else:
                         for k, band_idx in enumerate(bands):
                             data_arr = d.absorption[band_idx, :]
                             if band_names[band_idx] in data_dict:
-                                data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
+                                data_dict[band_names[k]] = np.concatenate(
+                                    (data_dict[band_names[k]], data_arr))
                             else:
                                 data_dict[band_names[k]] = data_arr
                 else:
                     for k, band_idx in enumerate(bands):
                         data_arr = d.raw_power[band_idx, :]
                         if band_names[k] in data_dict:
-                            data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
+                            data_dict[band_names[k]] = np.concatenate(
+                                (data_dict[band_names[k]], data_arr))
                         else:
                             data_dict[band_names[k]] = data_arr
 
@@ -298,14 +329,21 @@ def plot(rio_data: Union[Data, List[Data]],
             # Down-sample data if requested
             if downsample_seconds > 0:
                 # Calculate the number of points to down-sample based on downsample_seconds and datetime array
-                time_deltas = np.array([(time_stamp[i + 1] - time_stamp[i]).total_seconds() for i in range(len(time_stamp) - 1)])
+                time_deltas = np.array([
+                    (time_stamp[i + 1] - time_stamp[i]).total_seconds()
+                    for i in range(len(time_stamp) - 1)
+                ])
                 sampling_rate = np.median(time_deltas)
                 window_size = int(downsample_seconds / sampling_rate)
                 if window_size > 0:
                     signal_data = __smooth_data(signal_data, window_size)
 
             # Plot the data
-            ax.plot(time_stamp, signal_data, color=current_color, label=signal_name, linestyle=current_linestyle)
+            ax.plot(time_stamp,
+                    signal_data,
+                    color=current_color,
+                    label=signal_name,
+                    linestyle=current_linestyle)
 
             # Add ytitle
             ax.set_ylabel(auto_ylabel)
@@ -319,17 +357,21 @@ def plot(rio_data: Union[Data, List[Data]],
             if stack_plot:
                 if ax is axes[-1]:
                     if xtitle is None:
-                        ax.set_xlabel("Hour (UTC)" if date_format is None else "Time (UTC)")
+                        ax.set_xlabel("Hour (UTC)" if date_format is
+                                      None else "Time (UTC)")
                     else:
                         ax.set_xlabel(xtitle)
             else:
                 if xtitle is None:
-                    ax.set_xlabel("Hour (UTC)" if date_format is None else "Time (UTC)")
+                    ax.set_xlabel("Hour (UTC)" if date_format is
+                                  None else "Time (UTC)")
                 else:
                     ax.set_xlabel(xtitle)
 
             # Format the x-axis (dates) automatically or as requested
-            ax.xaxis.set_major_formatter(mdates.DateFormatter('%H' if date_format is None else date_format))
+            ax.xaxis.set_major_formatter(
+                mdates.DateFormatter('%H' if date_format is
+                                     None else date_format))
 
             # Set x-range
             if xrange:
@@ -361,22 +403,28 @@ def plot(rio_data: Union[Data, List[Data]],
     if (savefig is True):
         # check that filename has been set
         if (savefig_filename is None):
-            raise ValueError("The savefig_filename parameter is missing, but required since savefig was set to True.")
+            raise ValueError(
+                "The savefig_filename parameter is missing, but required since savefig was set to True."
+            )
 
         # save the figure
         f_extension = os.path.splitext(savefig_filename)[-1].lower()
         if (".jpg" == f_extension or ".jpeg" == f_extension):
             # check quality setting
             if (savefig_quality is not None):
-                plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches="tight")
+                plt.savefig(savefig_filename,
+                            quality=savefig_quality,
+                            bbox_inches="tight")
             else:
                 plt.savefig(savefig_filename, bbox_inches="tight")
         else:
             if (savefig_quality is not None):
                 # quality specified, but output filename is not a JPG, so show a warning
-                warnings.warn("The savefig_quality parameter was specified, but is only used for saving JPG files. The " +
-                              "savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored",
-                              stacklevel=1)
+                warnings.warn(
+                    "The savefig_quality parameter was specified, but is only used for saving JPG files. The "
+                    +
+                    "savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored",
+                    stacklevel=1)
             plt.savefig(savefig_filename, bbox_inches="tight")
 
         # clean up by closing the figure
