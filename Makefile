@@ -12,6 +12,9 @@ update upgrade:
 	python -m pip install --upgrade poetry
 	poetry update
 
+docs:
+	poetry run pdoc3 --html --force --output-dir docs/generated pyucrio --config "lunr_search={'fuzziness': 1}" --template-dir docs/templates
+
 test: test-linting
 
 test-linting: test-ruff test-pycodestyle test-pyright test-bandit
@@ -50,11 +53,13 @@ test-coverage coverage:
 show-outdated:
 	poetry show --outdated
 
-docs:
-	poetry run pdoc3 --html --force --output-dir docs/generated pyucrio --config "lunr_search={'fuzziness': 1}" --template-dir docs/templates
+tool-checks:
+	@./tools/check_for_license.py
+	@./tools/check_docstrings.py
 
 publish:
 	${MAKE} test
+	${MAKE} tool-checks
 	poetry build
 	poetry publish
 	@rm -rf pyucrio.egg-info build dist

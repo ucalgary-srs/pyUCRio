@@ -1,5 +1,12 @@
-Version 1.0.0
+Version 1.1.0
 -------------------
-  
-  - initial release
+- added `pretty_print()` function to `PyUCRio()` object
+- added `progress_bar_backend` parameter to `PyUCRio()` object
+- refactor `tools` module to be integrated with `PyUCRio()` object
+- bump PyUCalgarySRS dependency to latest
+
+
+Version 1.0.0
+-------------------  
+- initial release
 

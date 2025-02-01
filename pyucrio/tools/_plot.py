@@ -14,12 +14,10 @@
 
 import os
 import warnings
-import datetime
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from typing import List, Union, Optional, Tuple, Any
 from pyucalgarysrs.data.classes import Data
 
 
@@ -30,104 +28,8 @@ def __smooth_data(data, window_size):
     return np.convolve(data, np.ones(window_size) / window_size, mode='same')
 
 
-def plot(rio_data: Union[Data, List[Data]],
-         absorption: bool = False,
-         stack_plot: bool = False,
-         downsample_seconds: int = 1,
-         hsr_bands: Optional[Union[int, List[int]]] = None,
-         color: Optional[Union[str, List[str]]] = None,
-         figsize: Optional[Tuple[int, int]] = None,
-         title: Optional[str] = None,
-         date_format: Optional[str] = None,
-         xtitle: Optional[str] = None,
-         ytitle: Optional[str] = None,
-         xrange: Optional[Tuple[datetime.datetime, datetime.datetime]] = None,
-         yrange: Optional[Union[Tuple[float, float], Tuple[int, int]]] = None,
-         linestyle: Optional[Union[str, List[str]]] = '-',
-         returnfig: bool = False,
-         savefig: bool = False,
-         savefig_filename: Optional[str] = None,
-         savefig_quality: Optional[int] = None) -> Any:
-    """
-    Plot riometer data as combined line plots, or a stack plot. Used for plotting both single-frequency
-    riometer data and Hyper-Spectral Riometer (HSR) data, either separately or together. 
-
-    Args:
-        rio_data (Data | List[Data]): 
-            The data to be plotted, represented as a single, or list, of 
-            [`Data`](https://docs-pyucalgarysrs.phys.ucalgary.ca/data/classes.html#pyucalgarysrs.data.classes.Data)
-            objects containing riometer data. All objects will be plotted according to plot settings.
-
-        absorption (bool): 
-            Plot absorption data, as opposed to raw data. Defaults to False.
-
-        stack_plot (bool): 
-            Render plots into a stack-plot of subplots for each data array. Defaults to False. 
-
-        downsample_seconds (int): 
-            The window size for smoothing data before plotting. Default is 1, which is the same as the data
-            temporal resolutions, meaning no smoothing will occur.
-
-        hsr_bands (int | list[int]): 
-            The band indices to be plotted, specifically applicable to HSR data. By default, all HSR bands
-            will be plotted.
-
-        color (str | list[str]): 
-            Matplotlib color name(s) to cycle through when plotting.
-
-        figsize (list | tuple): 
-            The overall figure size. Default is None, determined automatically by matplotlib.
-
-        title (str): 
-            The figure title. Default is no title.
-
-        dateformat (str): 
-            The date format to use when plotting, represented as a string. For example, '%H' to format the 
-            times as hours, "%H:%M" to format as hours and minutes, or "%Y-%m-%d" to format as the year-month-day.
-            Default of "%H" to format as hours.
-
-        xtitle (str): 
-            The x-axis title. Default is no title.
-        
-        ytitle (str): 
-            The y-axis title. Default is no title.
-
-        xrange (list[datetime.datetime]): 
-            The start and end time ranges for x-axis plotting. Default is all x-axis values (full range).
-
-        yrange (list[int | float]): 
-            The [min, max] y-values to use for plotting.
-
-        linestyle (str | list[str]): 
-            Matplotlib linestyle names to cycle through for plotting.
-
-        returnfig (bool): 
-            Instead of displaying the image, return the matplotlib figure object. This allows for further plot 
-            manipulation, for example, adding labels or a title in a different location than the default. 
-            
-            Remember - if this parameter is supplied, be sure that you close your plot after finishing work 
-            with it. This can be achieved by doing `plt.close(fig)`. 
-            
-            Note that this method cannot be used in combination with `savefig`.
-
-        savefig (bool): 
-            Save the displayed image to disk instead of displaying it. The parameter savefig_filename is required if 
-            this parameter is set to True. Defaults to `False`.
-
-        savefig_filename (str): 
-            Filename to save the image to. Must be specified if the savefig parameter is set to True.
-
-        savefig_quality (int): 
-            Quality level of the saved image. This can be specified if the savefig_filename is a JPG image. If it
-            is a PNG, quality is ignored. Default quality level for JPGs is matplotlib/Pillow's default of 75%.
-        
-    Returns:
-        The displayed plot, by default. If `savefig` is set to True, nothing will be returned. If `returnfig` is 
-        set to True, the plotting variables `(fig, axes)` will be returned.
-
-    Raises:
-        ValueError: issue with supplied parameters.
-    """
+def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color, figsize, title, date_format, xtitle, ytitle, xrange, yrange,
+         linestyle, returnfig, savefig, savefig_filename, savefig_quality):
 
     # check return mode
     if (returnfig is True and savefig is True):
@@ -217,7 +119,7 @@ def plot(rio_data: Union[Data, List[Data]],
                     bands = np.intersect1d(hsr_bands, np.where(d.band_central_frequency)[0])
                 for band_idx in bands:
                     band_name = (f"{site.upper()} HSR Band-{str(band_idx).zfill(2)} "
-                                 f"{round(float(d.band_central_frequency[band_idx].decode('utf-8').split()[0]), 1)} MHz")
+                                 f"{round(float(d.band_central_frequency[band_idx].split()[0]), 1)} MHz")
                     band_names.append(band_name)
 
                 for _idx in bands:

@@ -22,7 +22,7 @@ from typing import Optional, Dict, Any, Literal
 from . import __version__
 from .exceptions import PyUCRioInitializationError, PyUCRioPurgeError
 from .data import DataManager
-from . import tools as tools_module
+from .tools import ToolsManager
 
 
 class PyUCRio:
@@ -57,6 +57,7 @@ class PyUCRio:
                  api_base_url: Optional[str] = None,
                  api_timeout: Optional[int] = None,
                  api_headers: Optional[Dict] = None,
+                 progress_bar_backend: Literal["auto", "standard", "notebook"] = "auto",
                  srs_obj: Optional[pyucalgarysrs.PyUCalgarySRS] = None):
         """
         Attributes:
@@ -80,6 +81,10 @@ class PyUCRio:
                 consists of several standard headers. Any changes to this parameter are in addition to 
                 the default standard headers.
         
+            progress_bar_backend (str): 
+                The progress bar backend to use. Valid choices are 'auto', 'standard', or 'notebook'. 
+                Default is 'auto'. This parameter is optional.
+
             srs_obj (pyucalgarysrs.PyUCalgarySRS): 
                 A [PyUCalgarySRS](https://docs-pyucalgarysrs.phys.ucalgary.ca/#pyucalgarysrs.PyUCalgarySRS) object. 
                 If not supplied, it will create the object with some settings carried over from the PyUCRio 
@@ -103,6 +108,10 @@ class PyUCRio:
         if (api_timeout is None):
             self.__api_timeout = self.__DEFAULT_API_TIMEOUT
 
+        # initialize progress bar parameters
+        self.__progress_bar_backend = progress_bar_backend
+        self._tqdm = None
+
         # initialize paths
         self.__initialize_paths()
 
@@ -116,9 +125,12 @@ class PyUCRio:
         else:
             self.__srs_obj = srs_obj
 
+        # initialize progress bar tqdm object (by pulling it from srs_obj)
+        self._tqdm = self.__srs_obj._tqdm
+
         # initialize sub-modules
         self.__data = DataManager(self)
-        self.__tools = tools_module
+        self.__tools = ToolsManager()
 
     # ------------------------------------------
     # properties for submodule managers
@@ -196,6 +208,22 @@ class PyUCRio:
         self.__srs_obj.download_output_root_path = self.__download_output_root_path
 
     @property
+    def progress_bar_backend(self):
+        """
+        Property for the progress bar backend. See above for details.
+        """
+        return self.__progress_bar_backend
+
+    @progress_bar_backend.setter
+    def progress_bar_backend(self, value: Literal["auto", "standard", "notebook"]):
+        value = value.lower()  # type: ignore
+        if (value != "auto" and value != "standard" and value != "notebook"):
+            raise PyUCRioInitializationError("Invalid progress bar backend. Allowed values are 'auto', 'standard' or 'notebook'.")
+        self.__progress_bar_backend = value
+        self.__srs_obj.progress_bar_backend = value
+        self._tqdm = self.__srs_obj._tqdm
+
+    @property
     def srs_obj(self):
         """
         Property for the PyUCalgarySRS object. See above for details.
@@ -213,12 +241,29 @@ class PyUCRio:
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return ("PyUCRio(download_output_root_path='%s', api_base_url='%s', api_headers=%s, api_timeout=%s, srs_obj=PyUCalgarySRS(...))" % (
-            self.__download_output_root_path,
-            self.api_base_url,
-            self.api_headers,
-            self.api_timeout,
-        ))
+        return ("PyUCRio(download_output_root_path='%s', api_base_url='%s', api_headers=%s, api_timeout=%s, progress_bar_backend='%s', " +
+                "srs_obj=PyUCalgarySRS(...))") % (
+                    self.__download_output_root_path,
+                    self.api_base_url,
+                    self.api_headers,
+                    self.api_timeout,
+                    self.progress_bar_backend,
+                )
+
+    def pretty_print(self):
+        """
+        A special print output for this class.
+        """
+        # set special strings
+
+        # print
+        print("PyUCRio:")
+        print("  %-27s: %s" % ("download_output_root_path", self.download_output_root_path))
+        print("  %-27s: %s" % ("api_base_url", self.api_base_url))
+        print("  %-27s: %s" % ("api_headers", self.api_headers))
+        print("  %-27s: %s" % ("api_timeout", self.api_timeout))
+        print("  %-27s: %s" % ("progress_bar_backend", self.progress_bar_backend))
+        print("  %-27s: %s" % ("srs_obj", "PyUCalgarySRS(...)"))
 
     # -----------------------------
     # private methods
