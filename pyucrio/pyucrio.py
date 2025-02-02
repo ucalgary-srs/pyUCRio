@@ -18,7 +18,7 @@ import humanize
 import pyucalgarysrs
 from texttable import Texttable
 from pathlib import Path
-from typing import Optional, Dict, Any, Literal
+from typing import Optional, Any, Literal
 from . import __version__
 from .exceptions import PyUCRioInitializationError, PyUCRioPurgeError
 from .data import DataManager
@@ -56,9 +56,7 @@ class PyUCRio:
                  download_output_root_path: Optional[str] = None,
                  api_base_url: Optional[str] = None,
                  api_timeout: Optional[int] = None,
-                 api_headers: Optional[Dict] = None,
-                 progress_bar_backend: Literal["auto", "standard", "notebook"] = "auto",
-                 srs_obj: Optional[pyucalgarysrs.PyUCalgarySRS] = None):
+                 progress_bar_backend: Literal["auto", "standard", "notebook"] = "auto"):
         """
         Attributes:
             download_output_root_path (str): 
@@ -75,12 +73,7 @@ class PyUCRio:
             api_timeout (int): 
                 The timeout used when communicating with the UCalgary SRS API. This value is represented in 
                 seconds, and by default is `10 seconds`.
-            
-            api_headers (Dict): 
-                HTTP headers used when communicating with the UCalgary SRS API. The default for this value 
-                consists of several standard headers. Any changes to this parameter are in addition to 
-                the default standard headers.
-        
+                    
             progress_bar_backend (str): 
                 The progress bar backend to use. Valid choices are 'auto', 'standard', or 'notebook'. 
                 Default is 'auto'. This parameter is optional.
@@ -101,12 +94,10 @@ class PyUCRio:
         self.__api_base_url = api_base_url
         if (api_base_url is None):
             self.__api_base_url = self.__DEFAULT_API_BASE_URL
-        self.__api_headers = api_headers
-        if (api_headers is None):
-            self.__api_headers = self.__DEFAULT_API_HEADERS
         self.__api_timeout = api_timeout
         if (api_timeout is None):
             self.__api_timeout = self.__DEFAULT_API_TIMEOUT
+        self.__api_headers = self.__DEFAULT_API_HEADERS
 
         # initialize progress bar parameters
         self.__progress_bar_backend = progress_bar_backend
@@ -116,14 +107,11 @@ class PyUCRio:
         self.__initialize_paths()
 
         # initialize PyUCalgarySRS object
-        if (srs_obj is None):
-            self.__srs_obj = pyucalgarysrs.PyUCalgarySRS(
-                api_headers=self.__api_headers,
-                api_timeout=self.__api_timeout,
-                download_output_root_path=self.download_output_root_path,
-            )
-        else:
-            self.__srs_obj = srs_obj
+        self.__srs_obj = pyucalgarysrs.PyUCalgarySRS(
+            api_headers=self.__api_headers,
+            api_timeout=self.__api_timeout,
+            download_output_root_path=self.download_output_root_path,
+        )
 
         # initialize progress bar tqdm object (by pulling it from srs_obj)
         self._tqdm = self.__srs_obj._tqdm
@@ -160,10 +148,18 @@ class PyUCRio:
         return self.__api_base_url
 
     @api_base_url.setter
-    def api_base_url(self, value: str):
+    def api_base_url(self, value: Optional[str] = None):
         if (value is None):
             self.__api_base_url = self.__DEFAULT_API_BASE_URL
         else:
+            # check if http:// or https:// is in the URL
+            value = value.lower()
+            if (len(value) <= 8 or ("https://" not in value and "http://" not in value)):
+                raise PyUCRioInitializationError("API base URL is an invalid URL")
+
+            # remove trailing slash if there is one
+            if (value[-1] == '/'):
+                value = value[0:-1]
             self.__api_base_url = value
             self.__srs_obj.api_base_url = value
 
@@ -173,11 +169,6 @@ class PyUCRio:
         Property for the API headers. See above for details.
         """
         return self.__api_headers
-
-    @api_headers.setter
-    def api_headers(self, value: Dict):
-        self.__srs_obj.api_headers = value
-        self.__api_headers = self.__srs_obj.api_headers
 
     @property
     def api_timeout(self):
@@ -215,8 +206,11 @@ class PyUCRio:
         return self.__progress_bar_backend
 
     @progress_bar_backend.setter
-    def progress_bar_backend(self, value: Literal["auto", "standard", "notebook"]):
-        value = value.lower()  # type: ignore
+    def progress_bar_backend(self, value: Optional[Literal["auto", "standard", "notebook"]] = None):
+        if (value is None):
+            value = "auto"
+        else:
+            value = value.lower()  # type: ignore
         if (value != "auto" and value != "standard" and value != "notebook"):
             raise PyUCRioInitializationError("Invalid progress bar backend. Allowed values are 'auto', 'standard' or 'notebook'.")
         self.__progress_bar_backend = value
@@ -230,10 +224,6 @@ class PyUCRio:
         """
         return self.__srs_obj
 
-    @srs_obj.setter
-    def srs_obj(self, new_obj: pyucalgarysrs.PyUCalgarySRS):
-        self.__srs_obj = new_obj
-
     # -----------------------------
     # special methods
     # -----------------------------
@@ -241,11 +231,10 @@ class PyUCRio:
         return self.__repr__()
 
     def __repr__(self) -> str:
-        return ("PyUCRio(download_output_root_path='%s', api_base_url='%s', api_headers=%s, api_timeout=%s, progress_bar_backend='%s', " +
+        return ("PyUCRio(download_output_root_path='%s', api_base_url='%s', api_timeout=%s, progress_bar_backend='%s', " +
                 "srs_obj=PyUCalgarySRS(...))") % (
                     self.__download_output_root_path,
                     self.api_base_url,
-                    self.api_headers,
                     self.api_timeout,
                     self.progress_bar_backend,
                 )
@@ -260,7 +249,6 @@ class PyUCRio:
         print("PyUCRio:")
         print("  %-27s: %s" % ("download_output_root_path", self.download_output_root_path))
         print("  %-27s: %s" % ("api_base_url", self.api_base_url))
-        print("  %-27s: %s" % ("api_headers", self.api_headers))
         print("  %-27s: %s" % ("api_timeout", self.api_timeout))
         print("  %-27s: %s" % ("progress_bar_backend", self.progress_bar_backend))
         print("  %-27s: %s" % ("srs_obj", "PyUCalgarySRS(...)"))

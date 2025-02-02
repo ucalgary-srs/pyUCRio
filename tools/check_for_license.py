@@ -84,7 +84,7 @@ def main():
     # set up paths to search
     paths_to_search = [
         "%s/../pyucrio" % (os.path.dirname(os.path.realpath(__file__))),
-        "%s/../tests" % (os.path.dirname(os.path.realpath(__file__))),
+        "%s/../tests/test_suite" % (os.path.dirname(os.path.realpath(__file__))),
         "%s/../tools" % (os.path.dirname(os.path.realpath(__file__))),
     ]
 

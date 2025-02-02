@@ -13,12 +13,12 @@
 # limitations under the License.
 
 import os
-import warnings
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from pyucalgarysrs.data.classes import Data
+from .._util import show_warning
 
 
 def __smooth_data(data, window_size):
@@ -35,13 +35,11 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
     if (returnfig is True and savefig is True):
         raise ValueError("Only one of returnfig or savefig can be set to True")
     if (returnfig is True and (savefig_filename is not None or savefig_quality is not None)):
-        warnings.warn("The figure will be returned, but a savefig option parameter was supplied. Consider " +
-                      "removing the savefig option parameter(s) as they will be ignored.",
-                      stacklevel=1)
+        show_warning("The figure will be returned, but a savefig option parameter was supplied. Consider " +
+                     "removing the savefig option parameter(s) as they will be ignored.")
     elif (savefig is False and (savefig_filename is not None or savefig_quality is not None)):
-        warnings.warn("A savefig option parameter was supplied, but the savefig parameter is False. The " +
-                      "savefig option parameters will be ignored.",
-                      stacklevel=1)
+        show_warning("A savefig option parameter was supplied, but the savefig parameter is False. The " +
+                     "savefig option parameters will be ignored.")
 
     # Convert to single element list if only a single data object is passed in
     if isinstance(rio_data, Data):
@@ -88,9 +86,9 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
         # Check for an empty data object (in case of attempting to download non-existing data)
         if len(data.data) == 0:
             if data.dataset is not None:
-                warnings.warn("Received one or more empty Data objects ('%s')" % (data.dataset.name), UserWarning, stacklevel=1)
+                show_warning("Received one or more empty Data objects ('%s')" % (data.dataset.name))
             else:
-                warnings.warn("Received one or more empty Data objects." % UserWarning, stacklevel=1)
+                show_warning("Received one or more empty Data objects.")
             continue
 
         # Get the dataset and site names
@@ -144,7 +142,7 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                 if absorption:
                     # Check there is absorption data if requested
                     if d.absorption is None:
-                        warnings.warn(f"Omitting plotting (no absorption data) for '{dataset}'", UserWarning, stacklevel=1)
+                        show_warning(f"Omitting plotting (no absorption data) for '{dataset}'")
                         continue
                     else:
                         for k, _ in enumerate(bands):
@@ -164,7 +162,7 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                 if absorption:
                     # Check there is absorption data if requested
                     if d.absorption is None:
-                        warnings.warn(f"Omitting plotting (no absorption data) for '{dataset}'", UserWarning, stacklevel=1)
+                        show_warning(f"Omitting plotting (no absorption data) for '{dataset}'")
                         continue
                     else:
                         for k, band_idx in enumerate(bands):
@@ -276,9 +274,8 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
         else:
             if (savefig_quality is not None):
                 # quality specified, but output filename is not a JPG, so show a warning
-                warnings.warn("The savefig_quality parameter was specified, but is only used for saving JPG files. The " +
-                              "savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored",
-                              stacklevel=1)
+                show_warning("The savefig_quality parameter was specified, but is only used for saving JPG files. The " +
+                             "savefig_filename parameter was determined to not be a JPG file, so the quality will be ignored")
             plt.savefig(savefig_filename, bbox_inches="tight")
 
         # clean up by closing the figure
