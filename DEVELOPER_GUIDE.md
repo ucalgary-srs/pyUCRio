@@ -70,3 +70,7 @@ To publish a new release, you must set the PyPI token first within Poetry and th
 $ poetry config pypi-token.pypi <pypi token>
 $ make publish
 ```
+
+## Development Notes
+
+- Coverage for the `plot()` function with savefig and a JPG quality level was ignored because the pytest backend for matplotlib (`Agg`) does not have a `quality` parameter.

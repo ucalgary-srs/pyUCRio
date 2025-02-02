@@ -11,10 +11,10 @@ pyucrio/data/ucalgary/read/__init__.py      22      0   100%
 pyucrio/exceptions.py                       12      0   100%
 pyucrio/pyucrio.py                         164      0   100%
 pyucrio/tools/__init__.py                   13      0   100%
-pyucrio/tools/_plot.py                     157     20    87%   29, 159, 166, 176-181, 186, 271-290
+pyucrio/tools/_plot.py                     155      9    94%   29, 159, 166, 176-181, 186
 pyucrio/tools/_util.py                      10      2    80%   21, 27
 ----------------------------------------------------------------------
-TOTAL                                      518     22    96%
+TOTAL                                      516     11    98%
 
 1 empty file skipped.
 ```

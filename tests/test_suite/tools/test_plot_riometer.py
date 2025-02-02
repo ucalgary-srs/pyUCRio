@@ -140,8 +140,9 @@ def test_plot_riometer_absorption_but_k0(mock_show, plot_cleanup, rt, rio_k0_dat
             ),
             absorption=True,
         )
-        assert mock_show.call_count == 1
+    assert len(w) > 0
+    assert issubclass(w[0].category, UserWarning)
+    assert "Omitting plotting (no absorption data) for" in str(w[0].message)
 
-        assert len(w) > 0
-        assert issubclass(w[0].category, UserWarning)
-        assert "Omitting plotting (no absorption data) for" in str(w[0].message)
+    # check plot was shown
+    assert mock_show.call_count == 1

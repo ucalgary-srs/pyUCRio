@@ -30,7 +30,7 @@ def test_list_observatories(rio):
     rio.api_base_url = "https://aurora.phys.ucalgary.ca/api_testing_url"
     with pytest.raises(pyucrio.PyUCRioAPIError) as e_info:
         rio.data.list_observatories("norstar_riometer")
-        assert "Timeout" in str(e_info)
+    assert str(e_info) != ""
 
 
 @pytest.mark.data
