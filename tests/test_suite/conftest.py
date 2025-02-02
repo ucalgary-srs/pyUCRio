@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import gc
 import glob
 import shutil
 import copy
@@ -30,6 +31,12 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="session")
 def api_url(request):
     return request.config.getoption("--api-url")
+
+
+@pytest.fixture(scope="function")
+def plot_cleanup():
+    yield  # do test
+    gc.collect()
 
 
 @pytest.fixture(scope="function")
@@ -139,7 +146,9 @@ def pytest_sessionfinish(session, exitstatus):
     for p in path_list:
         shutil.rmtree(p)
 
+    # ccleanup
     plt.close("all")
+    gc.collect()
 
 
 def find_dataset(datasets, dataset_name):

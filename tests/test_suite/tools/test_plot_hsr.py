@@ -15,16 +15,15 @@
 import pytest
 import datetime
 import warnings
-from matplotlib import pyplot as plt
 from unittest.mock import patch
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_hsr_single_site(mock_show, rt, hsr_k0_data_list):
+def test_plot_hsr_single_site(mock_show, plot_cleanup, rt, hsr_k0_data_list):
     # plot several bands
     hsr_bands = [0, 5]
-    fig, _ = rt.plot(
+    rt.plot(
         hsr_k0_data_list[0],
         yrange=(0, 100),
         xrange=(
@@ -34,19 +33,16 @@ def test_plot_hsr_single_site(mock_show, rt, hsr_k0_data_list):
         hsr_bands=hsr_bands,
         color=["blue", "red"],
         downsample_seconds=10,
-        returnfig=True,
     )
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_hsr_multiple_sites(mock_show, rt, hsr_k0_data_list):
+def test_plot_hsr_multiple_sites(mock_show, plot_cleanup, rt, hsr_k0_data_list):
     # plot several bands
     hsr_bands = [0, 5]
-    fig, _ = rt.plot(
+    rt.plot(
         hsr_k0_data_list,
         yrange=(0, 100),
         xrange=(
@@ -56,19 +52,16 @@ def test_plot_hsr_multiple_sites(mock_show, rt, hsr_k0_data_list):
         hsr_bands=hsr_bands,
         color=["blue", "red"],
         downsample_seconds=10,
-        returnfig=True,
     )
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_hsr_multiple_sites_single_band(mock_show, rt, hsr_k0_data_list):
+def test_plot_hsr_multiple_sites_single_band(mock_show, plot_cleanup, rt, hsr_k0_data_list):
     # plot one band
     hsr_bands = [0]
-    fig, _ = rt.plot(
+    rt.plot(
         hsr_k0_data_list,
         yrange=(0, 100),
         xrange=(
@@ -78,20 +71,17 @@ def test_plot_hsr_multiple_sites_single_band(mock_show, rt, hsr_k0_data_list):
         hsr_bands=hsr_bands,
         color=["blue", "red"],
         downsample_seconds=10,
-        returnfig=True,
     )
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_hsr_stackplot(mock_show, rt, hsr_k0_data_list):
+def test_plot_hsr_stackplot(mock_show, plot_cleanup, rt, hsr_k0_data_list):
     # make a stack plot
     hsr_bands = [0, 3, 5, 7]
     colors = ["red", "orange", "green", "blue"]
-    fig, _ = rt.plot(
+    rt.plot(
         hsr_k0_data_list,
         yrange=(0, 75),
         xrange=(
@@ -102,18 +92,15 @@ def test_plot_hsr_stackplot(mock_show, rt, hsr_k0_data_list):
         color=colors,
         stack_plot=True,
         figsize=(8, 20),
-        returnfig=True,
     )
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_hsr_all_bands(mock_show, rt, hsr_k0_data_list):
+def test_plot_hsr_all_bands(mock_show, plot_cleanup, rt, hsr_k0_data_list):
     # make a stack plot
-    fig, _ = rt.plot(
+    rt.plot(
         hsr_k0_data_list,
         yrange=(0, 75),
         xrange=(
@@ -121,30 +108,24 @@ def test_plot_hsr_all_bands(mock_show, rt, hsr_k0_data_list):
             datetime.datetime(2023, 11, 5, 12, 59),
         ),
         figsize=(8, 20),
-        returnfig=True,
     )
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_hsr_absorption_but_k0(mock_show, rt, hsr_k0_data_list):
+def test_plot_hsr_absorption_but_k0(mock_show, plot_cleanup, rt, hsr_k0_data_list):
     # try to plot absorption data, but by not passing any in
     with warnings.catch_warnings(record=True) as w:
-        fig, _ = rt.plot(
+        rt.plot(
             hsr_k0_data_list,
             xrange=(
                 datetime.datetime(2023, 11, 5, 6, 0),
                 datetime.datetime(2023, 11, 5, 12, 59),
             ),
             absorption=True,
-            returnfig=True,
         )
-        plt.close(fig)
-        import gc
-        gc.collect(2)
+        assert mock_show.call_count == 1
 
         assert len(w) > 0
         assert issubclass(w[0].category, UserWarning)

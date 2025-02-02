@@ -20,13 +20,13 @@ from unittest.mock import patch
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_dark_mode(mock_show, rt, rio_k0_data_list):
+def test_plot_dark_mode(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # set plot theme to dark mode
     rt.set_theme("dark")
 
     # let's see the plot again
     rt.plot(rio_k0_data_list, yrange=(0, 10), title="Some title")
-    mock_show.assert_called_once()
+    assert mock_show.call_count == 1
 
     # change back to light mode
     rt.set_theme("light")
@@ -34,7 +34,7 @@ def test_plot_dark_mode(mock_show, rt, rio_k0_data_list):
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_warnings1(mock_show, rt, rio_k0_data_list):
+def test_plot_warnings1(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # check warnings are shown for returnfig
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_filename="some_filename")
@@ -42,29 +42,23 @@ def test_plot_warnings1(mock_show, rt, rio_k0_data_list):
         assert issubclass(w[-1].category, UserWarning)
         assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[-1].message)
         plt.close(fig)
-        import gc
-        gc.collect(2)
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_quality=90)
         assert len(w) == 1
         assert issubclass(w[-1].category, UserWarning)
         assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[-1].message)
         plt.close(fig)
-        import gc
-        gc.collect(2)
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_filename="some_filename", savefig_quality=90)
         assert len(w) == 1
         assert issubclass(w[-1].category, UserWarning)
         assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[-1].message)
         plt.close(fig)
-        import gc
-        gc.collect(2)
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_warnings2(mock_show, rt, rio_k0_data_list):
+def test_plot_warnings2(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # check warnings are shown for savefig
     with warnings.catch_warnings(record=True) as w:
         rt.plot(rio_k0_data_list, savefig=False, savefig_filename="some_filename")
@@ -87,6 +81,9 @@ def test_plot_warnings2(mock_show, rt, rio_k0_data_list):
         assert issubclass(w[-1].category, UserWarning)
         assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[-1].message)
 
+    # check mock plots
+    assert mock_show.call_count == 4
+
 
 @pytest.mark.tools
 def test_plot_savefig_returnfig(rt, rio_k0_data_list):
@@ -106,59 +103,47 @@ def test_plot_multiple_types(rt, rio_k0_data_list, hsr_k0_data_list):
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_title(mock_show, rt, rio_k0_data_list):
+def test_plot_title(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # regular plot mode
-    fig, _ = rt.plot(rio_k0_data_list[0], yrange=(0, 10), title="Some title", returnfig=True)
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    rt.plot(rio_k0_data_list[0], yrange=(0, 10), title="Some title")
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_title_stack(mock_show, rt, rio_k0_data_list):
+def test_plot_title_stack(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # stack plot mode
-    fig, _ = rt.plot(rio_k0_data_list, stack_plot=True, yrange=(0, 10), title="Some title", returnfig=True)
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    rt.plot(rio_k0_data_list, stack_plot=True, yrange=(0, 10), title="Some title")
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_xtitle(mock_show, rt, rio_k0_data_list):
+def test_plot_xtitle(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # regular plot mode
-    fig, _ = rt.plot(rio_k0_data_list[0], xtitle="Some label", returnfig=True)
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    rt.plot(rio_k0_data_list[0], xtitle="Some label")
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_xtitle_stack(mock_show, rt, rio_k0_data_list):
+def test_plot_xtitle_stack(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # stack plot mode
-    fig, _ = rt.plot(rio_k0_data_list, stack_plot=True, xtitle="Some label", returnfig=True)
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    rt.plot(rio_k0_data_list, stack_plot=True, xtitle="Some label")
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_ytitle(mock_show, rt, rio_k0_data_list):
+def test_plot_ytitle(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # regular plot mode
-    fig, _ = rt.plot(rio_k0_data_list[0], ytitle="Some label", returnfig=True)
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    rt.plot(rio_k0_data_list[0], ytitle="Some label")
+    assert mock_show.call_count == 1
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_ytitle_stack(mock_show, rt, rio_k0_data_list):
+def test_plot_ytitle_stack(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # stack plot mode
-    fig, _ = rt.plot(rio_k0_data_list[0], stack_plot=True, ytitle="Some label", returnfig=True)
-    plt.close(fig)
-    import gc
-    gc.collect(2)
+    rt.plot(rio_k0_data_list[0], stack_plot=True, ytitle="Some label")
+    assert mock_show.call_count == 1
