@@ -26,6 +26,12 @@ def test_list_observatories(rio):
     for o in observatories:
         assert isinstance(o, pyucrio.data.Observatory) is True
 
+    # list observatories, but changing the API url to something bad first
+    rio.api_base_url = "https://aurora.phys.ucalgary.ca/api_testing_url"
+    with pytest.raises(pyucrio.PyUCRioAPIError) as e_info:
+        rio.data.list_observatories("norstar_riometer")
+        assert "Timeout" in str(e_info)
+
 
 @pytest.mark.data
 def test_list_observatories_in_table(rio, capsys):

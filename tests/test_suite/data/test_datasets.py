@@ -26,6 +26,12 @@ def test_list_datasets(rio):
     for d in datasets:
         assert isinstance(d, pyucrio.data.Dataset) is True
 
+    # list datasets, but changing the API url to something bad first
+    rio.api_base_url = "https://aurora.phys.ucalgary.ca/api_testing_url"
+    with pytest.raises(pyucrio.PyUCRioAPIError) as e_info:
+        rio.data.list_datasets()
+        assert "Timeout" in str(e_info)
+
 
 @pytest.mark.data
 def test_get_dataset(rio):
@@ -37,7 +43,7 @@ def test_get_dataset(rio):
     # get dataset that doesn't exist
     with pytest.raises(pyucrio.PyUCRioError) as e_info:
         dataset = rio.data.get_dataset("SOME_BAD_DATASET")
-        assert "Dataset not found" in str(e_info).lower()
+        assert "Dataset not found" in str(e_info)
 
 
 @pytest.mark.data
@@ -46,3 +52,10 @@ def test_list_datasets_in_table(rio, capsys):
     rio.data.list_datasets_in_table()
     captured_stdout = capsys.readouterr().out
     assert captured_stdout != ""
+
+
+@pytest.mark.data
+def test_is_read_supported(rio):
+    # check if read supported
+    is_read_supported = rio.data.ucalgary.is_read_supported("SWAN_HSR_K0_H5")
+    assert is_read_supported is True

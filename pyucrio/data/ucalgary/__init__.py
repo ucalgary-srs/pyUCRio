@@ -29,7 +29,7 @@ from pyucalgarysrs.exceptions import SRSAPIError, SRSDownloadError
 from ...exceptions import PyUCRioAPIError, PyUCRioDownloadError
 from .read import ReadManager
 if TYPE_CHECKING:
-    from ...pyucrio import PyUCRio
+    from ...pyucrio import PyUCRio  # pragma: nocover
 
 __all__ = [
     "UCalgaryManager",
@@ -298,9 +298,9 @@ class UCalgaryManager:
                 progress_bar_desc=progress_bar_desc,
                 timeout=timeout,
             )
-        except SRSDownloadError as e:
+        except SRSDownloadError as e:  # pragma: nocover
             raise PyUCRioDownloadError(e) from e
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover
             raise PyUCRioAPIError(e) from e
 
     def download_using_urls(self,
@@ -402,9 +402,9 @@ class UCalgaryManager:
                 progress_bar_desc=progress_bar_desc,
                 timeout=timeout,
             )
-        except SRSDownloadError as e:
+        except SRSDownloadError as e:  # pragma: nocover
             raise PyUCRioDownloadError(e) from e
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover
             raise PyUCRioAPIError(e) from e
 
     def get_urls(self,
@@ -460,7 +460,7 @@ class UCalgaryManager:
                 site_uid=site_uid,
                 timeout=timeout,
             )
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover
             raise PyUCRioAPIError(e) from e
 
     def read(self,
