@@ -23,20 +23,6 @@ from unittest.mock import patch
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_dark_mode(mock_show, plot_cleanup, rt, rio_k0_data_list):
-    # set plot theme to dark mode
-    rt.set_theme("dark")
-
-    # let's see the plot again
-    rt.plot(rio_k0_data_list, yrange=(0, 10), title="Some title")
-    assert mock_show.call_count == 1
-
-    # change back to light mode
-    rt.set_theme("light")
-
-
-@pytest.mark.tools
-@patch("matplotlib.pyplot.show")
 def test_plot_warnings1(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # returnfig=True, savefig_filename supplied
     with warnings.catch_warnings(record=True) as w:

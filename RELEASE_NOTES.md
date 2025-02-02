@@ -1,3 +1,9 @@
+Version 1.2.0
+-------------------
+- significant updates to test suite, several bugfixes for edge cases
+- bugfix for changing matplotlib theme back to 'default'
+
+
 Version 1.1.0
 -------------------
 - added `pretty_print()` function to `PyUCRio()` object
