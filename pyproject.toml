@@ -93,6 +93,7 @@ testpaths = [
 ]
 markers = [
     "top_level: top level PyUCRio object tests",
+    "data: data distribution tests",
 ]
 
 [tool.bandit]
