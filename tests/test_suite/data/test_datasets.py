@@ -59,3 +59,10 @@ def test_is_read_supported(rio):
     # check if read supported
     is_read_supported = rio.data.ucalgary.is_read_supported("SWAN_HSR_K0_H5")
     assert is_read_supported is True
+
+
+@pytest.mark.data
+def test_list_supported_datasets(rio):
+    # list supported datasets
+    supported_datasets = rio.data.ucalgary.list_supported_read_datasets()
+    assert len(supported_datasets) > 0
