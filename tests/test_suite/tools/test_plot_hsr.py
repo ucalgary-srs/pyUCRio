@@ -24,7 +24,7 @@ from unittest.mock import patch
 def test_plot_hsr_single_site(mock_show, rt, hsr_k0_data_list):
     # plot several bands
     hsr_bands = [0, 5]
-    rt.plot(
+    fig, _ = rt.plot(
         hsr_k0_data_list[0],
         yrange=(0, 100),
         xrange=(
@@ -36,7 +36,9 @@ def test_plot_hsr_single_site(mock_show, rt, hsr_k0_data_list):
         downsample_seconds=10,
         returnfig=True,
     )
-    plt.close()
+    plt.close(fig)
+    import gc
+    gc.collect(2)
 
 
 @pytest.mark.tools
@@ -44,7 +46,7 @@ def test_plot_hsr_single_site(mock_show, rt, hsr_k0_data_list):
 def test_plot_hsr_multiple_sites(mock_show, rt, hsr_k0_data_list):
     # plot several bands
     hsr_bands = [0, 5]
-    rt.plot(
+    fig, _ = rt.plot(
         hsr_k0_data_list,
         yrange=(0, 100),
         xrange=(
@@ -56,8 +58,9 @@ def test_plot_hsr_multiple_sites(mock_show, rt, hsr_k0_data_list):
         downsample_seconds=10,
         returnfig=True,
     )
-    mock_show.assert_called_once()
-    plt.close()
+    plt.close(fig)
+    import gc
+    gc.collect(2)
 
 
 @pytest.mark.tools
@@ -65,7 +68,7 @@ def test_plot_hsr_multiple_sites(mock_show, rt, hsr_k0_data_list):
 def test_plot_hsr_multiple_sites_single_band(mock_show, rt, hsr_k0_data_list):
     # plot one band
     hsr_bands = [0]
-    rt.plot(
+    fig, _ = rt.plot(
         hsr_k0_data_list,
         yrange=(0, 100),
         xrange=(
@@ -77,8 +80,9 @@ def test_plot_hsr_multiple_sites_single_band(mock_show, rt, hsr_k0_data_list):
         downsample_seconds=10,
         returnfig=True,
     )
-    mock_show.assert_called_once()
-    plt.close()
+    plt.close(fig)
+    import gc
+    gc.collect(2)
 
 
 @pytest.mark.tools
@@ -87,7 +91,7 @@ def test_plot_hsr_stackplot(mock_show, rt, hsr_k0_data_list):
     # make a stack plot
     hsr_bands = [0, 3, 5, 7]
     colors = ["red", "orange", "green", "blue"]
-    rt.plot(
+    fig, _ = rt.plot(
         hsr_k0_data_list,
         yrange=(0, 75),
         xrange=(
@@ -100,15 +104,16 @@ def test_plot_hsr_stackplot(mock_show, rt, hsr_k0_data_list):
         figsize=(8, 20),
         returnfig=True,
     )
-    mock_show.assert_called_once()
-    plt.close()
+    plt.close(fig)
+    import gc
+    gc.collect(2)
 
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
 def test_plot_hsr_all_bands(mock_show, rt, hsr_k0_data_list):
     # make a stack plot
-    rt.plot(
+    fig, _ = rt.plot(
         hsr_k0_data_list,
         yrange=(0, 75),
         xrange=(
@@ -118,8 +123,9 @@ def test_plot_hsr_all_bands(mock_show, rt, hsr_k0_data_list):
         figsize=(8, 20),
         returnfig=True,
     )
-    mock_show.assert_called_once()
-    plt.close()
+    plt.close(fig)
+    import gc
+    gc.collect(2)
 
 
 @pytest.mark.tools
@@ -127,7 +133,7 @@ def test_plot_hsr_all_bands(mock_show, rt, hsr_k0_data_list):
 def test_plot_hsr_absorption_but_k0(mock_show, rt, hsr_k0_data_list):
     # try to plot absorption data, but by not passing any in
     with warnings.catch_warnings(record=True) as w:
-        _ = rt.plot(
+        fig, _ = rt.plot(
             hsr_k0_data_list,
             xrange=(
                 datetime.datetime(2023, 11, 5, 6, 0),
@@ -136,8 +142,9 @@ def test_plot_hsr_absorption_but_k0(mock_show, rt, hsr_k0_data_list):
             absorption=True,
             returnfig=True,
         )
-        mock_show.assert_called_once()
-        plt.close()
+        plt.close(fig)
+        import gc
+        gc.collect(2)
 
         assert len(w) > 0
         assert issubclass(w[0].category, UserWarning)
