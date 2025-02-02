@@ -87,13 +87,13 @@ include = [
 typeCheckingMode = "standard"
 
 [tool.pytest.ini_options]
-# addopts = -p no:warnings
 testpaths = [
     "tests/test_suite/**/*.py",
 ]
 markers = [
     "top_level: top level PyUCRio object tests",
     "data: data distribution tests",
+    "tools: data analysis support tools tests",
 ]
 
 [tool.bandit]

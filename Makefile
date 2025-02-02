@@ -44,7 +44,7 @@ test-bandit bandit:
 	@printf "\n\n"
 
 test-pytest pytest:
-	pytest -n 2 --cov=pyucrio --cov-report= --maxfail=1
+	pytest --cov=pyucrio --cov-report= --maxfail=1
 
 test-coverage coverage:
 	coverage report

@@ -22,7 +22,9 @@ from .._util import show_warning
 
 
 def __smooth_data(data, window_size):
-    """Moving Average Smoothing for down-sampling"""
+    """
+    Moving Average Smoothing for down-sampling
+    """
     if window_size < 1:
         return data
     return np.convolve(data, np.ones(window_size) / window_size, mode='same')
@@ -45,11 +47,14 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
     if isinstance(rio_data, Data):
         rio_data = [rio_data]
 
+    # do some checks on the data types
+    #
+    # NOTE: we do not allow multiple data types (NORSTAR riometer data and HSR data)
+    # on the same axis
     data_types = []
     for data in rio_data:
         if type(data.data[0]) not in data_types:
             data_types.append(type(data.data[0]))
-
     if len(data_types) > 1 and not stack_plot:
         raise ValueError(f"Cannot plot multiple data-types on the same axis: {data_types}")
 
@@ -61,9 +66,8 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
     total_plots = 0
     for data in rio_data:
         data_name = data.dataset.name if data.dataset is not None else "unknown dataset"
-        if data_name == 'SWAN_HSR_K0_H5':
+        if data_name == "SWAN_HSR_K0_H5":
             if hsr_bands is not None:
-
                 total_plots += len(hsr_bands) if isinstance(hsr_bands, list) else 1
             else:
                 total_plots += len(np.where(data.data[0].band_central_frequency)[0])
@@ -82,9 +86,12 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
 
     # Iterate through each data object in list
     for data in rio_data:
-
         # Check for an empty data object (in case of attempting to download non-existing data)
-        if len(data.data) == 0:
+        #
+        # NOTE: we exclude this from the test suite since we updated PyUCalgarySRS reading to not
+        # return empty data objects. We'll keep it in here in case there's an edge case lingering
+        # that we're not aware of.
+        if len(data.data) == 0:  # pragma: nocover
             if data.dataset is not None:
                 show_warning("Received one or more empty Data objects ('%s')" % (data.dataset.name))
             else:
@@ -109,39 +116,40 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
 
             # Get the bands of interest and name them for tracking
             band_names = []
-            if dataset == 'SWAN_HSR_K0_H5':
+            if (dataset == "SWAN_HSR_K0_H5"):
 
-                if hsr_bands is None:
+                if (hsr_bands is None):
                     bands = np.where(d.band_central_frequency)[0]
                 else:
                     bands = np.intersect1d(hsr_bands, np.where(d.band_central_frequency)[0])
+
                 for band_idx in bands:
                     band_name = (f"{site.upper()} HSR Band-{str(band_idx).zfill(2)} "
                                  f"{round(float(d.band_central_frequency[band_idx].split()[0]), 1)} MHz")
                     band_names.append(band_name)
 
-                for _idx in bands:
-                    if absorption:
-                        y_axis_names.append('Absorption (dB)')
+                for _ in bands:
+                    if (absorption is True):
+                        y_axis_names.append("Absorption (dB)")
                     else:
-                        y_axis_names.append('Raw Power (dB)')
+                        y_axis_names.append("Raw Power (dB)")
 
             # Default band for non HSR data is 30 MHz
             else:
-                if absorption:
-                    y_axis_names.append('Absorption (dB)')
+                if (absorption is True):
+                    y_axis_names.append("Absorption (dB)")
                 else:
-                    y_axis_names.append('Raw Signal (V)')
+                    y_axis_names.append("Raw Signal (V)")
 
                 bands = [0]
                 band_name = f"{site.upper()} Riometer 30.0 MHz"
                 band_names.append(band_name)
 
             # Pull out the data array of interest from the Riometer or HSR data object
-            if (dataset == 'NORSTAR_RIOMETER_K0_TXT') or (dataset == 'NORSTAR_RIOMETER_K2_TXT'):
-                if absorption:
+            if (dataset == "NORSTAR_RIOMETER_K0_TXT") or (dataset == "NORSTAR_RIOMETER_K2_TXT"):
+                if (absorption is True):
                     # Check there is absorption data if requested
-                    if d.absorption is None:
+                    if (d.absorption is None):
                         show_warning(f"Omitting plotting (no absorption data) for '{dataset}'")
                         continue
                     else:
@@ -158,10 +166,10 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                             data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
                         else:
                             data_dict[band_names[k]] = data_arr
-            elif dataset == 'SWAN_HSR_K0_H5':
-                if absorption:
+            elif (dataset == "SWAN_HSR_K0_H5"):
+                if (absorption is True):
                     # Check there is absorption data if requested
-                    if d.absorption is None:
+                    if (d.absorption is None):
                         show_warning(f"Omitting plotting (no absorption data) for '{dataset}'")
                         continue
                     else:
@@ -189,14 +197,14 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
             current_linestyle = next(linestyle_cycle)
 
             # Get the axis to plot on
-            if stack_plot:
+            if (stack_plot is True):
                 ax = axes[current_axis_idx]
                 current_axis_idx += 1
             else:
                 ax = plt.gca()
 
             # Down-sample data if requested
-            if downsample_seconds > 0:
+            if (downsample_seconds > 0):
                 # Calculate the number of points to down-sample based on downsample_seconds and datetime array
                 time_deltas = np.array([(time_stamp[i + 1] - time_stamp[i]).total_seconds() for i in range(len(time_stamp) - 1)])
                 sampling_rate = np.median(time_deltas)
@@ -209,21 +217,21 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
 
             # Add ytitle
             ax.set_ylabel(auto_ylabel)
-            if ytitle:
+            if (ytitle is not None):
                 ax.set_ylabel(ytitle)
 
             # Add legend to each subplot
             ax.legend()
 
             # Add x-axis titles
-            if stack_plot:
+            if (stack_plot is True):
                 if ax is axes[-1]:
-                    if xtitle is None:
+                    if (xtitle is None):
                         ax.set_xlabel("Hour (UTC)" if date_format is None else "Time (UTC)")
                     else:
                         ax.set_xlabel(xtitle)
             else:
-                if xtitle is None:
+                if (xtitle is None):
                     ax.set_xlabel("Hour (UTC)" if date_format is None else "Time (UTC)")
                 else:
                     ax.set_xlabel(xtitle)
@@ -232,13 +240,13 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
             ax.xaxis.set_major_formatter(mdates.DateFormatter('%H' if date_format is None else date_format))
 
             # Set x-range
-            if xrange:
+            if (xrange is not None):
                 ax.set_xlim(xrange)  # type: ignore
             else:
                 # If no x-range is supplied, get rid of whitespace
                 ax.set_xlim([time_stamp[0], time_stamp[-1]])  # type: ignore
 
-            if yrange:
+            if (yrange is not None):
                 ax.set_ylim(yrange)
 
             # Adjust yticks to prevent overlap
@@ -247,11 +255,11 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                 ax.set_yticks(y_ticks[:-1])
 
     # Add overall legend if not making a stack plot
-    if not stack_plot:
+    if (stack_plot is False):
         plt.legend()
 
     # Add title
-    if title is not None:
+    if (title is not None):
         plt.title(title)
 
     # Make stack-plots flush with each-other, display plot
