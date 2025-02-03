@@ -89,7 +89,8 @@ ignore_patterns = [
 include = [
     "pyucrio/**/*.py",
     "examples/**/*.py",
-    "examples/**/*.ipynb"
+    "examples/**/*.ipynb",
+    "tests/test_suite/**/*.py",
 ]
 typeCheckingMode = "standard"
 
