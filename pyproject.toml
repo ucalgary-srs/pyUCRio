@@ -98,8 +98,8 @@ filterwarnings = [
     "ignore:No data was collected:coverage.exceptions.CoverageWarning",  # Suppress 'no-data-collected' warning for coverage
 ]
 testpaths = [
-    "examples",
     "tests/test_suite/**/*.py",
+    "examples",
 ]
 markers = [
     "top_level: top level PyUCRio object tests",
