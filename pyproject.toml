@@ -88,6 +88,8 @@ ignore_patterns = [
 [tool.pyright]
 include = [
     "pyucrio/**/*.py",
+    "examples/**/*.py",
+    "examples/**/*.ipynb"
 ]
 typeCheckingMode = "standard"
 
