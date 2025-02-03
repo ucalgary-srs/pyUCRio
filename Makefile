@@ -44,7 +44,7 @@ test-bandit bandit:
 	@printf "\n\n"
 
 test-pytest pytest:
-	pytest -n 4 --cov=pyucrio --cov=examples --cov-report= --maxfail=1 --nbval --dist loadscope --nbval-lax
+	pytest -n 4 --cov=pyucrio --cov-report= --maxfail=1 --nbval --dist loadscope --nbval-lax
 
 test-coverage coverage:
 	coverage report
