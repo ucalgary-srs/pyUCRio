@@ -94,15 +94,18 @@ ignore_patterns = [
 
 [tool.pyright]
 include = [
+    "pyucrio/*.py",
     "pyucrio/**/*.py",
     "examples/**/*.py",
     "examples/**/*.ipynb",
+    "tests/test_suite/*.py",
     "tests/test_suite/**/*.py",
 ]
 typeCheckingMode = "standard"
 
 [tool.pytest.ini_options]
 testpaths = [
+    "tests/test_suite/*.py",
     "tests/test_suite/**/*.py",
 ]
 markers = [
