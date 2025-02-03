@@ -17,7 +17,7 @@ maintainers = [
     "Darren Chaddock <dchaddoc@ucalgary.ca>",
     "Josh Houghton <joshua.houghton1@ucalgary.ca>"
 ]
-license = "Apache 2.0"
+license = "Apache License 2.0" 
 packages = [
     { include = "pyucrio" },
 ]
