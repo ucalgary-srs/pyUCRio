@@ -1189,9 +1189,9 @@ structure compared to the UCalgary Open Data archive.</dd>
                 progress_bar_desc=progress_bar_desc,
                 timeout=timeout,
             )
-        except SRSDownloadError as e:
+        except SRSDownloadError as e:  # pragma: nocover
             raise PyUCRioDownloadError(e) from e
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover
             raise PyUCRioAPIError(e) from e
 
     def download_using_urls(self,
@@ -1293,9 +1293,9 @@ structure compared to the UCalgary Open Data archive.</dd>
                 progress_bar_desc=progress_bar_desc,
                 timeout=timeout,
             )
-        except SRSDownloadError as e:
+        except SRSDownloadError as e:  # pragma: nocover
             raise PyUCRioDownloadError(e) from e
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover
             raise PyUCRioAPIError(e) from e
 
     def get_urls(self,
@@ -1351,7 +1351,7 @@ structure compared to the UCalgary Open Data archive.</dd>
                 site_uid=site_uid,
                 timeout=timeout,
             )
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover
             raise PyUCRioAPIError(e) from e
 
     def read(self,
@@ -1574,9 +1574,9 @@ def readers(self):
             progress_bar_desc=progress_bar_desc,
             timeout=timeout,
         )
-    except SRSDownloadError as e:
+    except SRSDownloadError as e:  # pragma: nocover
         raise PyUCRioDownloadError(e) from e
-    except SRSAPIError as e:
+    except SRSAPIError as e:  # pragma: nocover
         raise PyUCRioAPIError(e) from e</code></pre>
 </details>
 <div class="desc"><p>Download data from the UCalgary Space Remote Sensing Open Data Platform.</p>
@@ -1762,9 +1762,9 @@ rio.data.download(dataset_name, start, end)
             progress_bar_desc=progress_bar_desc,
             timeout=timeout,
         )
-    except SRSDownloadError as e:
+    except SRSDownloadError as e:  # pragma: nocover
         raise PyUCRioDownloadError(e) from e
-    except SRSAPIError as e:
+    except SRSAPIError as e:  # pragma: nocover
         raise PyUCRioAPIError(e) from e</code></pre>
 </details>
 <div class="desc"><p>Download data from the UCalgary Space Remote Sensing Open Data Platform using
@@ -1948,7 +1948,7 @@ object. Raises an exception if not found.</p>
             site_uid=site_uid,
             timeout=timeout,
         )
-    except SRSAPIError as e:
+    except SRSAPIError as e:  # pragma: nocover
         raise PyUCRioAPIError(e) from e</code></pre>
 </details>
 <div class="desc"><p>Get URLs of data files</p>
