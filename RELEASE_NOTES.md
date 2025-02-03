@@ -1,3 +1,9 @@
+Version 1.3.0
+-------------------
+- test suite updates
+- bump PyUCalgarySRS dependency to latest
+
+
 Version 1.2.0
 -------------------
 - significant updates to test suite, several bugfixes for edge cases

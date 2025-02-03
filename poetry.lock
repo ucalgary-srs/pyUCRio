@@ -227,19 +227,19 @@ yaml = ["PyYAML"]
 
 [[package]]
 name = "beautifulsoup4"
-version = "4.13.0"
+version = "4.13.1"
 description = "Screen-scraping library"
 optional = false
-python-versions = ">=3.6.0"
+python-versions = ">=3.7.0"
 groups = ["dev"]
 files = [
-    {file = "beautifulsoup4-4.13.0-py3-none-any.whl", hash = "sha256:9c4c3dfa67aba55f6cd03769c441b21e6a369797fd6766e4b4c6b3399aae2735"},
-    {file = "beautifulsoup4-4.13.0.tar.gz", hash = "sha256:b6e5afb3a2b1472c8db751a92eabf7834e5c7099f990c5e4b35f1f16b60bae64"},
+    {file = "beautifulsoup4-4.13.1-py3-none-any.whl", hash = "sha256:72465267014897bb10ca749bb632bde6c2d20f3254afd5458544bd74e6c2e6d8"},
+    {file = "beautifulsoup4-4.13.1.tar.gz", hash = "sha256:741c8b6903a1e4ae8ba32b9c9ae7510dab7a197fdbadcf9fcdeb0891ef5ec66a"},
 ]
 
 [package.dependencies]
 soupsieve = ">1.2"
-typing-extensions = "*"
+typing-extensions = ">=4.0.0"
 
 [package.extras]
 cchardet = ["cchardet"]
@@ -2697,14 +2697,14 @@ dev = ["backports.zoneinfo", "black", "build", "freezegun", "mdx_truly_sane_list
 
 [[package]]
 name = "pyucalgarysrs"
-version = "1.17.0"
+version = "1.18.0"
 description = "Tools for interacting with UCalgary Space Remote Sensing data"
 optional = false
-python-versions = ">=3.9"
+python-versions = "<4,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pyucalgarysrs-1.17.0-py3-none-any.whl", hash = "sha256:6f8e1b6a3d6f66146c1c58e8c8c53c8309a996d7429c2c3c5cf949cc3339a415"},
-    {file = "pyucalgarysrs-1.17.0.tar.gz", hash = "sha256:693ed69134c7a11387f9fe862f7ff276e92f8c86e26a754e57ae3e5dcf22df24"},
+    {file = "pyucalgarysrs-1.18.0-py3-none-any.whl", hash = "sha256:6f5192773d7285778aeceb913ed2d08e651f67a2db9c07b40e0a92a6e241436f"},
+    {file = "pyucalgarysrs-1.18.0.tar.gz", hash = "sha256:ac51977847964e76f41cee870d6861a881f69d869caa71335952cf0a9b97bbe3"},
 ]
 
 [package.dependencies]
@@ -3659,4 +3659,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4"
-content-hash = "ea2146352610933dd9df66541fbd35d1dd140a5190c454937d480e273fd77846"
+content-hash = "7ae247255ceffe157641604bfe56ae0ada1469293172516b12f646a001adf3c0"
