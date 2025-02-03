@@ -49,10 +49,10 @@ test-bandit:
 	@printf "\n\n"
 
 test-pytest:
-	pytest -n auto --cov=pyucrio --cov-report=
+	pytest -n auto --cov=pyucrio --cov-report= --dist worksteal
 
 test-notebooks:
-	pytest -n auto --nbval --dist loadscope --nbval-lax examples
+	pytest -n 6 --nbmake examples/notebooks --ignore-glob=examples/notebooks/**/in_development/*.ipynb
 
 test-coverage coverage:
 	coverage report
