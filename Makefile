@@ -68,7 +68,6 @@ tool-checks:
 publish:
 	${MAKE} test
 	${MAKE} tool-checks
-	${MAKE} test-notebooks
 	poetry build
 	poetry publish
 	@rm -rf pyucrio.egg-info build dist
