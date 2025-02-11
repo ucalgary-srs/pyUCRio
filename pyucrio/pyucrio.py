@@ -268,7 +268,7 @@ class PyUCRio:
             self.__download_output_root_path = Path("%s/pyucrio_data" % (str(Path.home())))
         try:
             os.makedirs(self.download_output_root_path, exist_ok=True)
-        except IOError as e:  # pragma: nocover
+        except IOError as e:  # pragma: nocover-ok
             raise PyUCRioInitializationError("Error during output path creation: %s" % str(e)) from e
 
     # -----------------------------
@@ -299,7 +299,7 @@ class PyUCRio:
 
             # purge pyucalgarysrs path
             self.__srs_obj.purge_download_output_root_path()
-        except Exception as e:  # pragma: nocover
+        except Exception as e:  # pragma: nocover-ok
             raise PyUCRioPurgeError("Error while purging download output root path: %s" % (str(e))) from e
 
     def show_data_usage(self, order: Literal["name", "size"] = "size", return_dict: bool = False) -> Any:

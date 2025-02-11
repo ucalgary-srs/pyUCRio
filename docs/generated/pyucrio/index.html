@@ -349,7 +349,7 @@ Space Remote Sensing …</p></div>
             self.__download_output_root_path = Path(&#34;%s/pyucrio_data&#34; % (str(Path.home())))
         try:
             os.makedirs(self.download_output_root_path, exist_ok=True)
-        except IOError as e:  # pragma: nocover
+        except IOError as e:  # pragma: nocover-ok
             raise PyUCRioInitializationError(&#34;Error during output path creation: %s&#34; % str(e)) from e
 
     # -----------------------------
@@ -380,7 +380,7 @@ Space Remote Sensing …</p></div>
 
             # purge pyucalgarysrs path
             self.__srs_obj.purge_download_output_root_path()
-        except Exception as e:  # pragma: nocover
+        except Exception as e:  # pragma: nocover-ok
             raise PyUCRioPurgeError(&#34;Error while purging download output root path: %s&#34; % (str(e))) from e
 
     def show_data_usage(self, order: Literal[&#34;name&#34;, &#34;size&#34;] = &#34;size&#34;, return_dict: bool = False) -&gt; Any:
@@ -711,7 +711,7 @@ def tools(self):
 
         # purge pyucalgarysrs path
         self.__srs_obj.purge_download_output_root_path()
-    except Exception as e:  # pragma: nocover
+    except Exception as e:  # pragma: nocover-ok
         raise PyUCRioPurgeError(&#34;Error while purging download output root path: %s&#34; % (str(e))) from e</code></pre>
 </details>
 <div class="desc"><p>Delete all files in the <code>download_output_root_path</code> directory. Since the

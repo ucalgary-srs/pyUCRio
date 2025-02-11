@@ -19,7 +19,7 @@ from pyucalgarysrs.data import Dataset, Data
 from pyucalgarysrs.exceptions import SRSError, SRSUnsupportedReadError
 from ....exceptions import PyUCRioError, PyUCRioUnsupportedReadError
 if TYPE_CHECKING:
-    from ....pyucrio import PyUCRio  # pragma: nocover
+    from ....pyucrio import PyUCRio  # pragma: nocover-ok
 
 
 class ReadManager:
@@ -133,9 +133,9 @@ class ReadManager:
                 end_time=end_time,
                 quiet=quiet,
             )
-        except SRSUnsupportedReadError as e:  # pragma: nocover
+        except SRSUnsupportedReadError as e:  # pragma: nocover-ok
             raise PyUCRioUnsupportedReadError(e) from e
-        except SRSError as e:  # pragma: nocover
+        except SRSError as e:  # pragma: nocover-ok
             raise PyUCRioError(e) from e
 
     def read_norstar_riometer(self,
@@ -206,7 +206,7 @@ class ReadManager:
                 quiet=quiet,
                 dataset=dataset,
             )
-        except SRSError as e:  # pragma: nocover
+        except SRSError as e:  # pragma: nocover-ok
             raise PyUCRioError(e) from e
 
     def read_swan_hsr(self,

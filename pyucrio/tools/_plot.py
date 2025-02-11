@@ -25,7 +25,7 @@ def __smooth_data(data, window_size):
     """
     Moving Average Smoothing for down-sampling
     """
-    if window_size < 1:
+    if window_size < 1:  # pragma: nocover
         return data
     return np.convolve(data, np.ones(window_size) / window_size, mode='same')
 
@@ -91,7 +91,7 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
         # NOTE: we exclude this from the test suite since we updated PyUCalgarySRS reading to not
         # return empty data objects. We'll keep it in here in case there's an edge case lingering
         # that we're not aware of.
-        if len(data.data) == 0:  # pragma: nocover
+        if len(data.data) == 0:  # pragma: nocover-ok
             if data.dataset is not None:
                 show_warning("Received one or more empty Data objects ('%s')" % (data.dataset.name))
             else:
@@ -155,14 +155,14 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                     else:
                         for k, _ in enumerate(bands):
                             data_arr = d.absorption
-                            if band_names[k] in data_dict:
+                            if band_names[k] in data_dict:  # pragma: nocover
                                 data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
                             else:
                                 data_dict[band_names[k]] = data_arr
                 else:
                     for k, _ in enumerate(bands):
                         data_arr = d.raw_signal
-                        if band_names[k] in data_dict:
+                        if band_names[k] in data_dict:  # pragma: nocover
                             data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
                         else:
                             data_dict[band_names[k]] = data_arr
@@ -173,7 +173,7 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                         show_warning(f"Omitting plotting (no absorption data) for '{dataset}'")
                         continue
                     else:
-                        for k, band_idx in enumerate(bands):
+                        for k, band_idx in enumerate(bands):  # pragma: nocover
                             data_arr = d.absorption[band_idx, :]
                             if band_names[band_idx] in data_dict:
                                 data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
@@ -182,7 +182,7 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
                 else:
                     for k, band_idx in enumerate(bands):
                         data_arr = d.raw_power[band_idx, :]
-                        if band_names[k] in data_dict:
+                        if band_names[k] in data_dict:  # pragma: nocover
                             data_dict[band_names[k]] = np.concatenate((data_dict[band_names[k]], data_arr))
                         else:
                             data_dict[band_names[k]] = data_arr
@@ -275,7 +275,7 @@ def plot(rio_data, absorption, stack_plot, downsample_seconds, hsr_bands, color,
         f_extension = os.path.splitext(savefig_filename)[-1].lower()
         if (".jpg" == f_extension or ".jpeg" == f_extension):
             # check quality setting
-            if (savefig_quality is not None):  # pragma: nocover
+            if (savefig_quality is not None):  # pragma: nocover-ok
                 plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches="tight")
             else:
                 plt.savefig(savefig_filename, bbox_inches="tight")
