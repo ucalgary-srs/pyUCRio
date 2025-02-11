@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pyucrio"
-version = "1.3.0"
+version = "1.4.0"
 description = "Python library supporting data access and analysis for riometer instrument data"
 readme = "README.md"
 homepage = "https://github.com/ucalgary-srs/pyUCRio"
@@ -38,25 +38,26 @@ keywords = [
 ]
 
 [tool.poetry.urls]
-"Documentation" = "https://docs-pyucrio.phys.ucalgary.ca"
 "API Reference" = "https://docs-pyucrio.phys.ucalgary.ca"
-"Bug Tracker" = "https://github.com/ucalgary-srs/pyUCRio/issues"
 "UCalgary SRS Open Data Platform" = "https://data.phys.ucalgary.ca"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<4"
-requests = "^2.28.1"
+python = ">=3.9"
 humanize = "^4.4.0"
 texttable = "^1.6.4"
-tqdm = "^4.61.2"
-numpy = "^1.21.0"
-joblib = "^1.0.0"
+numpy = [
+    {version = "^1.21.0", python = ">=3.9,<3.10"},
+    {version = ">=1.21.0,<3.0.0", python = ">=3.10"}
+]
+matplotlib = [
+    {version = "^3.4.0", python = ">=3.9,<3.10"},
+    {version = "^3.5.0", python = ">=3.10"}
+]
 aacgmv2 = "^2.6.2"
-matplotlib = "^3.9.0"
-pyucalgarysrs = "1.18.0"
+pyucalgarysrs = "1.20.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "0.9.4"
+ruff = "0.9.6"
 pytest = "8.3.4"
 pycodestyle = "2.12.1"
 yapf = "0.43.0"

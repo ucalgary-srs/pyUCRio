@@ -1,3 +1,10 @@
+Version 1.4.0
+-------------------
+- added support for Numpy 2.0
+- updated dependency ranges to add more flexibility
+- removed several dependencies since they are only subdeps
+
+
 Version 1.3.0
 -------------------
 - test suite updates
