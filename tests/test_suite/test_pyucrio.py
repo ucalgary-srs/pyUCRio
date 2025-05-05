@@ -50,7 +50,7 @@ def test_top_level_class_instantiation_noparams():
 def test_top_level_class_instantiation_usingparams():
     # instantiate object
     testing_url = "https://testing-url.com"
-    testing_download_path = str("%s/pyucrio_data_download_testing_%s" % (
+    testing_download_path = str("%s/rio_data_download_testing_%s" % (
         Path.home(),
         ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)),
     ))

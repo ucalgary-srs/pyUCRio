@@ -50,6 +50,7 @@ from .pyucrio import PyUCRio
 # as within ipython, but not vscode. Currently, this is ONLY included
 # for VSCode's sake. Will take more testing to explore other use-cases.
 from . import data
+from . import tools
 
 # pull in exceptions
 from .exceptions import (

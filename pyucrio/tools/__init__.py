@@ -33,8 +33,10 @@ from ._util import set_theme
 from ._plot import plot
 
 # pull in classes
+from .classes.site_map import SiteMap
 
 # pull in submodules
+from .site_map import SiteMapManager
 
 __all__ = [
     # sub-modules
@@ -44,4 +46,29 @@ __all__ = [
     "plot",
 
     # classes
+    "ToolsManager",
+    "SiteMap"
 ]
+
+
+class ToolsManager:
+    """
+    The ToolsManager object is initialized within every PyAuroraX object. It acts as a way to access 
+    the submodules and carry over configuration information in the super class.
+    """
+
+    def __init__(self, ucrio_obj):
+        self.__ucrio_obj = ucrio_obj
+
+        # initialize sub-modules
+        self.__site_map = SiteMapManager(self.__ucrio_obj)
+
+    # ------------------------------------------
+    # properties for submodule managers
+    # ------------------------------------------
+    @property
+    def site_map(self):
+        """
+        Access to the `site_map` submodule from within a PyAuroraX object.
+        """
+        return self.__site_map

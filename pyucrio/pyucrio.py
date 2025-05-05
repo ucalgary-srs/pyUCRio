@@ -22,7 +22,7 @@ from typing import Optional, Dict, Any, Literal
 from . import __version__
 from .exceptions import PyUCRioInitializationError, PyUCRioPurgeError
 from .data import DataManager
-from . import tools as tools_module
+from .tools import ToolsManager
 
 
 class PyUCRio:
@@ -118,7 +118,7 @@ class PyUCRio:
 
         # initialize sub-modules
         self.__data = DataManager(self)
-        self.__tools = tools_module
+        self.__tools = ToolsManager(self)
 
     # ------------------------------------------
     # properties for submodule managers
