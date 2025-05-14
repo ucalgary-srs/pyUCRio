@@ -146,7 +146,7 @@ def pytest_sessionfinish(session, exitstatus):
     for p in path_list:
         shutil.rmtree(p)
 
-    # ccleanup
+    # cleanup
     plt.close("all")
     gc.collect()
 

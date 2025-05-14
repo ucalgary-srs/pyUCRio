@@ -29,6 +29,7 @@ def test_top_level_class_instantiation_noparams(capsys):
     rio = pyucrio.PyUCRio()
 
     # check paths
+    rio.initialize_paths()
     assert os.path.exists(rio.download_output_root_path)
 
     # change download root path
@@ -64,10 +65,7 @@ def test_top_level_class_instantiation_usingparams():
     assert rio.api_base_url == testing_url
     assert rio.api_headers != {} and "user-agent" in rio.api_headers and "python-pyucrio" in rio.api_headers["user-agent"]
     assert rio.api_timeout == testing_api_timeout
-    assert os.path.exists(testing_download_path)
-
-    # cleanup
-    shutil.rmtree(testing_download_path, ignore_errors=True)
+    assert os.path.exists(testing_download_path) is False
 
 
 @pytest.mark.top_level
@@ -80,6 +78,7 @@ def test_bad_paths_noparams(rio):
         new_path = "/dev/bad_path"
         with pytest.raises(pyucrio.PyUCRioInitializationError) as e_info:
             rio.download_output_root_path = new_path
+            rio.initialize_paths()
         assert "Error during output path creation" in str(e_info)
 
 
@@ -149,7 +148,8 @@ def test_purge_download_path(rio):
     new_path = str("%s/pyucrio_data_purge_download_testing_%s" % (Path.home(), ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))))
     rio.download_output_root_path = new_path
     assert rio.download_output_root_path == new_path
-    assert os.path.exists(rio.download_output_root_path)
+    rio.initialize_paths()
+    assert os.path.exists(rio.download_output_root_path) is True
 
     # create some dummy files and folders
     os.makedirs("%s/testing1" % (rio.download_output_root_path), exist_ok=True)
