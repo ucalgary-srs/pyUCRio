@@ -24,4 +24,8 @@ def show_warning(message: str, stacklevel: int = 1) -> None:
     """
     warnings.simplefilter("always", UserWarning)
     warnings.warn(message, UserWarning, stacklevel=stacklevel)
+<<<<<<< HEAD
     warnings.resetwarnings()
+=======
+    warnings.resetwarnings()
+>>>>>>> main

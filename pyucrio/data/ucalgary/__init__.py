@@ -29,7 +29,7 @@ from pyucalgarysrs.exceptions import SRSAPIError, SRSDownloadError
 from ...exceptions import PyUCRioAPIError, PyUCRioDownloadError
 from .read import ReadManager
 if TYPE_CHECKING:
-    from ...pyucrio import PyUCRio
+    from ...pyucrio import PyUCRio  # pragma: nocover-ok
 
 __all__ = [
     "UCalgaryManager",
@@ -243,6 +243,11 @@ class UCalgaryManager:
                 passthrough of the `ascii` parameter in a tqdm progress bar). This parameter is 
                 optional. See Notes section below for further details.
 
+            progress_bar_desc (str): 
+                Description value to use when constructing the visual aspect of the progress bar (straight 
+                passthrough of the `desc` parameter in a tqdm progress bar). This parameter is optional. 
+                See notes section below for further details.
+
             timeout (int): 
                 Represents how many seconds to wait for the API to send data before giving up. The 
                 default is 10 seconds, or the `api_timeout` value in the super class' `pyucrio.PyUCRio`
@@ -293,9 +298,9 @@ class UCalgaryManager:
                 progress_bar_desc=progress_bar_desc,
                 timeout=timeout,
             )
-        except SRSDownloadError as e:
+        except SRSDownloadError as e:  # pragma: nocover-ok
             raise PyUCRioDownloadError(e) from e
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover-ok
             raise PyUCRioAPIError(e) from e
 
     def download_using_urls(self,
@@ -345,6 +350,11 @@ class UCalgaryManager:
                 passthrough of the `ascii` parameter in a tqdm progress bar). This parameter is 
                 optional. See Notes section below for further details.
 
+            progress_bar_desc (str): 
+                Description value to use when constructing the visual aspect of the progress bar (straight 
+                passthrough of the `desc` parameter in a tqdm progress bar). This parameter is optional. 
+                See notes section below for further details.
+
             timeout (int): 
                 Represents how many seconds to wait for the API to send data before giving up. The 
                 default is 10 seconds, or the `api_timeout` value in the super class' `pyucrio.PyUCRio`
@@ -392,9 +402,9 @@ class UCalgaryManager:
                 progress_bar_desc=progress_bar_desc,
                 timeout=timeout,
             )
-        except SRSDownloadError as e:
+        except SRSDownloadError as e:  # pragma: nocover-ok
             raise PyUCRioDownloadError(e) from e
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover-ok
             raise PyUCRioAPIError(e) from e
 
     def get_urls(self,
@@ -450,7 +460,7 @@ class UCalgaryManager:
                 site_uid=site_uid,
                 timeout=timeout,
             )
-        except SRSAPIError as e:
+        except SRSAPIError as e:  # pragma: nocover-ok
             raise PyUCRioAPIError(e) from e
 
     def read(self,

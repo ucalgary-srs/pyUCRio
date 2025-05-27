@@ -3,20 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.3">
+<meta name="generator" content="pdoc3 0.11.5">
 <title>pyucrio API documentation</title>
 <meta name="description" content="The PyUCRio package provides data access and analysis support for working
 with UCalgary Riometer instruments, such as NORSTAR Riometers, and SWAN …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
-<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
 <script>window.addEventListener('DOMContentLoaded', () => {
 hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
 hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
 })</script>
 <style>
 @media screen and (max-width: 699px) {
@@ -88,52 +99,9 @@ Space Remote Sensing …</p></div>
 <dl>
 <dt id="pyucrio.PyUCRio"><code class="flex name class">
 <span>class <span class="ident">PyUCRio</span></span>
-<span>(</span><span>download_output_root_path: str | None = None,<br>api_base_url: str | None = None,<br>api_timeout: int | None = None,<br>api_headers: Dict | None = None,<br>srs_obj: pyucalgarysrs.pyucalgarysrs.PyUCalgarySRS | None = None)</span>
+<span>(</span><span>download_output_root_path: str | None = None,<br>api_base_url: str | None = None,<br>api_timeout: int | None = None,<br>progress_bar_backend: Literal['auto', 'standard', 'notebook'] = 'auto')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The <code><a title="pyucrio.PyUCRio" href="#pyucrio.PyUCRio">PyUCRio</a></code> class is the primary entry point for utilizing
-this library. It is used to initialize a session, capturing details
-about API connectivity, environment, and more. All submodules are
-encapsulated within this class, so any usage of the library starts
-with creating this object.</p>
-<pre><code class="language-python">import pyucrio
-rio = pyucrio.PyUCRio()
-</code></pre>
-<p>When working with this object, you can set configuration parameters, such
-as the destination directory for downloaded data, or API special settings
-(e.g., timeout, HTTP headers, API key). These parameters can be set when
-instantiating the object, or after instantiating using the self-contained
-accessible variables.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>download_output_root_path</code></strong> :&ensp;<code>str</code></dt>
-<dd>Destination directory for downloaded data. The default for this path is a
-subfolder in the user's home directory, such
-as <code>/home/user/pyucrio_data</code>
-in Linux. In Windows and Mac, it is similar.</dd>
-<dt><strong><code>api_base_url</code></strong> :&ensp;<code>str</code></dt>
-<dd>URL prefix to use when interacting with the UCalgary Space Remote Sensing API. By
-default this is set to <code>https://api.phys.ucalgary.ca</code>. This parameter is primarily
-used by the development team to test and build new functions using the private staging
-API.</dd>
-<dt><strong><code>api_timeout</code></strong> :&ensp;<code>int</code></dt>
-<dd>The timeout used when communicating with the UCalgary SRS API. This value is represented in
-seconds, and by default is <code>10 seconds</code>.</dd>
-<dt><strong><code>api_headers</code></strong> :&ensp;<code>Dict</code></dt>
-<dd>HTTP headers used when communicating with the UCalgary SRS API. The default for this value
-consists of several standard headers. Any changes to this parameter are in addition to
-the default standard headers.</dd>
-<dt><strong><code>srs_obj</code></strong> :&ensp;<code>pyucalgarysrs.PyUCalgarySRS</code></dt>
-<dd>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/#pyucalgarysrs.PyUCalgarySRS">PyUCalgarySRS</a> object.
-If not supplied, it will create the object with some settings carried over from the PyUCRio
-object. Note that specifying this is for advanced users and only necessary a few special use-cases.</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code><a title="pyucrio.exceptions.PyUCRioInitializationError" href="exceptions.html#pyucrio.exceptions.PyUCRioInitializationError">PyUCRioInitializationError</a></code></dt>
-<dd>an error was encountered during initialization
-of the paths</dd>
-</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -169,8 +137,7 @@ of the paths</dd>
                  download_output_root_path: Optional[str] = None,
                  api_base_url: Optional[str] = None,
                  api_timeout: Optional[int] = None,
-                 api_headers: Optional[Dict] = None,
-                 srs_obj: Optional[pyucalgarysrs.PyUCalgarySRS] = None):
+                 progress_bar_backend: Literal[&#34;auto&#34;, &#34;standard&#34;, &#34;notebook&#34;] = &#34;auto&#34;):
         &#34;&#34;&#34;
         Attributes:
             download_output_root_path (str): 
@@ -187,12 +154,11 @@ of the paths</dd>
             api_timeout (int): 
                 The timeout used when communicating with the UCalgary SRS API. This value is represented in 
                 seconds, and by default is `10 seconds`.
-            
-            api_headers (Dict): 
-                HTTP headers used when communicating with the UCalgary SRS API. The default for this value 
-                consists of several standard headers. Any changes to this parameter are in addition to 
-                the default standard headers.
-        
+                    
+            progress_bar_backend (str): 
+                The progress bar backend to use. Valid choices are &#39;auto&#39;, &#39;standard&#39;, or &#39;notebook&#39;. 
+                Default is &#39;auto&#39;. This parameter is optional.
+
             srs_obj (pyucalgarysrs.PyUCalgarySRS): 
                 A [PyUCalgarySRS](https://docs-pyucalgarysrs.phys.ucalgary.ca/#pyucalgarysrs.PyUCalgarySRS) object. 
                 If not supplied, it will create the object with some settings carried over from the PyUCRio 
@@ -209,29 +175,31 @@ of the paths</dd>
         self.__api_base_url = api_base_url
         if (api_base_url is None):
             self.__api_base_url = self.__DEFAULT_API_BASE_URL
-        self.__api_headers = api_headers
-        if (api_headers is None):
-            self.__api_headers = self.__DEFAULT_API_HEADERS
         self.__api_timeout = api_timeout
         if (api_timeout is None):
             self.__api_timeout = self.__DEFAULT_API_TIMEOUT
+        self.__api_headers = self.__DEFAULT_API_HEADERS
+
+        # initialize progress bar parameters
+        self.__progress_bar_backend = progress_bar_backend
+        self._tqdm = None
 
         # initialize paths
         self.__initialize_paths()
 
         # initialize PyUCalgarySRS object
-        if (srs_obj is None):
-            self.__srs_obj = pyucalgarysrs.PyUCalgarySRS(
-                api_headers=self.__api_headers,
-                api_timeout=self.__api_timeout,
-                download_output_root_path=self.download_output_root_path,
-            )
-        else:
-            self.__srs_obj = srs_obj
+        self.__srs_obj = pyucalgarysrs.PyUCalgarySRS(
+            api_headers=self.__api_headers,
+            api_timeout=self.__api_timeout,
+            download_output_root_path=self.download_output_root_path,
+        )
+
+        # initialize progress bar tqdm object (by pulling it from srs_obj)
+        self._tqdm = self.__srs_obj._tqdm
 
         # initialize sub-modules
         self.__data = DataManager(self)
-        self.__tools = tools_module
+        self.__tools = ToolsManager()
 
     # ------------------------------------------
     # properties for submodule managers
@@ -261,10 +229,18 @@ of the paths</dd>
         return self.__api_base_url
 
     @api_base_url.setter
-    def api_base_url(self, value: str):
+    def api_base_url(self, value: Optional[str] = None):
         if (value is None):
             self.__api_base_url = self.__DEFAULT_API_BASE_URL
         else:
+            # check if http:// or https:// is in the URL
+            value = value.lower()
+            if (len(value) &lt;= 8 or (&#34;https://&#34; not in value and &#34;http://&#34; not in value)):
+                raise PyUCRioInitializationError(&#34;API base URL is an invalid URL&#34;)
+
+            # remove trailing slash if there is one
+            if (value[-1] == &#39;/&#39;):
+                value = value[0:-1]
             self.__api_base_url = value
             self.__srs_obj.api_base_url = value
 
@@ -274,11 +250,6 @@ of the paths</dd>
         Property for the API headers. See above for details.
         &#34;&#34;&#34;
         return self.__api_headers
-
-    @api_headers.setter
-    def api_headers(self, value: Dict):
-        self.__srs_obj.api_headers = value
-        self.__api_headers = self.__srs_obj.api_headers
 
     @property
     def api_timeout(self):
@@ -309,15 +280,30 @@ of the paths</dd>
         self.__srs_obj.download_output_root_path = self.__download_output_root_path
 
     @property
+    def progress_bar_backend(self):
+        &#34;&#34;&#34;
+        Property for the progress bar backend. See above for details.
+        &#34;&#34;&#34;
+        return self.__progress_bar_backend
+
+    @progress_bar_backend.setter
+    def progress_bar_backend(self, value: Optional[Literal[&#34;auto&#34;, &#34;standard&#34;, &#34;notebook&#34;]] = None):
+        if (value is None):
+            value = &#34;auto&#34;
+        else:
+            value = value.lower()  # type: ignore
+        if (value != &#34;auto&#34; and value != &#34;standard&#34; and value != &#34;notebook&#34;):
+            raise PyUCRioInitializationError(&#34;Invalid progress bar backend. Allowed values are &#39;auto&#39;, &#39;standard&#39; or &#39;notebook&#39;.&#34;)
+        self.__progress_bar_backend = value
+        self.__srs_obj.progress_bar_backend = value
+        self._tqdm = self.__srs_obj._tqdm
+
+    @property
     def srs_obj(self):
         &#34;&#34;&#34;
         Property for the PyUCalgarySRS object. See above for details.
         &#34;&#34;&#34;
         return self.__srs_obj
-
-    @srs_obj.setter
-    def srs_obj(self, new_obj: pyucalgarysrs.PyUCalgarySRS):
-        self.__srs_obj = new_obj
 
     # -----------------------------
     # special methods
@@ -326,12 +312,27 @@ of the paths</dd>
         return self.__repr__()
 
     def __repr__(self) -&gt; str:
-        return (&#34;PyUCRio(download_output_root_path=&#39;%s&#39;, api_base_url=&#39;%s&#39;, api_headers=%s, api_timeout=%s, srs_obj=PyUCalgarySRS(...))&#34; % (
-            self.__download_output_root_path,
-            self.api_base_url,
-            self.api_headers,
-            self.api_timeout,
-        ))
+        return (&#34;PyUCRio(download_output_root_path=&#39;%s&#39;, api_base_url=&#39;%s&#39;, api_timeout=%s, progress_bar_backend=&#39;%s&#39;, &#34; +
+                &#34;srs_obj=PyUCalgarySRS(...))&#34;) % (
+                    self.__download_output_root_path,
+                    self.api_base_url,
+                    self.api_timeout,
+                    self.progress_bar_backend,
+                )
+
+    def pretty_print(self):
+        &#34;&#34;&#34;
+        A special print output for this class.
+        &#34;&#34;&#34;
+        # set special strings
+
+        # print
+        print(&#34;PyUCRio:&#34;)
+        print(&#34;  %-27s: %s&#34; % (&#34;download_output_root_path&#34;, self.download_output_root_path))
+        print(&#34;  %-27s: %s&#34; % (&#34;api_base_url&#34;, self.api_base_url))
+        print(&#34;  %-27s: %s&#34; % (&#34;api_timeout&#34;, self.api_timeout))
+        print(&#34;  %-27s: %s&#34; % (&#34;progress_bar_backend&#34;, self.progress_bar_backend))
+        print(&#34;  %-27s: %s&#34; % (&#34;srs_obj&#34;, &#34;PyUCalgarySRS(...)&#34;))
 
     # -----------------------------
     # private methods
@@ -348,7 +349,7 @@ of the paths</dd>
             self.__download_output_root_path = Path(&#34;%s/pyucrio_data&#34; % (str(Path.home())))
         try:
             os.makedirs(self.download_output_root_path, exist_ok=True)
-        except IOError as e:  # pragma: nocover
+        except IOError as e:  # pragma: nocover-ok
             raise PyUCRioInitializationError(&#34;Error during output path creation: %s&#34; % str(e)) from e
 
     # -----------------------------
@@ -379,7 +380,7 @@ of the paths</dd>
 
             # purge pyucalgarysrs path
             self.__srs_obj.purge_download_output_root_path()
-        except Exception as e:  # pragma: nocover
+        except Exception as e:  # pragma: nocover-ok
             raise PyUCRioPurgeError(&#34;Error while purging download output root path: %s&#34; % (str(e))) from e
 
     def show_data_usage(self, order: Literal[&#34;name&#34;, &#34;size&#34;] = &#34;size&#34;, return_dict: bool = False) -&gt; Any:
@@ -486,11 +487,52 @@ of the paths</dd>
 
         print(&#34;\nTotal size: %s&#34; % (humanize.naturalsize(total_size)))</code></pre>
 </details>
+<div class="desc"><p>The <code><a title="pyucrio.PyUCRio" href="#pyucrio.PyUCRio">PyUCRio</a></code> class is the primary entry point for utilizing
+this library. It is used to initialize a session, capturing details
+about API connectivity, environment, and more. All submodules are
+encapsulated within this class, so any usage of the library starts
+with creating this object.</p>
+<pre><code class="language-python">import pyucrio
+rio = pyucrio.PyUCRio()
+</code></pre>
+<p>When working with this object, you can set configuration parameters, such
+as the destination directory for downloaded data, or API special settings
+(e.g., timeout, HTTP headers, API key). These parameters can be set when
+instantiating the object, or after instantiating using the self-contained
+accessible variables.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>download_output_root_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Destination directory for downloaded data. The default for this path is a
+subfolder in the user's home directory, such
+as <code>/home/user/pyucrio_data</code>
+in Linux. In Windows and Mac, it is similar.</dd>
+<dt><strong><code>api_base_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL prefix to use when interacting with the UCalgary Space Remote Sensing API. By
+default this is set to <code>https://api.phys.ucalgary.ca</code>. This parameter is primarily
+used by the development team to test and build new functions using the private staging
+API.</dd>
+<dt><strong><code>api_timeout</code></strong> :&ensp;<code>int</code></dt>
+<dd>The timeout used when communicating with the UCalgary SRS API. This value is represented in
+seconds, and by default is <code>10 seconds</code>.</dd>
+<dt><strong><code>progress_bar_backend</code></strong> :&ensp;<code>str</code></dt>
+<dd>The progress bar backend to use. Valid choices are 'auto', 'standard', or 'notebook'.
+Default is 'auto'. This parameter is optional.</dd>
+<dt><strong><code>srs_obj</code></strong> :&ensp;<code>pyucalgarysrs.PyUCalgarySRS</code></dt>
+<dd>A <a href="https://docs-pyucalgarysrs.phys.ucalgary.ca/#pyucalgarysrs.PyUCalgarySRS">PyUCalgarySRS</a> object.
+If not supplied, it will create the object with some settings carried over from the PyUCRio
+object. Note that specifying this is for advanced users and only necessary a few special use-cases.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="pyucrio.exceptions.PyUCRioInitializationError" href="exceptions.html#pyucrio.exceptions.PyUCRioInitializationError">PyUCRioInitializationError</a></code></dt>
+<dd>an error was encountered during initialization
+of the paths</dd>
+</dl></div>
 <h3>Instance variables</h3>
 <dl>
 <dt id="pyucrio.PyUCRio.api_base_url"><code class="name">prop <span class="ident">api_base_url</span></code></dt>
 <dd>
-<div class="desc"><p>Property for the API base URL. See above for details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -502,10 +544,10 @@ def api_base_url(self):
     &#34;&#34;&#34;
     return self.__api_base_url</code></pre>
 </details>
+<div class="desc"><p>Property for the API base URL. See above for details.</p></div>
 </dd>
 <dt id="pyucrio.PyUCRio.api_headers"><code class="name">prop <span class="ident">api_headers</span></code></dt>
 <dd>
-<div class="desc"><p>Property for the API headers. See above for details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -517,10 +559,10 @@ def api_headers(self):
     &#34;&#34;&#34;
     return self.__api_headers</code></pre>
 </details>
+<div class="desc"><p>Property for the API headers. See above for details.</p></div>
 </dd>
 <dt id="pyucrio.PyUCRio.api_timeout"><code class="name">prop <span class="ident">api_timeout</span></code></dt>
 <dd>
-<div class="desc"><p>Property for the API timeout. See above for details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -532,10 +574,10 @@ def api_timeout(self):
     &#34;&#34;&#34;
     return self.__api_timeout</code></pre>
 </details>
+<div class="desc"><p>Property for the API timeout. See above for details.</p></div>
 </dd>
 <dt id="pyucrio.PyUCRio.data"><code class="name">prop <span class="ident">data</span></code></dt>
 <dd>
-<div class="desc"><p>Access to the <code><a title="pyucrio.data" href="data/index.html">pyucrio.data</a></code> submodule from within a PyUCRio object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -547,10 +589,10 @@ def data(self):
     &#34;&#34;&#34;
     return self.__data</code></pre>
 </details>
+<div class="desc"><p>Access to the <code><a title="pyucrio.data" href="data/index.html">pyucrio.data</a></code> submodule from within a PyUCRio object.</p></div>
 </dd>
 <dt id="pyucrio.PyUCRio.download_output_root_path"><code class="name">prop <span class="ident">download_output_root_path</span></code></dt>
 <dd>
-<div class="desc"><p>Property for the download output root path. See above for details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -562,10 +604,25 @@ def download_output_root_path(self):
     &#34;&#34;&#34;
     return str(self.__download_output_root_path)</code></pre>
 </details>
+<div class="desc"><p>Property for the download output root path. See above for details.</p></div>
+</dd>
+<dt id="pyucrio.PyUCRio.progress_bar_backend"><code class="name">prop <span class="ident">progress_bar_backend</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def progress_bar_backend(self):
+    &#34;&#34;&#34;
+    Property for the progress bar backend. See above for details.
+    &#34;&#34;&#34;
+    return self.__progress_bar_backend</code></pre>
+</details>
+<div class="desc"><p>Property for the progress bar backend. See above for details.</p></div>
 </dd>
 <dt id="pyucrio.PyUCRio.srs_obj"><code class="name">prop <span class="ident">srs_obj</span></code></dt>
 <dd>
-<div class="desc"><p>Property for the PyUCalgarySRS object. See above for details.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -577,10 +634,10 @@ def srs_obj(self):
     &#34;&#34;&#34;
     return self.__srs_obj</code></pre>
 </details>
+<div class="desc"><p>Property for the PyUCalgarySRS object. See above for details.</p></div>
 </dd>
 <dt id="pyucrio.PyUCRio.tools"><code class="name">prop <span class="ident">tools</span></code></dt>
 <dd>
-<div class="desc"><p>Access to the <code><a title="pyucrio.tools" href="tools/index.html">pyucrio.tools</a></code> submodule from within a PyUCRio object.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -592,14 +649,71 @@ def tools(self):
     &#34;&#34;&#34;
     return self.__tools</code></pre>
 </details>
+<div class="desc"><p>Access to the <code><a title="pyucrio.tools" href="tools/index.html">pyucrio.tools</a></code> submodule from within a PyUCRio object.</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>
 <dl>
+<dt id="pyucrio.PyUCRio.pretty_print"><code class="name flex">
+<span>def <span class="ident">pretty_print</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_print(self):
+    &#34;&#34;&#34;
+    A special print output for this class.
+    &#34;&#34;&#34;
+    # set special strings
+
+    # print
+    print(&#34;PyUCRio:&#34;)
+    print(&#34;  %-27s: %s&#34; % (&#34;download_output_root_path&#34;, self.download_output_root_path))
+    print(&#34;  %-27s: %s&#34; % (&#34;api_base_url&#34;, self.api_base_url))
+    print(&#34;  %-27s: %s&#34; % (&#34;api_timeout&#34;, self.api_timeout))
+    print(&#34;  %-27s: %s&#34; % (&#34;progress_bar_backend&#34;, self.progress_bar_backend))
+    print(&#34;  %-27s: %s&#34; % (&#34;srs_obj&#34;, &#34;PyUCalgarySRS(...)&#34;))</code></pre>
+</details>
+<div class="desc"><p>A special print output for this class.</p></div>
+</dd>
 <dt id="pyucrio.PyUCRio.purge_download_output_root_path"><code class="name flex">
 <span>def <span class="ident">purge_download_output_root_path</span></span>(<span>self)</span>
 </code></dt>
 <dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def purge_download_output_root_path(self):
+    &#34;&#34;&#34;
+    Delete all files in the `download_output_root_path` directory. Since the
+    library downloads data to this directory, over time it can grow too large
+    and the user can risk running out of space. This method is here to assist
+    with easily clearing out this directory.
+
+    Note that it also deletes all files in the PyUCalgarySRS object&#39;s 
+    download_output_root_path path as well. Normally, these two paths are the 
+    same, but it can be different if the user specifically changes it. 
+
+    Raises:
+        pyucrio.exceptions.PyUCRioPurgeError: an error was encountered during the purge operation
+    &#34;&#34;&#34;
+    try:
+        # purge pyucrio path
+        for item in os.listdir(self.download_output_root_path):
+            item = Path(self.download_output_root_path) / item
+            if (os.path.isdir(item) is True and self.srs_obj.read_tar_temp_path not in str(item)):
+                shutil.rmtree(item)
+            elif (os.path.isfile(item) is True):
+                os.remove(item)
+
+        # purge pyucalgarysrs path
+        self.__srs_obj.purge_download_output_root_path()
+    except Exception as e:  # pragma: nocover-ok
+        raise PyUCRioPurgeError(&#34;Error while purging download output root path: %s&#34; % (str(e))) from e</code></pre>
+</details>
 <div class="desc"><p>Delete all files in the <code>download_output_root_path</code> directory. Since the
 library downloads data to this directory, over time it can grow too large
 and the user can risk running out of space. This method is here to assist
@@ -617,6 +731,114 @@ same, but it can be different if the user specifically changes it. </p>
 <span>def <span class="ident">show_data_usage</span></span>(<span>self, order: Literal['name', 'size'] = 'size', return_dict: bool = False) ‑> Any</span>
 </code></dt>
 <dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_data_usage(self, order: Literal[&#34;name&#34;, &#34;size&#34;] = &#34;size&#34;, return_dict: bool = False) -&gt; Any:
+    &#34;&#34;&#34;
+    Print the volume of data existing in the download_output_root_path, broken down
+    by dataset. Alternatively return the information in a dictionary.
+    
+    This can be a helpful tool for managing your disk space.
+
+    Args:
+        order (bool): 
+            Order results by either `size` or `name`. Default is `size`.
+
+        return_dict (bool): 
+            Instead of printing the data usage information, return the information as a dictionary.
+
+    Returns:
+        Printed output. If `return_dict` is True, then it will instead return a dictionary with the
+        disk usage information.
+    
+    Notes:
+        Note that size on disk may differ slightly from the values determined by this 
+        routine. For example, the results here will be slightly different than the output
+        of a &#39;du&#39; command on *nix systems.
+    &#34;&#34;&#34;
+    # init
+    total_size = 0
+    download_pathlib_path = Path(self.download_output_root_path)
+
+    # get list of dataset paths
+    dataset_paths = []
+    for f in os.listdir(download_pathlib_path):
+        path_f = download_pathlib_path / f
+        if (os.path.isdir(path_f) is True and str(path_f) != self.srs_obj.read_tar_temp_path):
+            dataset_paths.append(path_f)
+
+    # get size of each dataset path
+    dataset_dict = {}
+    longest_path_len = 0
+    for dataset_path in dataset_paths:
+        # get size
+        dataset_size = 0
+        for dirpath, _, filenames in os.walk(dataset_path):
+            for filename in filenames:
+                filepath = os.path.join(dirpath, filename)
+                if (os.path.isfile(filepath) is True):
+                    dataset_size += os.path.getsize(filepath)
+
+        # check if this is the longest path name
+        path_basename = os.path.basename(dataset_path)
+        if (longest_path_len == 0):
+            longest_path_len = len(path_basename)
+        elif (len(path_basename) &gt; longest_path_len):
+            longest_path_len = len(path_basename)
+
+        # set dict
+        dataset_dict[path_basename] = {
+            &#34;path_obj&#34;: dataset_path,
+            &#34;size_bytes&#34;: dataset_size,
+            &#34;size_str&#34;: humanize.naturalsize(dataset_size),
+        }
+
+        # add to total
+        total_size += dataset_size
+
+    # return dictionary
+    if (return_dict is True):
+        return dataset_dict
+
+    # print table
+    #
+    # order into list
+    order_key = &#34;size_bytes&#34; if order == &#34;size&#34; else order
+    ordered_list = []
+    for path, p_dict in dataset_dict.items():
+        this_dict = p_dict
+        this_dict[&#34;name&#34;] = path
+        ordered_list.append(this_dict)
+    if (order == &#34;size&#34;):
+        ordered_list = reversed(sorted(ordered_list, key=lambda x: x[order_key]))
+    else:
+        ordered_list = sorted(ordered_list, key=lambda x: x[order_key])
+
+    # set column data
+    table_names = []
+    table_sizes = []
+    for item in ordered_list:
+        table_names.append(item[&#34;name&#34;])
+        table_sizes.append(item[&#34;size_str&#34;])
+
+    # set header values
+    table_headers = [&#34;Dataset name&#34;, &#34;Size&#34;]
+
+    # print as table
+    table = Texttable()
+    table.set_deco(Texttable.HEADER)
+    table.set_cols_dtype([&#34;t&#34;] * len(table_headers))
+    table.set_header_align([&#34;l&#34;] * len(table_headers))
+    table.set_cols_align([&#34;l&#34;] * len(table_headers))
+    table.header(table_headers)
+    for i in range(0, len(table_names)):
+        table.add_row([table_names[i], table_sizes[i]])
+    print(table.draw())
+
+    print(&#34;\nTotal size: %s&#34; % (humanize.naturalsize(total_size)))</code></pre>
+</details>
 <div class="desc"><p>Print the volume of data existing in the download_output_root_path, broken down
 by dataset. Alternatively return the information in a dictionary.</p>
 <p>This can be a helpful tool for managing your disk space.</p>
@@ -708,6 +930,8 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="pyucrio.PyUCRio.api_timeout" href="#pyucrio.PyUCRio.api_timeout">api_timeout</a></code></li>
 <li><code><a title="pyucrio.PyUCRio.data" href="#pyucrio.PyUCRio.data">data</a></code></li>
 <li><code><a title="pyucrio.PyUCRio.download_output_root_path" href="#pyucrio.PyUCRio.download_output_root_path">download_output_root_path</a></code></li>
+<li><code><a title="pyucrio.PyUCRio.pretty_print" href="#pyucrio.PyUCRio.pretty_print">pretty_print</a></code></li>
+<li><code><a title="pyucrio.PyUCRio.progress_bar_backend" href="#pyucrio.PyUCRio.progress_bar_backend">progress_bar_backend</a></code></li>
 <li><code><a title="pyucrio.PyUCRio.purge_download_output_root_path" href="#pyucrio.PyUCRio.purge_download_output_root_path">purge_download_output_root_path</a></code></li>
 <li><code><a title="pyucrio.PyUCRio.show_data_usage" href="#pyucrio.PyUCRio.show_data_usage">show_data_usage</a></code></li>
 <li><code><a title="pyucrio.PyUCRio.srs_obj" href="#pyucrio.PyUCRio.srs_obj">srs_obj</a></code></li>
@@ -720,7 +944,7 @@ setTimeout(() => input.focus(), 100);
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.3</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
 </footer>
 </body>
 </html>

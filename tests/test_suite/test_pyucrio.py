@@ -18,32 +18,35 @@ import random
 import string
 import pytest
 import platform
+import datetime
 import pyucrio
-#import warnings
 from pathlib import Path
 
 
 @pytest.mark.top_level
-def test_top_level_class_instantiation_noparams():
+def test_top_level_class_instantiation_noparams(capsys):
     # instantiate
     rio = pyucrio.PyUCRio()
 
     # check paths
+    rio.initialize_paths()
     assert os.path.exists(rio.download_output_root_path)
 
     # change download root path
-    new_path = str("%s/rio_data_download_testing_%s" % (
-        Path.home(),
-        ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)),
-    ))
+    new_path = str("%s/pyucrio_data_download_testing_%s" % (Path.home(), ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))))
     rio.download_output_root_path = new_path
     assert rio.download_output_root_path == new_path
     assert os.path.exists(new_path)
     shutil.rmtree(new_path, ignore_errors=True)
 
-    # check str and repr methods
+    # check __str__ and __repr__ for PyUCRio type
+    print_str = str(rio)
+    assert print_str != ""
     assert isinstance(str(rio), str) is True
     assert isinstance(repr(rio), str) is True
+    rio.pretty_print()
+    captured_stdout = capsys.readouterr().out
+    assert captured_stdout != ""
 
 
 @pytest.mark.top_level
@@ -55,21 +58,16 @@ def test_top_level_class_instantiation_usingparams():
         ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)),
     ))
     testing_api_timeout = 5
-    testing_api_headers = {"some_key": "some value"}
     rio = pyucrio.PyUCRio(
         api_base_url=testing_url,
         download_output_root_path=testing_download_path,
         api_timeout=testing_api_timeout,
-        api_headers=testing_api_headers,
     )
     assert rio.download_output_root_path == testing_download_path
     assert rio.api_base_url == testing_url
+    assert rio.api_headers != {} and "user-agent" in rio.api_headers and "python-pyucrio" in rio.api_headers["user-agent"]
     assert rio.api_timeout == testing_api_timeout
-    assert rio.api_headers == testing_api_headers
-    assert os.path.exists(testing_download_path)
-
-    # cleanup
-    shutil.rmtree(testing_download_path, ignore_errors=True)
+    assert os.path.exists(testing_download_path) is False
 
 
 @pytest.mark.top_level
@@ -82,23 +80,26 @@ def test_bad_paths_noparams(rio):
         new_path = "/dev/bad_path"
         with pytest.raises(pyucrio.PyUCRioInitializationError) as e_info:
             rio.download_output_root_path = new_path
+            rio.initialize_paths()
         assert "Error during output path creation" in str(e_info)
 
 
-# @pytest.mark.top_level
-# def test_api_headers(rio):
-#     # set flag
-#     default_headers = rio.api_headers
-#     rio.api_headers = None
-#     assert rio.api_headers == default_headers
+@pytest.mark.top_level
+def test_api_base_url(rio):
+    # set flag
+    rio.api_base_url = "https://something"
+    assert rio.api_base_url == "https://something"
+    rio.api_base_url = None
+    assert rio.api_base_url != "https://something"
 
-#     # check warning
-#     with warnings.catch_warnings(record=True) as w:
-#         warnings.simplefilter("always")  # cause all warnings to always be triggered.
-#         rio.api_headers = {"user-agent": "some other value"}
-#         assert len(w) == 1
-#         assert issubclass(w[-1].category, UserWarning)
-#         assert "Cannot override default" in str(w[-1].message)
+    # check that trailing slash is removed
+    rio.api_base_url = "https://something/"
+    assert rio.api_base_url == "https://something"
+
+    # check invalid URL
+    with pytest.raises(pyucrio.PyUCRioInitializationError) as e_info:
+        rio.api_base_url = "something invalid"
+    assert "API base URL is an invalid URL" in str(e_info)
 
 
 @pytest.mark.top_level
@@ -112,6 +113,33 @@ def test_api_timeout(rio):
 
 
 @pytest.mark.top_level
+def test_progress_bar_backend(rio):
+    # save default for later
+    progress_bar_backend = rio.progress_bar_backend
+
+    # set flag (standard)
+    rio.progress_bar_backend = "standard"
+    assert rio.progress_bar_backend == "standard"
+
+    # set flag (notebook)
+    rio.progress_bar_backend = "notebook"
+    assert rio.progress_bar_backend == "notebook"
+
+    # set flag (auto)
+    rio.progress_bar_backend = "auto"
+    assert rio.progress_bar_backend == "auto"
+
+    # set flag (back to default)
+    rio.progress_bar_backend = None
+    assert rio.progress_bar_backend == progress_bar_backend
+
+    # check invalid value
+    with pytest.raises(pyucrio.PyUCRioInitializationError) as e_info:
+        rio.progress_bar_backend = "something invalid"
+    assert "Invalid progress bar backend" in str(e_info)
+
+
+@pytest.mark.top_level
 def test_purge_download_path(rio):
     # set up object
     #
@@ -119,13 +147,11 @@ def test_purge_download_path(rio):
     # so that our github actions for linux/mac/windows, which fire off
     # simultaneously on the same machine, work without stepping on the
     # toes of each other.
-    new_path = str("%s/pyucrio_data_purge_download_testing_%s" % (
-        Path.home(),
-        ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)),
-    ))
+    new_path = str("%s/pyucrio_data_purge_download_testing_%s" % (Path.home(), ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))))
     rio.download_output_root_path = new_path
     assert rio.download_output_root_path == new_path
-    assert os.path.exists(rio.download_output_root_path)
+    rio.initialize_paths()
+    assert os.path.exists(rio.download_output_root_path) is True
 
     # create some dummy files and folders
     os.makedirs("%s/testing1" % (rio.download_output_root_path), exist_ok=True)
@@ -140,3 +166,27 @@ def test_purge_download_path(rio):
 
     # cleanup
     shutil.rmtree(rio.download_output_root_path, ignore_errors=True)
+
+
+@pytest.mark.top_level
+def test_show_data_usage(rio, capsys):
+    # download a bit of data for several datasets
+    for dataset_name in ["SWAN_HSR_K0_H5", "NORSTAR_RIOMETER_K0_TXT"]:
+        start_dt = datetime.datetime(2023, 1, 1, 0, 0)
+        end_dt = datetime.datetime(2023, 1, 1, 23, 59)
+        rio.data.ucalgary.download(dataset_name, start_dt, end_dt, progress_bar_disable=True)
+
+    # check default params
+    print(rio.show_data_usage())
+    captured_stdout = capsys.readouterr().out
+    assert captured_stdout != ""
+
+    # check return_dict=True
+    print(rio.show_data_usage(return_dict=True))
+    captured_stdout = capsys.readouterr().out
+    assert captured_stdout != ""
+
+    # check order being name
+    print(rio.show_data_usage(order="name"))
+    captured_stdout = capsys.readouterr().out
+    assert captured_stdout != ""

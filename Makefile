@@ -1,22 +1,30 @@
-.PHONY: install update test test-linting test-pycodestyle test-bandit test-pytest test-pytest-search test-coverage show-outdated docs publish
+.PHONY: install update get-test-data test test-linting test-pycodestyle test-bandit test-pytest test-notebooks test-coverage show-outdated docs publish
 
 all:
 
-poetry:
-	python -m pip install poetry
-
-install: poetry
+install:
+	pip install poetry
 	poetry install
+	${MAKE} get-test-data
 
 update upgrade:
-	python -m pip install --upgrade poetry
+	pip install --upgrade poetry
 	poetry update
+
+get-test-data:
+	mkdir -p tests/test_data
+	cd tests/test_data && rm -rf *
+	cd tests/test_data && wget -O test_data.tar.gz https://aurora.phys.ucalgary.ca/public/github_tests/pyucrio_test_data.tar.gz
+	cd tests/test_data && tar -zxvf test_data.tar.gz && rm test_data.tar.gz
+
+docs:
+	poetry run pdoc3 --html --force --output-dir docs/generated pyucrio --config "lunr_search={'fuzziness': 1}" --template-dir docs/templates
 
 test: test-linting
 
 test-linting: test-ruff test-pycodestyle test-pyright test-bandit
 
-test-ruff ruff:
+test-ruff:
 	@printf "Running ruff tests\n+++++++++++++++++++++++++++\n"
 	ruff check --respect-gitignore --quiet pyucrio
 	ruff check --respect-gitignore --quiet tests
@@ -30,18 +38,21 @@ test-pycodestyle:
 	pycodestyle --config=.pycodestyle tools
 	@printf "\n\n"
 
-test-pyright pyright:
+test-pyright:
 	@printf "Running pyright tests\n+++++++++++++++++++++++++++\n"
 	pyright
 	@printf "\n\n"
 
-test-bandit bandit:
+test-bandit:
 	@printf "Running bandit tests\n+++++++++++++++++++++++++++\n"
 	bandit -c pyproject.toml -r -ii pyucrio
 	@printf "\n\n"
 
-test-pytest pytest:
-	pytest -n auto --cov=pyucrio --cov-report= --maxfail=1
+test-pytest:
+	pytest -n auto --cov=pyucrio --cov-report= --dist worksteal
+
+test-notebooks:
+	pytest -n 6 --nbmake examples/notebooks --ignore-glob=examples/notebooks/**/in_development/*.ipynb
 
 test-coverage coverage:
 	coverage report
@@ -50,11 +61,13 @@ test-coverage coverage:
 show-outdated:
 	poetry show --outdated
 
-docs:
-	poetry run pdoc3 --html --force --output-dir docs/generated pyucrio --config "lunr_search={'fuzziness': 1}" --template-dir docs/templates
+tool-checks:
+	@./tools/check_for_license.py
+	@./tools/check_docstrings.py
 
 publish:
 	${MAKE} test
+	${MAKE} tool-checks
 	poetry build
 	poetry publish
 	@rm -rf pyucrio.egg-info build dist
