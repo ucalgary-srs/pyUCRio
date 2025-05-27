@@ -30,7 +30,40 @@ from ..._util import show_warning
 
 
 class SiteMap:
-    """TODO: ADD DOCSTRING """
+    """
+    Class representation for a generated site map.
+
+    Attributes:
+        cartopy_projection (cartopy.crs.Projection): 
+            Cartopy projection to utilize.
+
+        site_uid_list (list or str):
+            The sites included in this SiteMap object.
+
+        site_locations (list or Dict[str, ndarry]):
+            The geodetic coordinates of the sites included in this SiteMap object.
+
+        instrument_array (list or str):
+            String giving the name of the instrument(s) that the site locations 
+            correspond to.
+
+        data_availability (list[Dict[str, bool]]):
+            Booleans to specify which sites have available data.
+
+        color (list or str):
+            String specifying the color to associate with each set of sites for plotting.
+        
+        marker (list or str):
+            String specifying the matplotlib.pyplot marker style to associate with each
+            set of sites for plotting.
+        
+        markersize (list or int):
+            Int specifying the marker size to associate with each set of sites for plotting.
+            Default is 1.
+        
+        contour_data (Dict[str, List[Any]]): 
+            Generated contour data.
+    """
 
     def __init__(self, cartopy_projection: cartopy.crs.Projection, site_uid_list: List[List[str]], site_locations: List[Dict[str, ndarray]],
                  instrument_array: List[str], data_availability: Optional[List[Dict[str, bool]]], color: List[str], marker: List[str],

@@ -45,27 +45,6 @@ keywords = [
 python = ">=3.9"
 humanize = "^4.4.0"
 texttable = "^1.6.4"
-<<<<<<< HEAD
-tqdm = "^4.61.2"
-aacgmv2 = "^2.6.2"
-numpy = [
-    {version = "^1.21.0", python = ">=3.9,<3.10"},
-    {version = ">=1.21.0,<3.0.0", python = ">=3.10"}
-]
-matplotlib = [
-    {version = "^3.4.0", python = ">=3.9,<3.10"},
-    {version = "^3.5.0", python = ">=3.10"}
-]
-cartopy = [
-    {version = "^0.23.0", python = ">=3.9,<3.10"},
-    {version = "^0.24.0", python = ">=3.10"}
-]
-pyucalgarysrs = "1.20.1"
-
-
-[tool.poetry.group.dev.dependencies]
-ruff = "0.11.8"
-=======
 numpy = [
     {version = "^1.21.0", python = ">=3.9,<3.10"},
     {version = ">=1.21.0,<3.0.0", python = ">=3.10"}
@@ -79,7 +58,6 @@ pyucalgarysrs = "1.21.2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "0.11.11"
->>>>>>> main
 pytest = "8.3.5"
 pycodestyle = "2.13.0"
 yapf = "0.43.0"
@@ -87,10 +65,6 @@ pytest-xdist = "3.7.0"
 pytest-sugar = "1.0.0"
 pytest-cov = "6.1.1"
 bandit = "1.8.3"
-<<<<<<< HEAD
-pyright = "1.1.400"
-pdoc3 = "0.11.6"
-=======
 pyright = "1.1.401"
 pdoc3 = "0.11.6"
 jupyter = "1.1.1"
@@ -98,7 +72,6 @@ iprogress = "0.4"
 ipywidgets = "8.1.7"
 ipykernel = "6.29.5"
 nbmake = "1.5.5"
->>>>>>> main
 
 [tool.ruff]
 line-length = 150
@@ -132,10 +105,7 @@ include = [
 typeCheckingMode = "standard"
 
 [tool.pytest.ini_options]
-testpaths = [
-    "tests/test_suite/*.py",
-    "tests/test_suite/**/*.py",
-]
+testpaths = ["tests/test_suite"]
 markers = [
     "top_level: top level PyUCRio object tests",
     "data: data distribution tests",

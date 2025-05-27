@@ -29,26 +29,21 @@ Example:
 """
 
 # pull in classes (none yet)
+
+# imports for this file
 import datetime
 from pyucalgarysrs.data.classes import Data
 from ._util import set_theme as func_set_theme
 from ._plot import plot as func_plot
-from .classes.site_map import SiteMap
+
+# pull in submodules
+from .site_map import SiteMapManager
 
 # typing imports
 from typing import Optional, Tuple, Union, Any, List
 
-
 __all__ = [
-    # sub-modules
-
-    # top level functions
-    "set_theme",
-    "plot",
-
-    # classes
     "ToolsManager",
-    "SiteMap"
 ]
 
 
@@ -58,8 +53,14 @@ class ToolsManager:
     the submodules and carry over configuration information in the super class.
     """
 
-    def __init__(self):
-        pass
+    # ------------------------------------------
+    # functions available at this manager level
+    # ------------------------------------------
+    def __init__(self, ucrio_obj):
+        self.__ucrio_obj = ucrio_obj
+
+        # initialize sub-modules
+        self.__site_map = SiteMapManager(self.__ucrio_obj)
 
     # ------------------------------------------
     # properties for submodule managers
@@ -71,9 +72,6 @@ class ToolsManager:
         """
         return self.__site_map
 
-    # ------------------------------------------
-    # functions available at this manager level
-    # ------------------------------------------
     def set_theme(self, theme: str) -> None:
         """
         A handy wrapper for setting the matplotlib global theme. Common choices are `light`, 

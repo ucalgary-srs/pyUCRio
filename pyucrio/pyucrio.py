@@ -117,11 +117,7 @@ class PyUCRio:
 
         # initialize sub-modules
         self.__data = DataManager(self)
-<<<<<<< HEAD
         self.__tools = ToolsManager(self)
-=======
-        self.__tools = ToolsManager()
->>>>>>> main
 
     # ------------------------------------------
     # properties for submodule managers

@@ -53,10 +53,9 @@ def test_top_level_class_instantiation_noparams(capsys):
 def test_top_level_class_instantiation_usingparams():
     # instantiate object
     testing_url = "https://testing-url.com"
-    testing_download_path = str("%s/rio_data_download_testing_%s" % (
-        Path.home(),
-        ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)),
-    ))
+    testing_download_path = str("%s/pyucrio_data_download_testing_%s" %
+                                (Path.home(), ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))))
+
     testing_api_timeout = 5
     rio = pyucrio.PyUCRio(
         api_base_url=testing_url,
