@@ -1,6 +1,8 @@
 Version 1.6.0 (2025-05-30)
 -------------------
-- 
+- added new `SiteMap` class
+- added `site_map.create_map()` module and `SiteMap.plot()` method
+- added crib sheet for new `SiteMap` tools
 
 
 Version 1.5.0 (2025-05-14)
