@@ -37,27 +37,27 @@ class SiteMap:
         cartopy_projection (cartopy.crs.Projection): 
             Cartopy projection to utilize.
 
-        site_uid_list (list or str):
+        site_uid_list (list or str): 
             The sites included in this SiteMap object.
 
-        site_locations (list or Dict[str, ndarry]):
+        site_locations (list or Dict[str, ndarry]): 
             The geodetic coordinates of the sites included in this SiteMap object.
 
-        instrument_array (list or str):
+        instrument_array (list or str): 
             String giving the name of the instrument(s) that the site locations 
             correspond to.
 
-        data_availability (list[Dict[str, bool]]):
+        data_availability (list[Dict[str, bool]]): 
             Booleans to specify which sites have available data.
 
-        color (list or str):
+        color (list or str): 
             String specifying the color to associate with each set of sites for plotting.
         
-        marker (list or str):
+        symbol (list or str): 
             String specifying the matplotlib.pyplot marker style to associate with each
             set of sites for plotting.
         
-        markersize (list or int):
+        sym_size (list or int): 
             Int specifying the marker size to associate with each set of sites for plotting.
             Default is 1.
         
@@ -66,8 +66,8 @@ class SiteMap:
     """
 
     def __init__(self, cartopy_projection: cartopy.crs.Projection, site_uid_list: List[List[str]], site_locations: List[Dict[str, ndarray]],
-                 instrument_array: List[str], data_availability: Optional[List[Dict[str, bool]]], color: List[str], marker: List[str],
-                 markersize: List[int], contour_data, ucrio_obj):
+                 instrument_array: List[str], data_availability: Optional[List[Dict[str, bool]]], color: List[str], symbol: List[str],
+                 sym_size: List[int], contour_data, ucrio_obj):
 
         # Public vars
         self.cartopy_projection = cartopy_projection
@@ -76,8 +76,8 @@ class SiteMap:
         self.instrument_array = instrument_array
         self.data_availability = data_availability
         self.color = color
-        self.sym_size = markersize
-        self.symbol = marker
+        self.sym_size = sym_size
+        self.symbol = symbol
         self.contour_data = contour_data
 
         # Private vars
@@ -129,13 +129,13 @@ class SiteMap:
         data in a given time interval.
 
         Args:
-            dataset_name (str):
+            dataset_name (str): 
                 The name of the dataset to check for data availability (e.g. "TODO:")
 
-            start (datetime.datetime):
+            start (datetime.datetime): 
                 Defines the start time of the interval to check for data availability.
                 
-            end (datetime.datetime):
+            end (datetime.datetime): 
                 Defines the end time of the interval to check for data availability.
 
         Returns:
@@ -151,8 +151,9 @@ class SiteMap:
         for i, dataset in enumerate(dataset_name):
 
             if (self.instrument_array[i] is None):
-                raise ValueError("Cannot add data availability to a SiteMap object with no associated instrument_array. Please specify " +
-                                 "instrument_array upon creation of SiteMap object to enforce data availability.")
+                raise ValueError(
+                    "Cannot add data availability to a SiteMap object with no associated instrument_array. Please specify " +  # pragma: nocover
+                    "instrument_array upon creation of SiteMap object to enforce data availability.")
 
             # Check if the requested dataset makes sense for the FOVData
             fov_instrument = self.instrument_array[i].upper()
@@ -179,7 +180,7 @@ class SiteMap:
                 data_availability_list.append(availability_dict)
 
         if len(data_availability_list) == 0:
-            self.data_availability = None
+            self.data_availability = None  # pragma: nocover
         else:
             self.data_availability = data_availability_list
 
@@ -210,9 +211,17 @@ class SiteMap:
                 Latitude/longitude range to be visible on the rendered map. This is a list of 4 integers 
                 and/or floats, in the order of [min_lon, max_lon, min_lat, max_lat].
 
-            label (bool):
-                Specifies wether individual sites will be labelled with their site_uid.
-                
+            label (bool): 
+                Specifies that individual sites will be labelled with their site_uid.
+            
+            upper_label (bool): 
+                Plots site labels in uppercase
+
+            enforce_data_availability (bool): 
+                Plot only sites that have data availability. This option may only be used if the SiteMap
+                already has data_availibility information associated with it, which is usually achieved
+                using the add_availability() method.
+
             figsize (tuple): 
                 The matplotlib figure size to use when plotting. For example `figsize=(14,4)`.
 
@@ -323,6 +332,10 @@ class SiteMap:
                         if (self.data_availability[i][site] is False):
                             continue
 
+                if (enforce_data_availability is True and self.data_availability is None):
+                    raise ValueError("Before plotting FOV object with enforce_data_availability=True, " +
+                                     "FOVData.add_availability(...) must be called for all included FOVData objects.")
+
                 latlon = site_locations[site]
 
                 ax.plot(np.squeeze(latlon[1]),
@@ -350,7 +363,7 @@ class SiteMap:
                     else:
                         ax.text(center_lon,
                                 center_lat,
-                                site.upper(),
+                                site.lower(),
                                 ha="center",
                                 va="center",
                                 color=color,
@@ -383,7 +396,7 @@ class SiteMap:
             if (".jpg" == f_extension or ".jpeg" == f_extension):
                 # check quality setting
                 if (savefig_quality is not None):
-                    plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches="tight")
+                    plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches="tight")  # pragma: nocover
                 else:
                     plt.savefig(savefig_filename, bbox_inches="tight")
             else:

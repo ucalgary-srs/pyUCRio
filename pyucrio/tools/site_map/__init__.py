@@ -47,16 +47,22 @@ class SiteMapManager:
             cartopy_projection (cartopy.crs.Projection): 
                 The cartopy projection to use when creating the FoV map.
 
-            site_uid_list: (str or list of str):
+            site_uid_list (str or list of str): 
+                List of site UIDs to include in the map.
 
-            instrument_array (str):
+            instrument_array (str): 
+                The instrument array that the site_uid_list sites are a part of.
 
-            color (str):
+            color (str): 
+                String specifying a matplotlib color to associate with site locations
+                for plotting.
 
-            linewidth (int):
+            symbol (int): 
+                Integer giving the linewidth to associate with site locations for plotting.
 
-            linestyle (str):
-
+            sym_size (str): 
+                String specifying a matplotlib linestyle to associate with site locations
+                for plotting.
 
         Returns:
             The generated `pyaurorax.tools.SiteMap` object.

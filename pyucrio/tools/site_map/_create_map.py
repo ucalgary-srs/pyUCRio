@@ -112,7 +112,7 @@ def create_map(ucrio_obj, cartopy_projection, site_uid_list, instrument_array, c
                    instrument_array=instrument_array,
                    data_availability=None,
                    color=color,
-                   marker=symbol,
-                   markersize=sym_size,
+                   symbol=symbol,
+                   sym_size=sym_size,
                    contour_data=None,
                    ucrio_obj=ucrio_obj)
