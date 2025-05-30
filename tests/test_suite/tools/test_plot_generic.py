@@ -22,8 +22,7 @@ from unittest.mock import patch
 
 
 @pytest.mark.tools
-@patch("matplotlib.pyplot.show")
-def test_plot_warnings1(mock_show, plot_cleanup, rt, rio_k0_data_list):
+def test_plot_warnings1(plot_cleanup, rt, rio_k0_data_list):
     # returnfig=True, savefig_filename supplied
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_filename="some_filename")
