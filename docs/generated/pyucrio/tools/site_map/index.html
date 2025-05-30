@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
-<title>pyucrio.exceptions API documentation</title>
-<meta name="description" content="Unique exception classes utilized by PyUCRio. These exceptions can be used
-to help trap specific errors raised by this library …">
+<title>pyucrio.tools.site_map API documentation</title>
+<meta name="description" content="Obtain FoVs of ASIs and create plots.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -52,14 +51,10 @@ border-left: 1px solid #ddd;
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyucrio.exceptions</code></h1>
+<h1 class="title">Module <code>pyucrio.tools.site_map</code></h1>
 </header>
 <section id="section-intro">
-<p>Unique exception classes utilized by PyUCRio. These exceptions can be used
-to help trap specific errors raised by this library.</p>
-<p>Note that all exceptions are imported at the root level of the library. They
-can be referenced using <a href="exceptions.html#pyucrio.exceptions.PyUCRioError"><code>pyucrio.PyUCRioError</code></a>
-or <code><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></code>.</p>
+<p>Obtain FoVs of ASIs and create plots.</p>
 </section>
 <section>
 </section>
@@ -70,155 +65,129 @@ or <code><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.Py
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyucrio.exceptions.PyUCRioAPIError"><code class="flex name class">
-<span>class <span class="ident">PyUCRioAPIError</span></span>
-<span>(</span><span>*args, **kwargs)</span>
+<dt id="pyucrio.tools.site_map.SiteMapManager"><code class="flex name class">
+<span>class <span class="ident">SiteMapManager</span></span>
+<span>(</span><span>ucrio_obj)</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class PyUCRioAPIError(PyUCRioError):
+<pre><code class="python">class SiteMapManager:
     &#34;&#34;&#34;
-    Error occurred during an API call
+    The SiteMapManager object is initialized within every PyAuroraX object. It acts as a way to access 
+    the submodules and carry over configuration information in the super class.
     &#34;&#34;&#34;
-    pass</code></pre>
-</details>
-<div class="desc"><p>Error occurred during an API call</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-</dd>
-<dt id="pyucrio.exceptions.PyUCRioDownloadError"><code class="flex name class">
-<span>class <span class="ident">PyUCRioDownloadError</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PyUCRioDownloadError(PyUCRioError):
-    &#34;&#34;&#34;
-    Error occurred during downloading of data
 
-    NOTE: this is primarily a PyUCalgarySRS error
-    &#34;&#34;&#34;
-    pass</code></pre>
-</details>
-<div class="desc"><p>Error occurred during downloading of data</p>
-<p>NOTE: this is primarily a PyUCalgarySRS error</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-</dd>
-<dt id="pyucrio.exceptions.PyUCRioError"><code class="flex name class">
-<span>class <span class="ident">PyUCRioError</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PyUCRioError(Exception):
+    def __init__(self, ucrio_obj):
+        self.__ucrio_obj = ucrio_obj
 
-    def __init__(self, *args, **kwargs):
-        super(PyUCRioError, self).__init__(*args, **kwargs)  # pragma: no cover</code></pre>
-</details>
-<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-<h3>Subclasses</h3>
-<ul class="hlist">
-<li><a title="pyucrio.exceptions.PyUCRioAPIError" href="#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></li>
-<li><a title="pyucrio.exceptions.PyUCRioDownloadError" href="#pyucrio.exceptions.PyUCRioDownloadError">PyUCRioDownloadError</a></li>
-<li><a title="pyucrio.exceptions.PyUCRioInitializationError" href="#pyucrio.exceptions.PyUCRioInitializationError">PyUCRioInitializationError</a></li>
-<li><a title="pyucrio.exceptions.PyUCRioPurgeError" href="#pyucrio.exceptions.PyUCRioPurgeError">PyUCRioPurgeError</a></li>
-<li><a title="pyucrio.exceptions.PyUCRioUnsupportedReadError" href="#pyucrio.exceptions.PyUCRioUnsupportedReadError">PyUCRioUnsupportedReadError</a></li>
-</ul>
-</dd>
-<dt id="pyucrio.exceptions.PyUCRioInitializationError"><code class="flex name class">
-<span>class <span class="ident">PyUCRioInitializationError</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PyUCRioInitializationError(PyUCRioError):
-    &#34;&#34;&#34;
-    Error occurred during library initialization
-    &#34;&#34;&#34;
-    pass</code></pre>
-</details>
-<div class="desc"><p>Error occurred during library initialization</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-</dd>
-<dt id="pyucrio.exceptions.PyUCRioPurgeError"><code class="flex name class">
-<span>class <span class="ident">PyUCRioPurgeError</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PyUCRioPurgeError(PyUCRioError):
-    &#34;&#34;&#34;
-    Error occurred during purging of download working directory
-    &#34;&#34;&#34;
-    pass</code></pre>
-</details>
-<div class="desc"><p>Error occurred during purging of download working directory</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
-</dd>
-<dt id="pyucrio.exceptions.PyUCRioUnsupportedReadError"><code class="flex name class">
-<span>class <span class="ident">PyUCRioUnsupportedReadError</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class PyUCRioUnsupportedReadError(PyUCRioError):
-    &#34;&#34;&#34;
-    Unsupported dataset for read function
+    def create_map(self,
+                   cartopy_projection: cartopy.crs.Projection,
+                   instrument_array: Union[Literal[&#34;swan_hsr&#34;, &#34;norstar_riometer&#34;], List[str]],
+                   site_uid_list: Optional[Union[List[str], List[List[str]]]] = None,
+                   color: Union[str, List[str]] = &#39;black&#39;,
+                   symbol: Union[str, List[str]] = &#39;o&#39;,
+                   sym_size: Union[int, List[int]] = 1) -&gt; SiteMap:
+        &#34;&#34;&#34;
+        Create a SiteMap object.
 
-    NOTE: this is primarily a PyUCalgarySRS error
-    &#34;&#34;&#34;
-    pass</code></pre>
+        Args:
+            
+            cartopy_projection (cartopy.crs.Projection): 
+                The cartopy projection to use when creating the FoV map.
+
+            site_uid_list: (str or list of str):
+
+            instrument_array (str):
+
+            color (str):
+
+            linewidth (int):
+
+            linestyle (str):
+
+
+        Returns:
+            The generated `pyaurorax.tools.SiteMap` object.
+
+        Raises:
+            ValueError: issues encountered with supplied parameters
+            pyaurorax.exceptions.AuroraXError: general issue encountered
+        &#34;&#34;&#34;
+        return func_create_map(self.__ucrio_obj, cartopy_projection, site_uid_list, instrument_array, color, symbol, sym_size)</code></pre>
 </details>
-<div class="desc"><p>Unsupported dataset for read function</p>
-<p>NOTE: this is primarily a PyUCalgarySRS error</p></div>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></li>
-<li>builtins.Exception</li>
-<li>builtins.BaseException</li>
-</ul>
+<div class="desc"><p>The SiteMapManager object is initialized within every PyAuroraX object. It acts as a way to access
+the submodules and carry over configuration information in the super class.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="pyucrio.tools.site_map.SiteMapManager.create_map"><code class="name flex">
+<span>def <span class="ident">create_map</span></span>(<span>self,<br>cartopy_projection: cartopy.crs.Projection,<br>instrument_array: Literal['swan_hsr', 'norstar_riometer'] | List[str],<br>site_uid_list: List[str] | List[List[str]] | None = None,<br>color: str | List[str] = 'black',<br>symbol: str | List[str] = 'o',<br>sym_size: int | List[int] = 1) ‑> <a title="pyucrio.tools.classes.site_map.SiteMap" href="../classes/site_map.html#pyucrio.tools.classes.site_map.SiteMap">SiteMap</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_map(self,
+               cartopy_projection: cartopy.crs.Projection,
+               instrument_array: Union[Literal[&#34;swan_hsr&#34;, &#34;norstar_riometer&#34;], List[str]],
+               site_uid_list: Optional[Union[List[str], List[List[str]]]] = None,
+               color: Union[str, List[str]] = &#39;black&#39;,
+               symbol: Union[str, List[str]] = &#39;o&#39;,
+               sym_size: Union[int, List[int]] = 1) -&gt; SiteMap:
+    &#34;&#34;&#34;
+    Create a SiteMap object.
+
+    Args:
+        
+        cartopy_projection (cartopy.crs.Projection): 
+            The cartopy projection to use when creating the FoV map.
+
+        site_uid_list: (str or list of str):
+
+        instrument_array (str):
+
+        color (str):
+
+        linewidth (int):
+
+        linestyle (str):
+
+
+    Returns:
+        The generated `pyaurorax.tools.SiteMap` object.
+
+    Raises:
+        ValueError: issues encountered with supplied parameters
+        pyaurorax.exceptions.AuroraXError: general issue encountered
+    &#34;&#34;&#34;
+    return func_create_map(self.__ucrio_obj, cartopy_projection, site_uid_list, instrument_array, color, symbol, sym_size)</code></pre>
+</details>
+<div class="desc"><p>Create a SiteMap object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>cartopy_projection</code></strong> :&ensp;<code>cartopy.crs.Projection</code></dt>
+<dd>The cartopy projection to use when creating the FoV map.</dd>
+<dt><strong><code>site_uid_list</code></strong></dt>
+<dd>(str or list of str):</dd>
+</dl>
+<p>instrument_array (str):</p>
+<p>color (str):</p>
+<p>linewidth (int):</p>
+<p>linestyle (str):</p>
+<h2 id="returns">Returns</h2>
+<p>The generated <code>pyaurorax.tools.SiteMap</code> object.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>issues encountered with supplied parameters</dd>
+<dt><code>pyaurorax.exceptions.AuroraXError</code></dt>
+<dd>general issue encountered</dd>
+</dl></div>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -258,7 +227,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = '../doc-search.html#' + encodeURIComponent(query);
+const url = '../../../doc-search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -276,28 +245,16 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyucrio" href="index.html">pyucrio</a></code></li>
+<li><code><a title="pyucrio.tools" href="../index.html">pyucrio.tools</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyucrio.exceptions.PyUCRioAPIError" href="#pyucrio.exceptions.PyUCRioAPIError">PyUCRioAPIError</a></code></h4>
-</li>
-<li>
-<h4><code><a title="pyucrio.exceptions.PyUCRioDownloadError" href="#pyucrio.exceptions.PyUCRioDownloadError">PyUCRioDownloadError</a></code></h4>
-</li>
-<li>
-<h4><code><a title="pyucrio.exceptions.PyUCRioError" href="#pyucrio.exceptions.PyUCRioError">PyUCRioError</a></code></h4>
-</li>
-<li>
-<h4><code><a title="pyucrio.exceptions.PyUCRioInitializationError" href="#pyucrio.exceptions.PyUCRioInitializationError">PyUCRioInitializationError</a></code></h4>
-</li>
-<li>
-<h4><code><a title="pyucrio.exceptions.PyUCRioPurgeError" href="#pyucrio.exceptions.PyUCRioPurgeError">PyUCRioPurgeError</a></code></h4>
-</li>
-<li>
-<h4><code><a title="pyucrio.exceptions.PyUCRioUnsupportedReadError" href="#pyucrio.exceptions.PyUCRioUnsupportedReadError">PyUCRioUnsupportedReadError</a></code></h4>
+<h4><code><a title="pyucrio.tools.site_map.SiteMapManager" href="#pyucrio.tools.site_map.SiteMapManager">SiteMapManager</a></code></h4>
+<ul class="">
+<li><code><a title="pyucrio.tools.site_map.SiteMapManager.create_map" href="#pyucrio.tools.site_map.SiteMapManager.create_map">create_map</a></code></li>
+</ul>
 </li>
 </ul>
 </li>
