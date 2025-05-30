@@ -34,7 +34,7 @@ Basic usage:
 """
 
 # versioning info
-__version__ = "1.5.0"
+__version__ = "1.6.0"
 
 # documentation excludes
 __pdoc__ = {"pyucrio": False}

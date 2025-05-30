@@ -1,3 +1,8 @@
+Version 1.6.0 (2025-05-30)
+-------------------
+- 
+
+
 Version 1.5.0 (2025-05-14)
 -------------------
 - adjustments to data download path initialization logic
