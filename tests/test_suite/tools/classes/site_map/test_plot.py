@@ -187,7 +187,7 @@ def test_savefig(rt):
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_with_data_availability(mock_show, rt):
+def test_plot_with_data_availability(mock_show, plot_cleanup, rt):
 
     center_lat = -100.0
     center_lon = 55.0
@@ -211,7 +211,7 @@ def test_plot_with_data_availability(mock_show, rt):
 
 @pytest.mark.tools
 @patch("matplotlib.pyplot.show")
-def test_plot_with_contours(mock_show, rt):
+def test_plot_with_contours(mock_show, plot_cleanup, rt):
 
     center_lat = -100.0
     center_lon = 55.0
