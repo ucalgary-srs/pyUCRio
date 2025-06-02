@@ -49,7 +49,7 @@ test-bandit:
 	@printf "\n\n"
 
 test-pytest:
-	pytest -n auto --cov=pyucrio --cov-report= --dist worksteal
+	pytest -n 6 --cov=pyucrio --cov-report=
 
 test-notebooks:
 	pytest -n 6 --nbmake examples/notebooks --ignore-glob=examples/notebooks/**/in_development/*.ipynb
