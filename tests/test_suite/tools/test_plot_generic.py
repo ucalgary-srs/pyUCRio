@@ -148,7 +148,7 @@ def test_plot_ytitle_stack(mock_show, plot_cleanup, rt, rio_k0_data_list):
 
 
 @pytest.mark.tools
-def test_plot_savefig_no_filename(plot_cleanup, rt, rio_k0_data_list):
+def test_plot_savefig_no_filename(rt, rio_k0_data_list):
     # savefig but with no filename
     with pytest.raises(ValueError) as e_info:
         rt.plot(rio_k0_data_list, savefig=True)

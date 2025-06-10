@@ -1,3 +1,9 @@
+Version 1.7.0 (2025-06-10)
+-------------------
+- updated dependency ranges for Numpy
+- bump PyUCalgarySRS dependency to latest
+
+
 Version 1.6.0 (2025-05-30)
 -------------------
 - added new `SiteMap` class
