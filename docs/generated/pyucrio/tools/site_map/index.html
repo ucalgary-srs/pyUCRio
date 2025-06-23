@@ -98,16 +98,22 @@ border-left: 1px solid #ddd;
             cartopy_projection (cartopy.crs.Projection): 
                 The cartopy projection to use when creating the FoV map.
 
-            site_uid_list: (str or list of str):
+            site_uid_list (str or list of str): 
+                List of site UIDs to include in the map.
 
-            instrument_array (str):
+            instrument_array (str): 
+                The instrument array that the site_uid_list sites are a part of.
 
-            color (str):
+            color (str): 
+                String specifying a matplotlib color to associate with site locations
+                for plotting.
 
-            linewidth (int):
+            symbol (int): 
+                Integer giving the linewidth to associate with site locations for plotting.
 
-            linestyle (str):
-
+            sym_size (str): 
+                String specifying a matplotlib linestyle to associate with site locations
+                for plotting.
 
         Returns:
             The generated `pyaurorax.tools.SiteMap` object.
@@ -145,16 +151,22 @@ the submodules and carry over configuration information in the super class.</p><
         cartopy_projection (cartopy.crs.Projection): 
             The cartopy projection to use when creating the FoV map.
 
-        site_uid_list: (str or list of str):
+        site_uid_list (str or list of str): 
+            List of site UIDs to include in the map.
 
-        instrument_array (str):
+        instrument_array (str): 
+            The instrument array that the site_uid_list sites are a part of.
 
-        color (str):
+        color (str): 
+            String specifying a matplotlib color to associate with site locations
+            for plotting.
 
-        linewidth (int):
+        symbol (int): 
+            Integer giving the linewidth to associate with site locations for plotting.
 
-        linestyle (str):
-
+        sym_size (str): 
+            String specifying a matplotlib linestyle to associate with site locations
+            for plotting.
 
     Returns:
         The generated `pyaurorax.tools.SiteMap` object.
@@ -170,13 +182,19 @@ the submodules and carry over configuration information in the super class.</p><
 <dl>
 <dt><strong><code>cartopy_projection</code></strong> :&ensp;<code>cartopy.crs.Projection</code></dt>
 <dd>The cartopy projection to use when creating the FoV map.</dd>
-<dt><strong><code>site_uid_list</code></strong></dt>
-<dd>(str or list of str):</dd>
+<dt><strong><code>site_uid_list</code></strong> :&ensp;<code>str</code> or <code>list</code> of <code>str</code></dt>
+<dd>List of site UIDs to include in the map.</dd>
+<dt><strong><code>instrument_array</code></strong> :&ensp;<code>str</code></dt>
+<dd>The instrument array that the site_uid_list sites are a part of.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code></dt>
+<dd>String specifying a matplotlib color to associate with site locations
+for plotting.</dd>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>int</code></dt>
+<dd>Integer giving the linewidth to associate with site locations for plotting.</dd>
+<dt><strong><code>sym_size</code></strong> :&ensp;<code>str</code></dt>
+<dd>String specifying a matplotlib linestyle to associate with site locations
+for plotting.</dd>
 </dl>
-<p>instrument_array (str):</p>
-<p>color (str):</p>
-<p>linewidth (int):</p>
-<p>linestyle (str):</p>
 <h2 id="returns">Returns</h2>
 <p>The generated <code>pyaurorax.tools.SiteMap</code> object.</p>
 <h2 id="raises">Raises</h2>

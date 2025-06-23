@@ -67,7 +67,7 @@ border-left: 1px solid #ddd;
 <dl>
 <dt id="pyucrio.tools.classes.site_map.SiteMap"><code class="flex name class">
 <span>class <span class="ident">SiteMap</span></span>
-<span>(</span><span>cartopy_projection: cartopy.crs.Projection,<br>site_uid_list: List[List[str]],<br>site_locations: List[Dict[str, numpy.ndarray]],<br>instrument_array: List[str],<br>data_availability: List[Dict[str, bool]] | None,<br>color: List[str],<br>marker: List[str],<br>markersize: List[int],<br>contour_data,<br>ucrio_obj)</span>
+<span>(</span><span>cartopy_projection: cartopy.crs.Projection,<br>site_uid_list: List[List[str]],<br>site_locations: List[Dict[str, numpy.ndarray]],<br>instrument_array: List[str],<br>data_availability: List[Dict[str, bool]] | None,<br>color: List[str],<br>symbol: List[str],<br>sym_size: List[int],<br>contour_data,<br>ucrio_obj)</span>
 </code></dt>
 <dd>
 <details class="source">
@@ -82,27 +82,27 @@ border-left: 1px solid #ddd;
         cartopy_projection (cartopy.crs.Projection): 
             Cartopy projection to utilize.
 
-        site_uid_list (list or str):
+        site_uid_list (list or str): 
             The sites included in this SiteMap object.
 
-        site_locations (list or Dict[str, ndarry]):
+        site_locations (list or Dict[str, ndarry]): 
             The geodetic coordinates of the sites included in this SiteMap object.
 
-        instrument_array (list or str):
+        instrument_array (list or str): 
             String giving the name of the instrument(s) that the site locations 
             correspond to.
 
-        data_availability (list[Dict[str, bool]]):
+        data_availability (list[Dict[str, bool]]): 
             Booleans to specify which sites have available data.
 
-        color (list or str):
+        color (list or str): 
             String specifying the color to associate with each set of sites for plotting.
         
-        marker (list or str):
+        symbol (list or str): 
             String specifying the matplotlib.pyplot marker style to associate with each
             set of sites for plotting.
         
-        markersize (list or int):
+        sym_size (list or int): 
             Int specifying the marker size to associate with each set of sites for plotting.
             Default is 1.
         
@@ -111,8 +111,8 @@ border-left: 1px solid #ddd;
     &#34;&#34;&#34;
 
     def __init__(self, cartopy_projection: cartopy.crs.Projection, site_uid_list: List[List[str]], site_locations: List[Dict[str, ndarray]],
-                 instrument_array: List[str], data_availability: Optional[List[Dict[str, bool]]], color: List[str], marker: List[str],
-                 markersize: List[int], contour_data, ucrio_obj):
+                 instrument_array: List[str], data_availability: Optional[List[Dict[str, bool]]], color: List[str], symbol: List[str],
+                 sym_size: List[int], contour_data, ucrio_obj):
 
         # Public vars
         self.cartopy_projection = cartopy_projection
@@ -121,8 +121,8 @@ border-left: 1px solid #ddd;
         self.instrument_array = instrument_array
         self.data_availability = data_availability
         self.color = color
-        self.sym_size = markersize
-        self.symbol = marker
+        self.sym_size = sym_size
+        self.symbol = symbol
         self.contour_data = contour_data
 
         # Private vars
@@ -174,13 +174,13 @@ border-left: 1px solid #ddd;
         data in a given time interval.
 
         Args:
-            dataset_name (str):
+            dataset_name (str): 
                 The name of the dataset to check for data availability (e.g. &#34;TODO:&#34;)
 
-            start (datetime.datetime):
+            start (datetime.datetime): 
                 Defines the start time of the interval to check for data availability.
                 
-            end (datetime.datetime):
+            end (datetime.datetime): 
                 Defines the end time of the interval to check for data availability.
 
         Returns:
@@ -196,8 +196,9 @@ border-left: 1px solid #ddd;
         for i, dataset in enumerate(dataset_name):
 
             if (self.instrument_array[i] is None):
-                raise ValueError(&#34;Cannot add data availability to a SiteMap object with no associated instrument_array. Please specify &#34; +
-                                 &#34;instrument_array upon creation of SiteMap object to enforce data availability.&#34;)
+                raise ValueError(
+                    &#34;Cannot add data availability to a SiteMap object with no associated instrument_array. Please specify &#34; +  # pragma: nocover
+                    &#34;instrument_array upon creation of SiteMap object to enforce data availability.&#34;)
 
             # Check if the requested dataset makes sense for the FOVData
             fov_instrument = self.instrument_array[i].upper()
@@ -224,7 +225,7 @@ border-left: 1px solid #ddd;
                 data_availability_list.append(availability_dict)
 
         if len(data_availability_list) == 0:
-            self.data_availability = None
+            self.data_availability = None  # pragma: nocover
         else:
             self.data_availability = data_availability_list
 
@@ -255,9 +256,17 @@ border-left: 1px solid #ddd;
                 Latitude/longitude range to be visible on the rendered map. This is a list of 4 integers 
                 and/or floats, in the order of [min_lon, max_lon, min_lat, max_lat].
 
-            label (bool):
-                Specifies wether individual sites will be labelled with their site_uid.
-                
+            label (bool): 
+                Specifies that individual sites will be labelled with their site_uid.
+            
+            upper_label (bool): 
+                Plots site labels in uppercase
+
+            enforce_data_availability (bool): 
+                Plot only sites that have data availability. This option may only be used if the SiteMap
+                already has data_availibility information associated with it, which is usually achieved
+                using the add_availability() method.
+
             figsize (tuple): 
                 The matplotlib figure size to use when plotting. For example `figsize=(14,4)`.
 
@@ -368,6 +377,10 @@ border-left: 1px solid #ddd;
                         if (self.data_availability[i][site] is False):
                             continue
 
+                if (enforce_data_availability is True and self.data_availability is None):
+                    raise ValueError(&#34;Before plotting FOV object with enforce_data_availability=True, &#34; +
+                                     &#34;FOVData.add_availability(...) must be called for all included FOVData objects.&#34;)
+
                 latlon = site_locations[site]
 
                 ax.plot(np.squeeze(latlon[1]),
@@ -395,7 +408,7 @@ border-left: 1px solid #ddd;
                     else:
                         ax.text(center_lon,
                                 center_lat,
-                                site.upper(),
+                                site.lower(),
                                 ha=&#34;center&#34;,
                                 va=&#34;center&#34;,
                                 color=color,
@@ -428,7 +441,7 @@ border-left: 1px solid #ddd;
             if (&#34;.jpg&#34; == f_extension or &#34;.jpeg&#34; == f_extension):
                 # check quality setting
                 if (savefig_quality is not None):
-                    plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches=&#34;tight&#34;)
+                    plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches=&#34;tight&#34;)  # pragma: nocover
                 else:
                     plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
             else:
@@ -775,25 +788,23 @@ border-left: 1px solid #ddd;
 <dl>
 <dt><strong><code>cartopy_projection</code></strong> :&ensp;<code>cartopy.crs.Projection</code></dt>
 <dd>Cartopy projection to utilize.</dd>
-</dl>
-<p>site_uid_list (list or str):
-The sites included in this SiteMap object.</p>
-<p>site_locations (list or Dict[str, ndarry]):
-The geodetic coordinates of the sites included in this SiteMap object.</p>
-<p>instrument_array (list or str):
-String giving the name of the instrument(s) that the site locations
-correspond to.</p>
-<p>data_availability (list[Dict[str, bool]]):
-Booleans to specify which sites have available data.</p>
-<p>color (list or str):
-String specifying the color to associate with each set of sites for plotting.</p>
-<p>marker (list or str):
-String specifying the matplotlib.pyplot marker style to associate with each
-set of sites for plotting.</p>
-<p>markersize (list or int):
-Int specifying the marker size to associate with each set of sites for plotting.
-Default is 1.</p>
-<dl>
+<dt><strong><code>site_uid_list</code></strong> :&ensp;<code>list</code> or <code>str</code></dt>
+<dd>The sites included in this SiteMap object.</dd>
+<dt><strong><code>site_locations</code></strong> :&ensp;<code>list</code> or <code>Dict[str, ndarry]</code></dt>
+<dd>The geodetic coordinates of the sites included in this SiteMap object.</dd>
+<dt><strong><code>instrument_array</code></strong> :&ensp;<code>list</code> or <code>str</code></dt>
+<dd>String giving the name of the instrument(s) that the site locations
+correspond to.</dd>
+<dt><strong><code>data_availability</code></strong> :&ensp;<code>list[Dict[str, bool]]</code></dt>
+<dd>Booleans to specify which sites have available data.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>list</code> or <code>str</code></dt>
+<dd>String specifying the color to associate with each set of sites for plotting.</dd>
+<dt><strong><code>symbol</code></strong> :&ensp;<code>list</code> or <code>str</code></dt>
+<dd>String specifying the matplotlib.pyplot marker style to associate with each
+set of sites for plotting.</dd>
+<dt><strong><code>sym_size</code></strong> :&ensp;<code>list</code> or <code>int</code></dt>
+<dd>Int specifying the marker size to associate with each set of sites for plotting.
+Default is 1.</dd>
 <dt><strong><code>contour_data</code></strong> :&ensp;<code>Dict[str, List[Any]]</code></dt>
 <dd>Generated contour data.</dd>
 </dl></div>
@@ -815,13 +826,13 @@ Default is 1.</p>
     data in a given time interval.
 
     Args:
-        dataset_name (str):
+        dataset_name (str): 
             The name of the dataset to check for data availability (e.g. &#34;TODO:&#34;)
 
-        start (datetime.datetime):
+        start (datetime.datetime): 
             Defines the start time of the interval to check for data availability.
             
-        end (datetime.datetime):
+        end (datetime.datetime): 
             Defines the end time of the interval to check for data availability.
 
     Returns:
@@ -837,8 +848,9 @@ Default is 1.</p>
     for i, dataset in enumerate(dataset_name):
 
         if (self.instrument_array[i] is None):
-            raise ValueError(&#34;Cannot add data availability to a SiteMap object with no associated instrument_array. Please specify &#34; +
-                             &#34;instrument_array upon creation of SiteMap object to enforce data availability.&#34;)
+            raise ValueError(
+                &#34;Cannot add data availability to a SiteMap object with no associated instrument_array. Please specify &#34; +  # pragma: nocover
+                &#34;instrument_array upon creation of SiteMap object to enforce data availability.&#34;)
 
         # Check if the requested dataset makes sense for the FOVData
         fov_instrument = self.instrument_array[i].upper()
@@ -865,7 +877,7 @@ Default is 1.</p>
             data_availability_list.append(availability_dict)
 
     if len(data_availability_list) == 0:
-        self.data_availability = None
+        self.data_availability = None  # pragma: nocover
     else:
         self.data_availability = data_availability_list</code></pre>
 </details>
@@ -874,12 +886,14 @@ will be added to the object regarding whether or not each site included in the S
 took data in that time range. This is useful for plotting only those sites that took
 data in a given time interval.</p>
 <h2 id="args">Args</h2>
-<p>dataset_name (str):
-The name of the dataset to check for data availability (e.g. "TODO:")</p>
-<p>start (datetime.datetime):
-Defines the start time of the interval to check for data availability.</p>
-<p>end (datetime.datetime):
-Defines the end time of the interval to check for data availability.</p>
+<dl>
+<dt><strong><code>dataset_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the dataset to check for data availability (e.g. "TODO:")</dd>
+<dt><strong><code>start</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>Defines the start time of the interval to check for data availability.</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>datetime.datetime</code></dt>
+<dd>Defines the end time of the interval to check for data availability.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <p>The SiteMap object is updated to hold data availability information, that can be used when
 plotting to omit sites that did not take data during the time interval defined by start and end.
@@ -1314,9 +1328,17 @@ Raises:</p></div>
             Latitude/longitude range to be visible on the rendered map. This is a list of 4 integers 
             and/or floats, in the order of [min_lon, max_lon, min_lat, max_lat].
 
-        label (bool):
-            Specifies wether individual sites will be labelled with their site_uid.
-            
+        label (bool): 
+            Specifies that individual sites will be labelled with their site_uid.
+        
+        upper_label (bool): 
+            Plots site labels in uppercase
+
+        enforce_data_availability (bool): 
+            Plot only sites that have data availability. This option may only be used if the SiteMap
+            already has data_availibility information associated with it, which is usually achieved
+            using the add_availability() method.
+
         figsize (tuple): 
             The matplotlib figure size to use when plotting. For example `figsize=(14,4)`.
 
@@ -1427,6 +1449,10 @@ Raises:</p></div>
                     if (self.data_availability[i][site] is False):
                         continue
 
+            if (enforce_data_availability is True and self.data_availability is None):
+                raise ValueError(&#34;Before plotting FOV object with enforce_data_availability=True, &#34; +
+                                 &#34;FOVData.add_availability(...) must be called for all included FOVData objects.&#34;)
+
             latlon = site_locations[site]
 
             ax.plot(np.squeeze(latlon[1]),
@@ -1454,7 +1480,7 @@ Raises:</p></div>
                 else:
                     ax.text(center_lon,
                             center_lat,
-                            site.upper(),
+                            site.lower(),
                             ha=&#34;center&#34;,
                             va=&#34;center&#34;,
                             color=color,
@@ -1487,7 +1513,7 @@ Raises:</p></div>
         if (&#34;.jpg&#34; == f_extension or &#34;.jpeg&#34; == f_extension):
             # check quality setting
             if (savefig_quality is not None):
-                plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches=&#34;tight&#34;)
+                plt.savefig(savefig_filename, quality=savefig_quality, bbox_inches=&#34;tight&#34;)  # pragma: nocover
             else:
                 plt.savefig(savefig_filename, bbox_inches=&#34;tight&#34;)
         else:
@@ -1521,10 +1547,14 @@ return the matplotlib plot object for further usage (using the <code>returnfig</
 <dt><strong><code>map_extent</code></strong> :&ensp;<code>List[int]</code></dt>
 <dd>Latitude/longitude range to be visible on the rendered map. This is a list of 4 integers
 and/or floats, in the order of [min_lon, max_lon, min_lat, max_lat].</dd>
-</dl>
-<p>label (bool):
-Specifies wether individual sites will be labelled with their site_uid.</p>
-<dl>
+<dt><strong><code>label</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Specifies that individual sites will be labelled with their site_uid.</dd>
+<dt><strong><code>upper_label</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Plots site labels in uppercase</dd>
+<dt><strong><code>enforce_data_availability</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Plot only sites that have data availability. This option may only be used if the SiteMap
+already has data_availibility information associated with it, which is usually achieved
+using the add_availability() method.</dd>
 <dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
 <dd>The matplotlib figure size to use when plotting. For example <code>figsize=(14,4)</code>.</dd>
 <dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
