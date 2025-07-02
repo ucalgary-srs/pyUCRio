@@ -26,25 +26,25 @@ def test_plot_warnings1(plot_cleanup, rt, rio_k0_data_list):
     # returnfig=True, savefig_filename supplied
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_filename="some_filename")
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[0].message)
     plt.close(fig)
 
     # returnfig=True, savefig_quality supplied
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_quality=90)
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[0].message)
     plt.close(fig)
 
     # returnfig=True, savefig_filename and savefig_quality supplied
     with warnings.catch_warnings(record=True) as w:
         fig, _ = rt.plot(rio_k0_data_list, returnfig=True, savefig_filename="some_filename", savefig_quality=90)
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "The figure will be returned, but a savefig option parameter was supplied." in str(w[0].message)
     plt.close(fig)
 
 
@@ -54,30 +54,30 @@ def test_plot_warnings2(mock_show, plot_cleanup, rt, rio_k0_data_list):
     # savefig=False, savefig_filename supplied
     with warnings.catch_warnings(record=True) as w:
         rt.plot(rio_k0_data_list, savefig=False, savefig_filename="some_filename")
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[0].message)
 
     # savefig not specified, savefig_filename supplied
     with warnings.catch_warnings(record=True) as w:
         rt.plot(rio_k0_data_list, savefig_filename="some_filename")
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[0].message)
 
     # savefig not specified, savefig_quality supplied
     with warnings.catch_warnings(record=True) as w:
         rt.plot(rio_k0_data_list, savefig_quality=90)
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[0].message)
 
     # savefig not supplied, savefig_filename and savefig_quality supplied
     with warnings.catch_warnings(record=True) as w:
         rt.plot(rio_k0_data_list, savefig_filename="some_filename", savefig_quality=90)
-    assert len(w) == 1
-    assert issubclass(w[-1].category, UserWarning)
-    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[-1].message)
+    assert len(w) >= 1
+    assert issubclass(w[0].category, UserWarning)
+    assert "A savefig option parameter was supplied, but the savefig parameter is False." in str(w[0].message)
 
     # check that four plots were shown
     assert mock_show.call_count == 4

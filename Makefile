@@ -49,10 +49,10 @@ test-bandit:
 	@printf "\n\n"
 
 test-pytest:
-	pytest -n 6 --cov=pyucrio --cov-report=
+	pytest -n 4 --cov=pyucrio --cov-report=
 
 test-notebooks:
-	pytest -n 6 --nbmake examples/notebooks --ignore-glob=examples/notebooks/**/in_development/*.ipynb
+	pytest -n 4 --nbmake examples/notebooks --ignore-glob=examples/notebooks/**/in_development/*.ipynb
 
 test-coverage coverage:
 	coverage report

@@ -15,6 +15,7 @@
 import os
 import shutil
 import humanize
+import warnings
 import pyucalgarysrs
 from texttable import Texttable
 from pathlib import Path
@@ -118,6 +119,11 @@ class PyUCRio:
         # initialize sub-modules
         self.__data = DataManager(self)
         self.__tools = ToolsManager(self)
+
+        # disable certain dependencies warnings
+        #
+        # pillow has deprecated a parameter that matplotlib uses, so matplotlib will eventually fix it
+        warnings.filterwarnings("ignore", message="'mode' parameter is deprecated and will be removed in Pillow 13")
 
     # ------------------------------------------
     # properties for submodule managers

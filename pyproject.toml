@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pyucrio"
-version = "1.7.1"
+version = "1.7.2"
 description = "Python library supporting data access and analysis for riometer instrument data"
 readme = "README.md"
 homepage = "https://github.com/ucalgary-srs/pyUCRio"
@@ -63,18 +63,18 @@ cartopy = [
     {version = "^0.23.0", python = ">=3.9,<3.10"},
     {version = "^0.24.0", python = ">=3.10"}
 ]
-pyucalgarysrs = "1.23.1"
+pyucalgarysrs = "1.23.3"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "0.11.13"
-pytest = "8.4.0"
+ruff = "0.12.1"
+pytest = "8.4.1"
 pycodestyle = "2.13.0"
 yapf = "0.43.0"
-pytest-xdist = "3.7.0"
+pytest-xdist = "3.8.0"
 pytest-sugar = "1.0.0"
-pytest-cov = "6.1.1"
-bandit = "1.8.3"
-pyright = "1.1.401"
+pytest-cov = "6.2.1"
+bandit = "1.8.5"
+pyright = "1.1.402"
 pdoc3 = "0.11.6"
 jupyter = "1.1.1"
 iprogress = "0.4"
@@ -116,6 +116,7 @@ typeCheckingMode = "standard"
 [tool.pytest.ini_options]
 filterwarnings = [
     "ignore::DeprecationWarning:aacgmv2.*",  # aacgmv2 v1.7.2 has a DeprecationWarning showing up, so we ignore it (https://github.com/aburrell/aacgmv2/issues/94)
+    "ignore:'mode' parameter is deprecated.*:DeprecationWarning",  # matplotlib has a warning for its use of Pillow
 ]
 testpaths = ["tests/test_suite"]
 markers = [
