@@ -1,3 +1,8 @@
+Version 1.7.3 (2025-10-17)
+-------------------
+- bump PyUCalgarySRS dependency to latest
+
+
 Version 1.7.2 (2025-07-02)
 -------------------
 - bump PyUCalgarySRS dependency to latest

@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pyucrio"
-version = "1.7.2"
+version = "1.7.3"
 description = "Python library supporting data access and analysis for riometer instrument data"
 readme = "README.md"
 homepage = "https://github.com/ucalgary-srs/pyUCRio"
@@ -63,7 +63,7 @@ cartopy = [
     {version = "^0.23.0", python = ">=3.9,<3.10"},
     {version = "^0.24.0", python = ">=3.10"}
 ]
-pyucalgarysrs = "1.23.3"
+pyucalgarysrs = "1.24.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "0.12.1"
