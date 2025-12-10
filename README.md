@@ -7,7 +7,7 @@
 
 PyUCRio is a Python library providing data access and analysis support for RF instrument data provided by the University of Calgary. This presently includes the NORSTAR riometers, and the SWAN Hyper Spectral Riometers (HSR).
 
-PyUCRio officially supports Python 3.9+.
+PyUCRio officially supports Python 3.10+.
 
 Some links to help:
 - [Example Gallery](https://data.phys.ucalgary.ca/working_with_data/index.html#python)

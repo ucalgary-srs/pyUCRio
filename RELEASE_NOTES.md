@@ -1,3 +1,8 @@
+Version 1.8.0 (2025-12-10)
+-------------------
+- removed support for Python 3.9
+
+
 Version 1.7.3 (2025-10-17)
 -------------------
 - bump PyUCalgarySRS dependency to latest
