@@ -17,6 +17,7 @@ $ cd pyUCRio
 $ conda activate <env name>
 $ pip install poetry
 $ poetry install
+$ make get-test-data
 ```
 
 ## Documentation
@@ -26,6 +27,19 @@ Documentation for the PyUCRio library is contained within this repository. To ge
 ```console
 $ make docs
 ```
+
+## Test data
+
+The functionality tests read data files from `tests/test_data`. That data is built from the open data platform by `tools/build_test_data.py`, which `make install` runs for you. You can also run it directly:
+
+- `make get-test-data` Build any test data that isn't there yet
+- `make rebuild-test-data` Remove the existing test data and build it again from scratch
+
+The build downloads about 4 MB, so it's quick. Files that are already in place are left alone, meaning an interrupted build only fetches what it missed.
+
+Every file in the tree is downloaded from the archive as-is: a day of SWAN HSR data, and a day of NORSTAR riometer K0 data. Adding another file is a matter of adding its filename to the appropriate list at the top of the script.
+
+If you need a tarball of the whole tree (to host it somewhere, or hand it to someone), pass `--tarball`. See the comments at the top of the script for the details of how each file is put together.
 
 ## Testing
 

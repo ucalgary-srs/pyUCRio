@@ -1,3 +1,11 @@
+Version 1.9.0 (2026-09-17)
+-------------------
+- updated dependencies
+  - bumped PyUCalgarySRS dependency to latest
+  - bumped development dependencies
+- test data for the test suite is now built from the open data platform by `tools/build_test_data.py`, replacing the tarball download
+
+
 Version 1.8.0 (2025-12-10)
 -------------------
 - removed support for Python 3.9

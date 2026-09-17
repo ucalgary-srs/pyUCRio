@@ -68,6 +68,6 @@ def test_read_norstar_riometer(rio, all_datasets):
 @pytest.mark.data
 def test_read_norstar_riometer_readers(rio):
     # read a file using the specific reader
-    filename = "%s/read_norstar_riometer/20240203_mean-hsr_k0_v01.h5" % (DATA_DIR)
+    filename = "%s/read_norstar_riometer/norstar_k0_rio-fsim_20180503_v01.txt" % (DATA_DIR)
     data = rio.data.ucalgary.readers.read_norstar_riometer(filename)
     assert isinstance(data, pyucrio.data.ucalgary.Data)
